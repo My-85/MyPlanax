@@ -1,0 +1,76 @@
+_wandb:
+    value:
+        cli_version: 0.19.4
+        m: []
+        python_version: 3.10.16
+        t:
+            "1":
+                - 1
+                - 12
+                - 45
+                - 55
+            "2":
+                - 1
+                - 12
+                - 45
+                - 55
+            "3":
+                - 13
+                - 16
+                - 23
+                - 34
+                - 55
+            "4": 3.10.16
+            "5": 0.19.4
+            "8":
+                - 5
+            "12": 0.19.4
+            "13": linux-x86_64
+ACTIVATION:
+    value: relu
+ANNEAL_LR:
+    value: false
+CLIP_EPS:
+    value: 0.2
+DEBUG:
+    value: true
+ENT_COEF:
+    value: 0.001
+FC_DIM_SIZE:
+    value: 128
+GAE_LAMBDA:
+    value: 0.95
+GAMMA:
+    value: 0.99
+GROUP:
+    value: heading_pitch_V_discrete
+GRU_HIDDEN_DIM:
+    value: 128
+LOADDIR:
+    value: /home/lczh/formation/formation/results/heading_pitch_V_discrete_2025-05-07-12-28/checkpoints/checkpoint_epoch_800
+LOGDIR:
+    value: results/heading_pitch_V_discrete_2025-07-25-11-50/logs
+LR:
+    value: 0.0003
+MAX_GRAD_NORM:
+    value: 2
+NUM_ACTORS:
+    value: 1
+NUM_ENVS:
+    value: 1000
+NUM_MINIBATCHES:
+    value: 5
+NUM_STEPS:
+    value: 2000
+OUTPUTDIR:
+    value: results/heading_pitch_V_discrete_2025-07-25-11-50
+SAVEDIR:
+    value: results/heading_pitch_V_discrete_2025-07-25-11-50/checkpoints
+SEED:
+    value: 42
+TOTAL_TIMESTEPS:
+    value: 1.6e+08
+UPDATE_EPOCHS:
+    value: 16
+VF_COEF:
+    value: 1

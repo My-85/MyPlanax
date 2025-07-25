@@ -1,5 +1,9 @@
 # jax.config.update('jax_platform_name', 'cpu')  # 注释掉强制使用CPU的配置
 import jax
+jax.config.update('jax_platform_name', 'gpu')  # 强制GPU
+devices = jax.devices()  # 获取所有可见设备
+jax.config.update('jax_default_device', devices[0])  # 指定第一个GPU
+
 import jax.numpy as jnp
 import numpy as np
 from typing import NamedTuple, Dict
@@ -76,7 +80,7 @@ config = {
     "OUTPUTDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time,
     "LOGDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/logs",
     "SAVEDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/checkpoints",
-    "LOADDIR": "/home/lczh/Git Project/results/combat_hierarchy_pitch_2025-05-23-14-35/checkpoints/checkpoint_epoch_1360" 
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_2025-07-22-18-08/checkpoints/checkpoint_epoch_1995" 
 }
 # config = config | RENDER_CONFIG
 config["NUM_UPDATES"] = (

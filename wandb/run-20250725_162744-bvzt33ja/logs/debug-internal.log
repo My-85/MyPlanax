@@ -1,0 +1,8 @@
+{"time":"2025-07-25T16:27:44.406266516+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.4","symlink path":"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/wandb/run-20250725_162744-bvzt33ja/logs/debug-core.log"}
+{"time":"2025-07-25T16:27:44.517984702+08:00","level":"INFO","msg":"created new stream","id":"bvzt33ja"}
+{"time":"2025-07-25T16:27:44.518012332+08:00","level":"INFO","msg":"stream: started","id":"bvzt33ja"}
+{"time":"2025-07-25T16:27:44.518118231+08:00","level":"INFO","msg":"handler: started","stream_id":"bvzt33ja"}
+{"time":"2025-07-25T16:27:44.51819434+08:00","level":"INFO","msg":"sender: started","stream_id":"bvzt33ja"}
+{"time":"2025-07-25T16:27:44.518166731+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"bvzt33ja"}
+{"time":"2025-07-25T16:27:45.226443294+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-25T16:27:53.69749372+08:00","level":"WARN","msg":"tensorboard: error while looking for next tfevents file","error":"tensorboard: directory is empty"}

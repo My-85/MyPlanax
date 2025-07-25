@@ -93,7 +93,7 @@ PATROL_ALTITUDE_RANGE = [5000.0, 10000.0]  # 巡逻状态下的高度范围
 # if not os.getcwd().endswith("AeroPlanax-dev-tmp0429_lxy_reform"):
 #     raise ValueError("当前运行目录不是AeroPlanax,无法自动获取heading baseline文件夹位置，请手动填写LOADDIR并禁用本行代码！")
 
-print(f'combat_hierarchy policy: load heading_pitch_V model from {os.path.join(os.getcwd(),"/home/qiyuan/lczh/AeroPlanax-dev-tmp0429_lxy_reform/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")}')
+print(f'combat_hierarchy policy: load heading_pitch_V model from {os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2 mappo/AeroPlanax_multi_combat_2v2/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")}')
 config = {
     "SEED": 42,
     "LR": 3e-4,
@@ -111,43 +111,58 @@ config = {
     "MAX_GRAD_NORM": 2,
     "ACTIVATION": "relu",
     "ANNEAL_LR": False,
-    "LOADDIR": os.path.join(os.getcwd(),"/home/lczh/Git Project/AeroPlanax_multi_combat/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")
+    # "LOADDIR": os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2 mappo/AeroPlanax_multi_combat_2v2/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2") # 李陈志航的baseline
+    "LOADDIR": os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/Planax/envs/models/baseline") # Planax文件夹下的baseline
 }
 
 
-class ScannedLSTM(nn.Module):
-    @functools.partial(
-        nn.scan,
-        variable_broadcast="params",
-        in_axes=0,
-        out_axes=0,
-        split_rngs={"params": False},
-    )
+# class ScannedLSTM(nn.Module):
+#     @functools.partial(
+#         nn.scan,
+#         variable_broadcast="params",
+#         in_axes=0,
+#         out_axes=0,
+#         split_rngs={"params": False},
+#     )
+#     @nn.compact
+#     def __call__(self, carry, x):
+#         """Applies the module."""
+#         lstm_state = carry  # (h, c)
+#         ins, resets = x
+#         h, c = lstm_state
+#         h = jnp.where(
+#             resets[:, np.newaxis],
+#             self.initialize_carry(*h.shape)[0],
+#             h,
+#         )
+#         c = jnp.where(
+#             resets[:, np.newaxis],
+#             self.initialize_carry(*c.shape)[1],
+#             c,
+#         )
+#         new_lstm_state, y = nn.LSTMCell(features=ins.shape[1])((h, c), ins)
+#         return new_lstm_state, y
+
+#     @staticmethod
+#     def initialize_carry(batch_size, hidden_size):
+#         # Use a dummy key since the default state init fn is just zeros.
+#         cell = nn.LSTMCell(features=hidden_size)
+#         return cell.initialize_carry(jax.random.PRNGKey(0), (batch_size, hidden_size))
+
+class ScannedRNN(nn.Module):  # 改类名为 ScannedRNN 以匹配
+    @functools.partial(nn.scan, variable_broadcast="params", in_axes=0, out_axes=0, split_rngs={"params": False})
     @nn.compact
     def __call__(self, carry, x):
-        """Applies the module."""
-        lstm_state = carry  # (h, c)
+        rnn_state = carry
         ins, resets = x
-        h, c = lstm_state
-        h = jnp.where(
-            resets[:, np.newaxis],
-            self.initialize_carry(*h.shape)[0],
-            h,
-        )
-        c = jnp.where(
-            resets[:, np.newaxis],
-            self.initialize_carry(*c.shape)[1],
-            c,
-        )
-        new_lstm_state, y = nn.LSTMCell(features=ins.shape[1])((h, c), ins)
-        return new_lstm_state, y
+        rnn_state = jnp.where(resets[:, np.newaxis], self.initialize_carry(*rnn_state.shape), rnn_state)
+        new_rnn_state, y = nn.GRUCell(features=ins.shape[1])(rnn_state, ins)
+        return new_rnn_state, y
 
     @staticmethod
     def initialize_carry(batch_size, hidden_size):
-        # Use a dummy key since the default state init fn is just zeros.
-        cell = nn.LSTMCell(features=hidden_size)
+        cell = nn.GRUCell(features=hidden_size)
         return cell.initialize_carry(jax.random.PRNGKey(0), (batch_size, hidden_size))
-
 
 class ActorCriticLSTM(nn.Module):
     action_dim: Sequence[int]
@@ -160,22 +175,40 @@ class ActorCriticLSTM(nn.Module):
         else:
             activation = nn.tanh
         obs, dones = x
+
+        ################################################################
+        # 特征提取层 (Dense_0, Dense_1, Dense_2)
         embedding = nn.Dense(
             self.config["FC_DIM_SIZE"], kernel_init=orthogonal(np.sqrt(2)), bias_init=constant(0.0)
         )(obs)
         embedding = activation(embedding)
 
         rnn_in = (embedding, dones)
-        hidden, embedding = ScannedLSTM()(hidden, rnn_in)
+        # hidden, embedding = ScannedLSTM()(hidden, rnn_in) # 李陈志航的代码
+        hidden, embedding = ScannedRNN()(hidden, rnn_in) # 我的代码
 
-        # 新增一层全连接
-        nn_fc2 = nn.Dense(256, kernel_init=orthogonal(np.sqrt(2)), bias_init=constant(0.0))(embedding)
-        nn_fc2 = activation(nn_fc2)
+
+        ################################################################
+        # 李陈志航的代码，这里加了一层，暂时不清楚为什么
+        # nn_fc2 = nn.Dense(256, kernel_init=orthogonal(np.sqrt(2)), bias_init=constant(0.0))(embedding)
+        # nn_fc2 = activation(nn_fc2)
+
+        # actor_mean = nn.Dense(
+        #     self.config["GRU_HIDDEN_DIM"], kernel_init=orthogonal(2), bias_init=constant(0.0)
+        # )(nn_fc2)
 
         actor_mean = nn.Dense(
             self.config["GRU_HIDDEN_DIM"], kernel_init=orthogonal(2), bias_init=constant(0.0)
-        )(nn_fc2)
+        )(embedding)
+        ################################################################
+
+
         actor_mean = activation(actor_mean)
+        # 在 actor head (e.g., actor_throttle_mean = nn.Dense(..., kernel_init=orthogonal(0.01)))，小权重使初始 logits ≈0，导致动作概率均匀（Categorical 分布接近 uniform）。
+        # 这避免初始 policy 偏向特定动作，促进探索。小初始化确保训练从“探索”开始，而不是偏置。
+
+
+
         actor_throttle_mean = nn.Dense(
             self.action_dim[0], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
         )(actor_mean)
@@ -220,7 +253,8 @@ init_x = (
     ),
     jnp.zeros((1, config["NUM_ENVS"] * config["NUM_ACTORS"])),
 )
-init_hstate = ScannedLSTM.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])
+# init_hstate = ScannedLSTM.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])
+init_hstate = ScannedRNN.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])
 controller_params = controller.init(rng, init_hstate, init_x)
 if config["ANNEAL_LR"]:
     tx = optax.chain(
@@ -279,7 +313,7 @@ class HierarchicalCombatTaskParams(EnvParams):
     unit_features: int = 6
     own_features: int = 5
     formation_type: int = 0 # 0: wedge, 1: line, 2: diamond
-    max_steps: int = 100
+    max_steps: int = 1000
     sim_freq: int = 50
     agent_interaction_steps: int = 10
     max_altitude: float = 20000
@@ -687,8 +721,16 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
         self.reward_functions = [
             functools.partial(posture_reward_fn, 
                               reward_scale=5.0, 
+                            #   reward_scale=1.0, 
                               num_allies=env_params.num_allies, 
                               num_enemies=env_params.num_enemies),
+#####################################################################################################
+            # functools.partial(custom_event_driven_reward_fn, 
+            #                   fail_reward=-200, 
+            #                   narrow_victory_reward=20, 
+            #                   normal_victory_reward=50, 
+            #                   complete_victory_reward=200),
+#####################################################################################################
             functools.partial(heading_alignment_reward_fn,  # 新添加的奖励函数
                               reward_scale=4.0,             # 可以调整权重
                               num_allies=env_params.num_allies,
@@ -714,6 +756,14 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
                               success_reward=500.0),
         ]
         self.is_potential = [False,False,False,False,True,False,True,True]
+        #################
+        # 列表长度和对应：这个列表的长度正好匹配 self.reward_functions 的元素数量（8个奖励函数）。
+        # 每个布尔值（True/False）对应一个奖励函数，用于区分奖励的类型。
+        
+        # True：表示该奖励函数是“potential”类型的，通常指连续的、密集的奖励（potential-based reward），常用于奖励塑造（reward shaping）。
+        # 这类奖励基于当前状态的“潜力”或梯度，提供平滑的指导信号，帮助代理在稀疏奖励环境中更快学习（例如，避免梯度消失或探索不足）。
+        # False：表示该奖励函数是“non-potential”类型的，通常是稀疏的、事件驱动的奖励（event-driven reward），如基于胜负或特定事件的奖励，只有在特定条件下触发。
+        #################
 
         self.termination_conditions = [
             safe_return_fn,
@@ -1289,7 +1339,8 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
         params: HierarchicalCombatTaskParams
     ) -> HierarchicalCombatTaskState:
         state = super()._init_state(key, params)
-        init_hstate = ScannedLSTM.initialize_carry(self.num_agents, config["GRU_HIDDEN_DIM"])
+        # init_hstate = ScannedLSTM.initialize_carry(self.num_agents, config["GRU_HIDDEN_DIM"])
+        init_hstate = ScannedRNN.initialize_carry(self.num_agents, config["GRU_HIDDEN_DIM"])
         # Initialize enemy FSM states (e.g., to PATROL_STATE)
         # Assuming PATROL_STATE = 0, will define constants later
         init_enemy_fsm_state = jnp.full((self.num_enemies,), PATROL_STATE, dtype=jnp.int32)

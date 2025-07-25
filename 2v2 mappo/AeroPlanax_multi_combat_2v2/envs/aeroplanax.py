@@ -482,7 +482,7 @@ class AeroPlanaxEnv(Generic[TEnvState, TEnvParams]):
         return state, rewards
 
     @functools.partial(jax.jit, static_argnums=(0,))
-    def get_termination(
+    def get_termination( # 终止条件检查，返回是否终止和是否成功
         self,
         state: TEnvState,
         params: TEnvParams,

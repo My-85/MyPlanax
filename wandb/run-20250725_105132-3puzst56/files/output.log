@@ -1,0 +1,18 @@
+Using separate learning rates - Actor: 0.0003, Critic: 0.003
+make_train(): ENABLE_CRITIC: True VS_BASELINE: True
+jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2_lczh/AeroPlanax_multi_combat_2v2/main_train_hierarchy_combat_new.py", line 171, in <module>
+    out = train_jit(rng, (ac_train_state, cr_train_state), start_epoch)
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2_lczh/AeroPlanax_multi_combat_2v2/maketrains/mappo_discrete_combine.py", line 207, in train
+    obsv, env_state = jax.vmap(env.reset, in_axes=(0))(reset_rng)
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2_lczh/AeroPlanax_multi_combat_2v2/envs/wrappers_mul.py", line 62, in reset
+    obs, env_state = self._env.reset(key)
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2_lczh/AeroPlanax_multi_combat_2v2/envs/aeroplanax.py", line 164, in reset
+    init_state = self._init_state(key, params)
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2_lczh/AeroPlanax_multi_combat_2v2/envs/aeroplanax_combat_hierarchy_FSM.py", line 1321, in _init_state
+    init_hstate = ScannedLSTM.initialize_carry(self.num_agents, config["GRU_HIDDEN_DIM"])
+NameError: name 'ScannedLSTM' is not defined

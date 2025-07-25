@@ -1,0 +1,3 @@
+EnvStep=160000000  EpisodeLength=1751.96 Return=-53.25 SuccessTimes=0.008
+EnvStep=162000000  EpisodeLength=1785.21 Return=-52.17 SuccessTimes=0.010
+EnvStep=164000000  EpisodeLength=1765.02 Return=-53.57 SuccessTimes=0.008

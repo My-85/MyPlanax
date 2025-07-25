@@ -1,0 +1,15 @@
+{"time":"2025-07-23T19:53:23.865553595+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.4","symlink path":"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/wandb/run-20250723_195323-zmjq9b97/logs/debug-core.log"}
+{"time":"2025-07-23T19:53:23.981439249+08:00","level":"INFO","msg":"created new stream","id":"zmjq9b97"}
+{"time":"2025-07-23T19:53:23.981489978+08:00","level":"INFO","msg":"stream: started","id":"zmjq9b97"}
+{"time":"2025-07-23T19:53:23.981585578+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"zmjq9b97"}
+{"time":"2025-07-23T19:53:23.981644577+08:00","level":"INFO","msg":"sender: started","stream_id":"zmjq9b97"}
+{"time":"2025-07-23T19:53:23.981769396+08:00","level":"INFO","msg":"handler: started","stream_id":"zmjq9b97"}
+{"time":"2025-07-23T19:53:25.05982242+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-23T19:53:32.280375277+08:00","level":"INFO","msg":"stream: closing","id":"zmjq9b97"}
+{"time":"2025-07-23T19:53:32.280431996+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-23T19:53:32.281499148+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-23T19:53:33.434561937+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-23T19:53:34.184635172+08:00","level":"INFO","msg":"handler: closed","stream_id":"zmjq9b97"}
+{"time":"2025-07-23T19:53:34.184712331+08:00","level":"INFO","msg":"sender: closed","stream_id":"zmjq9b97"}
+{"time":"2025-07-23T19:53:34.184683242+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"zmjq9b97"}
+{"time":"2025-07-23T19:53:34.18484555+08:00","level":"INFO","msg":"stream: closed","id":"zmjq9b97"}

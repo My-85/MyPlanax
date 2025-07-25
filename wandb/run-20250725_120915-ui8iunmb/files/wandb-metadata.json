@@ -1,0 +1,48 @@
+{
+  "os": "Linux-5.15.0-134-generic-x86_64-with-glibc2.31",
+  "python": "CPython 3.10.16",
+  "startedAt": "2025-07-25T04:09:15.247727Z",
+  "program": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/lczh_controller/formation-main/AeroPlanax/train_heading_pitch_V_discrete.py",
+  "codePath": "lczh_controller/formation-main/AeroPlanax/train_heading_pitch_V_discrete.py",
+  "git": {
+    "remote": "https://github.com/l-czh/Planax_lczh.git",
+    "commit": "889178467e4159f30f5f7d018423a6d90db1801b"
+  },
+  "email": "dqy479728512@gmail.com",
+  "root": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh",
+  "host": "caslx-server",
+  "executable": "/home/dqy/anaconda3/envs/NeuralPlanex/bin/python",
+  "codePathLocal": "lczh_controller/formation-main/AeroPlanax/train_heading_pitch_V_discrete.py",
+  "cpu_count": 128,
+  "cpu_count_logical": 256,
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "gpu_count": 2,
+  "disk": {
+    "/": {
+      "total": "943412031488",
+      "used": "601526460416"
+    }
+  },
+  "memory": {
+    "total": "1081822470144"
+  },
+  "cpu": {
+    "count": 128,
+    "countLogical": 256
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA A100 80GB PCIe",
+      "memoryTotal": "85899345920",
+      "cudaCores": 6912,
+      "architecture": "Ampere"
+    },
+    {
+      "name": "NVIDIA A100 80GB PCIe",
+      "memoryTotal": "85899345920",
+      "cudaCores": 6912,
+      "architecture": "Ampere"
+    }
+  ],
+  "cudaVersion": "12.2"
+}

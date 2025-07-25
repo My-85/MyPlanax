@@ -79,7 +79,7 @@ config = {
     "OUTPUTDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time,
     "LOGDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/logs",
     "SAVEDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/checkpoints",
-    "LOADDIR": "/home/qiyuan/lczh/results/combat_hierarchy_pitch_new_2025-05-27-00-19/checkpoints/checkpoint_epoch_847" 
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_new_2025-07-23-19-56/checkpoints/checkpoint_epoch_660" 
 }
 # config = config | RENDER_CONFIG
 config["NUM_UPDATES"] = (

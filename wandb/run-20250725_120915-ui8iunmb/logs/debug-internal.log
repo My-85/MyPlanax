@@ -1,0 +1,8 @@
+{"time":"2025-07-25T12:09:15.250842999+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.4","symlink path":"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/wandb/run-20250725_120915-ui8iunmb/logs/debug-core.log"}
+{"time":"2025-07-25T12:09:15.366696688+08:00","level":"INFO","msg":"created new stream","id":"ui8iunmb"}
+{"time":"2025-07-25T12:09:15.366722388+08:00","level":"INFO","msg":"stream: started","id":"ui8iunmb"}
+{"time":"2025-07-25T12:09:15.366786987+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"ui8iunmb"}
+{"time":"2025-07-25T12:09:15.366858026+08:00","level":"INFO","msg":"sender: started","stream_id":"ui8iunmb"}
+{"time":"2025-07-25T12:09:15.366919205+08:00","level":"INFO","msg":"handler: started","stream_id":"ui8iunmb"}
+{"time":"2025-07-25T12:09:16.803177153+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-25T12:09:16.990118839+08:00","level":"INFO","msg":"stream: closing","id":"ui8iunmb"}

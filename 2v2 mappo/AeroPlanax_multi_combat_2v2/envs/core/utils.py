@@ -68,7 +68,7 @@ def check_crashed(state: BasePlaneState, agent_id):
     crashed = mask1 | mask2 | mask3 | mask4 | mask5 | mask6 | mask7
     return crashed
 
-def check_locked(teams, state: BasePlaneState, agent_id, R=10000, angle=jnp.pi/8):
+def check_locked(teams, state: BasePlaneState, agent_id, R=1000, angle=jnp.pi/16): # 本来是R=10000, angle=jnp.pi/8
     cur_pos = jnp.hstack((state.north[agent_id], state.east[agent_id], state.altitude[agent_id]))
     cur_pos = cur_pos.reshape(-1, 1)
     enemy_pos = jnp.vstack((state.north, state.east, state.altitude))
@@ -91,7 +91,7 @@ def check_locked(teams, state: BasePlaneState, agent_id, R=10000, angle=jnp.pi/8
     angle_cos = dot_product / (distance + 1e-6)  # 防止除以零
     angle_condition = (angle_cos) > jnp.cos(angle)
     distance_condition = distance < R
-    mask = angle_condition & distance_condition
+    mask = angle_condition & distance_condition # mask为1，则说明被锁定
     
     # 只考虑敌方飞机的锁定（不同阵营的飞机）
     current_team = teams[agent_id]

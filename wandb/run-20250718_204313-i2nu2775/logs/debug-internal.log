@@ -1,0 +1,10 @@
+{"time":"2025-07-18T20:43:13.45934552+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.4","symlink path":"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/wandb/run-20250718_204313-i2nu2775/logs/debug-core.log"}
+{"time":"2025-07-18T20:43:13.575518854+08:00","level":"INFO","msg":"created new stream","id":"i2nu2775"}
+{"time":"2025-07-18T20:43:13.575572084+08:00","level":"INFO","msg":"handler: started","stream_id":"i2nu2775"}
+{"time":"2025-07-18T20:43:13.575601575+08:00","level":"INFO","msg":"stream: started","id":"i2nu2775"}
+{"time":"2025-07-18T20:43:13.575645865+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"i2nu2775"}
+{"time":"2025-07-18T20:43:13.575672446+08:00","level":"INFO","msg":"sender: started","stream_id":"i2nu2775"}
+{"time":"2025-07-18T20:43:14.332946487+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-18T20:43:17.070615474+08:00","level":"INFO","msg":"stream: closing","id":"i2nu2775"}
+{"time":"2025-07-18T20:43:17.071865117+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-18T20:43:17.073467815+08:00","level":"INFO","msg":"Stopped system monitor"}

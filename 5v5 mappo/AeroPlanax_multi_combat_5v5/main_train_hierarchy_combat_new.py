@@ -70,11 +70,11 @@ config = {
     "FOR_LOOP_EPOCHS": 60,
     "WANDB": True,
     "TRAIN": True,
-    "WANDB_API_KEY" : "f4316927feb010654a1d429360c2f2c824e84387",
+    "WANDB_API_KEY" : "4c0cc04699296bed768adea4824fbaecea35dc59",
     "OUTPUTDIR": "results/" + "combat_hierarchy_pitch_new_" + str_date_time,
     "LOGDIR": "results/" + "combat_hierarchy_pitch_new_" + str_date_time + "/logs",
     "SAVEDIR": "results/" + "combat_hierarchy_pitch_new_" + str_date_time + "/checkpoints",
-    "LOADDIR": "/home/qiyuan/lczh/results/combat_hierarchy_pitch_new_2025-05-26-22-45/checkpoints/checkpoint_epoch_242" ,
+    # "LOADDIR": "/home/qiyuan/lczh/results/combat_hierarchy_pitch_new_2025-05-26-22-45/checkpoints/checkpoint_epoch_242" ,
     
     # Reward normalization settings
     "REWARD_NORM": False,
@@ -126,7 +126,7 @@ if config["WANDB"]:
     wandb.init(
         project="AeroPlanax",
         config=config,
-        name=f'pitch_controller_seed_{config["SEED"]}',
+        name=f'lczh_5v5(lxy_version)_{config["SEED"]}',
         group=Env.__name__,
         notes=Env.__name__ + " with pitch-heading-velocity controller",
         reinit=True,

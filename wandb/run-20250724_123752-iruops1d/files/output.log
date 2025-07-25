@@ -1,0 +1,2913 @@
+Using separate learning rates - Actor: 0.0003, Critic: 0.003
+make_train(): ENABLE_CRITIC: True VS_BASELINE: True
+检测到AeroPlanaxHierarchicalCombatEnv拥有自定义的train callback！
+EnvStep=0     EpisodeLength=359.86  Return=-1.35
+  Victory Breakdown: Complete=0.006 Great=0.005 Normal=0.000 Narrow=0.000 Failure=0.989
+  Total Victory Rate=0.011 AliveCount= 0.017 BloodAdvantage= -178.20 EnemiesLocked= 0.00
+  EnemiesKilled/Episode=1221.00
+  Legacy: SimpleSuccess=0.011 WeakSuccess=0.000 WinRate=0.011
+--------------------------------------------------------------------------------
+EnvStep=1     EpisodeLength=435.80  Return=-1.40
+  Victory Breakdown: Complete=0.006 Great=0.005 Normal=0.000 Narrow=0.000 Failure=0.990
+  Total Victory Rate=0.010 AliveCount= 0.016 BloodAdvantage= -179.50 EnemiesLocked= 0.00
+  EnemiesKilled/Episode=903.00
+  Legacy: SimpleSuccess=0.010 WeakSuccess=0.000 WinRate=0.010
+--------------------------------------------------------------------------------
+EnvStep=2     EpisodeLength=494.26  Return=-1.41
+  Victory Breakdown: Complete=0.006 Great=0.004 Normal=0.000 Narrow=0.000 Failure=0.990
+  Total Victory Rate=0.010 AliveCount= 0.016 BloodAdvantage= -175.61 EnemiesLocked= 0.00
+  EnemiesKilled/Episode=890.00
+  Legacy: SimpleSuccess=0.010 WeakSuccess=0.000 WinRate=0.010
+--------------------------------------------------------------------------------
+EnvStep=3     EpisodeLength=576.66  Return=-1.36
+  Victory Breakdown: Complete=0.005 Great=0.006 Normal=0.000 Narrow=0.000 Failure=0.988
+  Total Victory Rate=0.012 AliveCount= 0.017 BloodAdvantage= -171.40 EnemiesLocked= 0.00
+  EnemiesKilled/Episode=724.00
+  Legacy: SimpleSuccess=0.012 WeakSuccess=0.000 WinRate=0.012
+--------------------------------------------------------------------------------
+EnvStep=4     EpisodeLength=692.70  Return=-1.25
+  Victory Breakdown: Complete=0.005 Great=0.008 Normal=0.000 Narrow=0.000 Failure=0.987
+  Total Victory Rate=0.013 AliveCount= 0.020 BloodAdvantage= -163.54 EnemiesLocked= 0.01
+  EnemiesKilled/Episode=627.00
+  Legacy: SimpleSuccess=0.013 WeakSuccess=0.000 WinRate=0.013
+--------------------------------------------------------------------------------
+EnvStep=5     EpisodeLength=815.62  Return=-1.07
+  Victory Breakdown: Complete=0.005 Great=0.009 Normal=0.000 Narrow=0.000 Failure=0.985
+  Total Victory Rate=0.015 AliveCount= 0.076 BloodAdvantage= -156.76 EnemiesLocked= 0.01
+  EnemiesKilled/Episode=563.00
+  Legacy: SimpleSuccess=0.015 WeakSuccess=0.000 WinRate=0.015
+--------------------------------------------------------------------------------
+EnvStep=6     EpisodeLength=923.57  Return=-0.88
+  Victory Breakdown: Complete=0.006 Great=0.008 Normal=0.001 Narrow=0.000 Failure=0.985
+  Total Victory Rate=0.015 AliveCount= 0.171 BloodAdvantage= -152.34 EnemiesLocked= 0.02
+  EnemiesKilled/Episode=511.00
+  Legacy: SimpleSuccess=0.014 WeakSuccess=0.001 WinRate=0.015
+--------------------------------------------------------------------------------
+EnvStep=7     EpisodeLength=979.06  Return=-0.78
+  Victory Breakdown: Complete=0.004 Great=0.007 Normal=0.002 Narrow=0.000 Failure=0.987
+  Total Victory Rate=0.013 AliveCount= 0.221 BloodAdvantage= -149.48 EnemiesLocked= 0.03
+  EnemiesKilled/Episode=463.00
+  Legacy: SimpleSuccess=0.011 WeakSuccess=0.002 WinRate=0.013
+--------------------------------------------------------------------------------
+EnvStep=8     EpisodeLength=992.51  Return=-0.72
+  Victory Breakdown: Complete=0.006 Great=0.009 Normal=0.002 Narrow=0.000 Failure=0.983
+  Total Victory Rate=0.017 AliveCount= 0.250 BloodAdvantage= -145.58 EnemiesLocked= 0.04
+  EnemiesKilled/Episode=492.00
+  Legacy: SimpleSuccess=0.015 WeakSuccess=0.002 WinRate=0.017
+--------------------------------------------------------------------------------
+EnvStep=9     EpisodeLength=1011.87 Return=-0.68
+  Victory Breakdown: Complete=0.004 Great=0.007 Normal=0.004 Narrow=0.000 Failure=0.985
+  Total Victory Rate=0.015 AliveCount= 0.259 BloodAdvantage= -144.88 EnemiesLocked= 0.04
+  EnemiesKilled/Episode=447.00
+  Legacy: SimpleSuccess=0.011 WeakSuccess=0.004 WinRate=0.015
+--------------------------------------------------------------------------------
+EnvStep=10    EpisodeLength=1043.96 Return=-0.61
+  Victory Breakdown: Complete=0.004 Great=0.009 Normal=0.004 Narrow=0.000 Failure=0.983
+  Total Victory Rate=0.017 AliveCount= 0.283 BloodAdvantage= -141.16 EnemiesLocked= 0.04
+  EnemiesKilled/Episode=406.00
+  Legacy: SimpleSuccess=0.012 WeakSuccess=0.005 WinRate=0.017
+--------------------------------------------------------------------------------
+EnvStep=11    EpisodeLength=1055.25 Return=-0.59
+  Victory Breakdown: Complete=0.004 Great=0.007 Normal=0.006 Narrow=0.000 Failure=0.983
+  Total Victory Rate=0.017 AliveCount= 0.310 BloodAdvantage= -139.89 EnemiesLocked= 0.04
+  EnemiesKilled/Episode=401.00
+  Legacy: SimpleSuccess=0.011 WeakSuccess=0.006 WinRate=0.017
+--------------------------------------------------------------------------------
+EnvStep=12    EpisodeLength=1066.58 Return=-0.56
+  Victory Breakdown: Complete=0.003 Great=0.007 Normal=0.009 Narrow=0.000 Failure=0.981
+  Total Victory Rate=0.019 AliveCount= 0.326 BloodAdvantage= -138.48 EnemiesLocked= 0.04
+  EnemiesKilled/Episode=423.00
+  Legacy: SimpleSuccess=0.010 WeakSuccess=0.009 WinRate=0.019
+--------------------------------------------------------------------------------
+EnvStep=13    EpisodeLength=1082.19 Return=-0.51
+  Victory Breakdown: Complete=0.006 Great=0.007 Normal=0.009 Narrow=0.001 Failure=0.977
+  Total Victory Rate=0.023 AliveCount= 0.354 BloodAdvantage= -135.83 EnemiesLocked= 0.05
+  EnemiesKilled/Episode=419.00
+  Legacy: SimpleSuccess=0.013 WeakSuccess=0.010 WinRate=0.023
+--------------------------------------------------------------------------------
+EnvStep=14    EpisodeLength=1078.58 Return=-0.50
+  Victory Breakdown: Complete=0.007 Great=0.005 Normal=0.012 Narrow=0.001 Failure=0.974
+  Total Victory Rate=0.026 AliveCount= 0.366 BloodAdvantage= -134.54 EnemiesLocked= 0.05
+  EnemiesKilled/Episode=416.00
+  Legacy: SimpleSuccess=0.013 WeakSuccess=0.014 WinRate=0.026
+--------------------------------------------------------------------------------
+EnvStep=15    EpisodeLength=1086.05 Return=-0.49
+  Victory Breakdown: Complete=0.006 Great=0.010 Normal=0.014 Narrow=0.000 Failure=0.970
+  Total Victory Rate=0.030 AliveCount= 0.391 BloodAdvantage= -132.80 EnemiesLocked= 0.05
+  EnemiesKilled/Episode=437.00
+  Legacy: SimpleSuccess=0.016 WeakSuccess=0.014 WinRate=0.030
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 16
+EnvStep=16    EpisodeLength=1044.43 Return=-0.45
+  Victory Breakdown: Complete=0.009 Great=0.008 Normal=0.015 Narrow=0.001 Failure=0.967
+  Total Victory Rate=0.033 AliveCount= 0.384 BloodAdvantage= -129.08 EnemiesLocked= 0.05
+  EnemiesKilled/Episode=510.00
+  Legacy: SimpleSuccess=0.017 WeakSuccess=0.016 WinRate=0.033
+--------------------------------------------------------------------------------
+EnvStep=17    EpisodeLength=1088.96 Return=-0.41
+  Victory Breakdown: Complete=0.008 Great=0.009 Normal=0.016 Narrow=0.003 Failure=0.964
+  Total Victory Rate=0.036 AliveCount= 0.420 BloodAdvantage= -128.52 EnemiesLocked= 0.05
+  EnemiesKilled/Episode=437.00
+  Legacy: SimpleSuccess=0.017 WeakSuccess=0.019 WinRate=0.036
+--------------------------------------------------------------------------------
+EnvStep=18    EpisodeLength=1121.87 Return=-0.37
+  Victory Breakdown: Complete=0.006 Great=0.009 Normal=0.014 Narrow=0.003 Failure=0.969
+  Total Victory Rate=0.031 AliveCount= 0.435 BloodAdvantage= -127.66 EnemiesLocked= 0.06
+  EnemiesKilled/Episode=387.00
+  Legacy: SimpleSuccess=0.014 WeakSuccess=0.016 WinRate=0.031
+--------------------------------------------------------------------------------
+EnvStep=19    EpisodeLength=1116.08 Return=-0.36
+  Victory Breakdown: Complete=0.007 Great=0.009 Normal=0.016 Narrow=0.002 Failure=0.967
+  Total Victory Rate=0.033 AliveCount= 0.425 BloodAdvantage= -127.02 EnemiesLocked= 0.05
+  EnemiesKilled/Episode=444.00
+  Legacy: SimpleSuccess=0.016 WeakSuccess=0.017 WinRate=0.033
+--------------------------------------------------------------------------------
+EnvStep=20    EpisodeLength=1126.08 Return=-0.34
+  Victory Breakdown: Complete=0.007 Great=0.008 Normal=0.019 Narrow=0.002 Failure=0.964
+  Total Victory Rate=0.036 AliveCount= 0.471 BloodAdvantage= -125.54 EnemiesLocked= 0.07
+  EnemiesKilled/Episode=411.00
+  Legacy: SimpleSuccess=0.015 WeakSuccess=0.021 WinRate=0.036
+--------------------------------------------------------------------------------
+EnvStep=21    EpisodeLength=1145.21 Return=-0.32
+  Victory Breakdown: Complete=0.006 Great=0.012 Normal=0.018 Narrow=0.003 Failure=0.961
+  Total Victory Rate=0.039 AliveCount= 0.477 BloodAdvantage= -123.69 EnemiesLocked= 0.07
+  EnemiesKilled/Episode=389.00
+  Legacy: SimpleSuccess=0.018 WeakSuccess=0.021 WinRate=0.039
+--------------------------------------------------------------------------------
+EnvStep=22    EpisodeLength=1152.77 Return=-0.28
+  Victory Breakdown: Complete=0.007 Great=0.012 Normal=0.023 Narrow=0.005 Failure=0.953
+  Total Victory Rate=0.047 AliveCount= 0.504 BloodAdvantage= -120.14 EnemiesLocked= 0.07
+  EnemiesKilled/Episode=444.00
+  Legacy: SimpleSuccess=0.019 WeakSuccess=0.028 WinRate=0.047
+--------------------------------------------------------------------------------
+EnvStep=23    EpisodeLength=1159.29 Return=-0.26
+  Victory Breakdown: Complete=0.007 Great=0.013 Normal=0.018 Narrow=0.004 Failure=0.957
+  Total Victory Rate=0.043 AliveCount= 0.499 BloodAdvantage= -119.20 EnemiesLocked= 0.08
+  EnemiesKilled/Episode=436.00
+  Legacy: SimpleSuccess=0.020 WeakSuccess=0.023 WinRate=0.043
+--------------------------------------------------------------------------------
+EnvStep=24    EpisodeLength=1172.10 Return=-0.22
+  Victory Breakdown: Complete=0.009 Great=0.014 Normal=0.023 Narrow=0.004 Failure=0.950
+  Total Victory Rate=0.050 AliveCount= 0.546 BloodAdvantage= -116.60 EnemiesLocked= 0.08
+  EnemiesKilled/Episode=444.00
+  Legacy: SimpleSuccess=0.023 WeakSuccess=0.027 WinRate=0.050
+--------------------------------------------------------------------------------
+EnvStep=25    EpisodeLength=1184.50 Return=-0.20
+  Victory Breakdown: Complete=0.007 Great=0.017 Normal=0.030 Narrow=0.005 Failure=0.940
+  Total Victory Rate=0.060 AliveCount= 0.564 BloodAdvantage= -116.14 EnemiesLocked= 0.07
+  EnemiesKilled/Episode=363.00
+  Legacy: SimpleSuccess=0.025 WeakSuccess=0.035 WinRate=0.060
+--------------------------------------------------------------------------------
+EnvStep=26    EpisodeLength=1177.00 Return=-0.21
+  Victory Breakdown: Complete=0.007 Great=0.017 Normal=0.030 Narrow=0.004 Failure=0.942
+  Total Victory Rate=0.058 AliveCount= 0.539 BloodAdvantage= -115.01 EnemiesLocked= 0.08
+  EnemiesKilled/Episode=405.00
+  Legacy: SimpleSuccess=0.024 WeakSuccess=0.034 WinRate=0.058
+--------------------------------------------------------------------------------
+EnvStep=27    EpisodeLength=1168.84 Return=-0.20
+  Victory Breakdown: Complete=0.011 Great=0.019 Normal=0.032 Narrow=0.005 Failure=0.932
+  Total Victory Rate=0.068 AliveCount= 0.546 BloodAdvantage= -112.23 EnemiesLocked= 0.08
+  EnemiesKilled/Episode=486.00
+  Legacy: SimpleSuccess=0.030 WeakSuccess=0.038 WinRate=0.068
+--------------------------------------------------------------------------------
+EnvStep=28    EpisodeLength=1184.68 Return=-0.16
+  Victory Breakdown: Complete=0.008 Great=0.022 Normal=0.035 Narrow=0.005 Failure=0.931
+  Total Victory Rate=0.069 AliveCount= 0.576 BloodAdvantage= -110.67 EnemiesLocked= 0.09
+  EnemiesKilled/Episode=450.00
+  Legacy: SimpleSuccess=0.029 WeakSuccess=0.039 WinRate=0.069
+--------------------------------------------------------------------------------
+EnvStep=29    EpisodeLength=1200.07 Return=-0.13
+  Victory Breakdown: Complete=0.009 Great=0.019 Normal=0.036 Narrow=0.005 Failure=0.932
+  Total Victory Rate=0.068 AliveCount= 0.588 BloodAdvantage= -109.37 EnemiesLocked= 0.09
+  EnemiesKilled/Episode=442.00
+  Legacy: SimpleSuccess=0.028 WeakSuccess=0.041 WinRate=0.068
+--------------------------------------------------------------------------------
+EnvStep=30    EpisodeLength=1209.34 Return=-0.08
+  Victory Breakdown: Complete=0.012 Great=0.022 Normal=0.035 Narrow=0.006 Failure=0.925
+  Total Victory Rate=0.075 AliveCount= 0.619 BloodAdvantage= -108.12 EnemiesLocked= 0.08
+  EnemiesKilled/Episode=441.00
+  Legacy: SimpleSuccess=0.035 WeakSuccess=0.041 WinRate=0.075
+--------------------------------------------------------------------------------
+EnvStep=31    EpisodeLength=1208.85 Return=-0.10
+  Victory Breakdown: Complete=0.011 Great=0.019 Normal=0.043 Narrow=0.009 Failure=0.917
+  Total Victory Rate=0.083 AliveCount= 0.606 BloodAdvantage= -108.47 EnemiesLocked= 0.09
+  EnemiesKilled/Episode=434.00
+  Legacy: SimpleSuccess=0.031 WeakSuccess=0.052 WinRate=0.083
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 32
+EnvStep=32    EpisodeLength=1180.82 Return=-0.06
+  Victory Breakdown: Complete=0.015 Great=0.014 Normal=0.043 Narrow=0.008 Failure=0.920
+  Total Victory Rate=0.080 AliveCount= 0.633 BloodAdvantage= -106.18 EnemiesLocked= 0.10
+  EnemiesKilled/Episode=515.00
+  Legacy: SimpleSuccess=0.029 WeakSuccess=0.051 WinRate=0.080
+--------------------------------------------------------------------------------
+EnvStep=33    EpisodeLength=1211.22 Return=-0.01
+  Victory Breakdown: Complete=0.010 Great=0.016 Normal=0.045 Narrow=0.009 Failure=0.920
+  Total Victory Rate=0.080 AliveCount= 0.663 BloodAdvantage= -104.90 EnemiesLocked= 0.10
+  EnemiesKilled/Episode=443.00
+  Legacy: SimpleSuccess=0.027 WeakSuccess=0.054 WinRate=0.080
+--------------------------------------------------------------------------------
+EnvStep=34    EpisodeLength=1221.22 Return=0.01
+  Victory Breakdown: Complete=0.013 Great=0.020 Normal=0.048 Narrow=0.007 Failure=0.911
+  Total Victory Rate=0.089 AliveCount= 0.678 BloodAdvantage= -103.45 EnemiesLocked= 0.10
+  EnemiesKilled/Episode=440.00
+  Legacy: SimpleSuccess=0.033 WeakSuccess=0.056 WinRate=0.089
+--------------------------------------------------------------------------------
+EnvStep=35    EpisodeLength=1230.22 Return=0.04
+  Victory Breakdown: Complete=0.014 Great=0.020 Normal=0.044 Narrow=0.009 Failure=0.913
+  Total Victory Rate=0.087 AliveCount= 0.696 BloodAdvantage= -101.89 EnemiesLocked= 0.11
+  EnemiesKilled/Episode=452.00
+  Legacy: SimpleSuccess=0.033 WeakSuccess=0.053 WinRate=0.087
+--------------------------------------------------------------------------------
+EnvStep=36    EpisodeLength=1221.35 Return=0.05
+  Victory Breakdown: Complete=0.013 Great=0.023 Normal=0.044 Narrow=0.007 Failure=0.913
+  Total Victory Rate=0.087 AliveCount= 0.700 BloodAdvantage= -100.81 EnemiesLocked= 0.11
+  EnemiesKilled/Episode=503.00
+  Legacy: SimpleSuccess=0.036 WeakSuccess=0.051 WinRate=0.087
+--------------------------------------------------------------------------------
+EnvStep=37    EpisodeLength=1227.50 Return=0.06
+  Victory Breakdown: Complete=0.013 Great=0.031 Normal=0.043 Narrow=0.009 Failure=0.904
+  Total Victory Rate=0.096 AliveCount= 0.708 BloodAdvantage=  -97.73 EnemiesLocked= 0.11
+  EnemiesKilled/Episode=543.00
+  Legacy: SimpleSuccess=0.044 WeakSuccess=0.052 WinRate=0.096
+--------------------------------------------------------------------------------
+EnvStep=38    EpisodeLength=1221.84 Return=0.07
+  Victory Breakdown: Complete=0.013 Great=0.034 Normal=0.039 Narrow=0.007 Failure=0.906
+  Total Victory Rate=0.094 AliveCount= 0.703 BloodAdvantage=  -97.19 EnemiesLocked= 0.11
+  EnemiesKilled/Episode=529.00
+  Legacy: SimpleSuccess=0.047 WeakSuccess=0.047 WinRate=0.094
+--------------------------------------------------------------------------------
+EnvStep=39    EpisodeLength=1234.65 Return=0.10
+  Victory Breakdown: Complete=0.016 Great=0.032 Normal=0.029 Narrow=0.011 Failure=0.912
+  Total Victory Rate=0.088 AliveCount= 0.721 BloodAdvantage=  -94.78 EnemiesLocked= 0.10
+  EnemiesKilled/Episode=540.00
+  Legacy: SimpleSuccess=0.048 WeakSuccess=0.041 WinRate=0.088
+--------------------------------------------------------------------------------
+EnvStep=40    EpisodeLength=1238.87 Return=0.13
+  Victory Breakdown: Complete=0.015 Great=0.031 Normal=0.035 Narrow=0.010 Failure=0.910
+  Total Victory Rate=0.090 AliveCount= 0.745 BloodAdvantage=  -94.84 EnemiesLocked= 0.11
+  EnemiesKilled/Episode=557.00
+  Legacy: SimpleSuccess=0.046 WeakSuccess=0.045 WinRate=0.090
+--------------------------------------------------------------------------------
+EnvStep=41    EpisodeLength=1258.96 Return=0.20
+  Victory Breakdown: Complete=0.017 Great=0.031 Normal=0.051 Narrow=0.012 Failure=0.889
+  Total Victory Rate=0.111 AliveCount= 0.797 BloodAdvantage=  -92.74 EnemiesLocked= 0.12
+  EnemiesKilled/Episode=528.00
+  Legacy: SimpleSuccess=0.048 WeakSuccess=0.063 WinRate=0.111
+--------------------------------------------------------------------------------
+EnvStep=42    EpisodeLength=1261.30 Return=0.22
+  Victory Breakdown: Complete=0.017 Great=0.029 Normal=0.049 Narrow=0.013 Failure=0.892
+  Total Victory Rate=0.108 AliveCount= 0.808 BloodAdvantage=  -92.32 EnemiesLocked= 0.12
+  EnemiesKilled/Episode=545.00
+  Legacy: SimpleSuccess=0.046 WeakSuccess=0.062 WinRate=0.108
+--------------------------------------------------------------------------------
+EnvStep=43    EpisodeLength=1270.76 Return=0.20
+  Victory Breakdown: Complete=0.018 Great=0.028 Normal=0.052 Narrow=0.016 Failure=0.888
+  Total Victory Rate=0.112 AliveCount= 0.820 BloodAdvantage=  -90.11 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=505.00
+  Legacy: SimpleSuccess=0.045 WeakSuccess=0.067 WinRate=0.112
+--------------------------------------------------------------------------------
+EnvStep=44    EpisodeLength=1254.90 Return=0.22
+  Victory Breakdown: Complete=0.021 Great=0.030 Normal=0.055 Narrow=0.021 Failure=0.873
+  Total Victory Rate=0.127 AliveCount= 0.823 BloodAdvantage=  -87.92 EnemiesLocked= 0.12
+  EnemiesKilled/Episode=545.00
+  Legacy: SimpleSuccess=0.051 WeakSuccess=0.076 WinRate=0.127
+--------------------------------------------------------------------------------
+EnvStep=45    EpisodeLength=1259.88 Return=0.23
+  Victory Breakdown: Complete=0.019 Great=0.030 Normal=0.052 Narrow=0.020 Failure=0.879
+  Total Victory Rate=0.121 AliveCount= 0.845 BloodAdvantage=  -88.29 EnemiesLocked= 0.12
+  EnemiesKilled/Episode=514.00
+  Legacy: SimpleSuccess=0.049 WeakSuccess=0.072 WinRate=0.121
+--------------------------------------------------------------------------------
+EnvStep=46    EpisodeLength=1257.52 Return=0.26
+  Victory Breakdown: Complete=0.020 Great=0.034 Normal=0.052 Narrow=0.027 Failure=0.867
+  Total Victory Rate=0.133 AliveCount= 0.850 BloodAdvantage=  -85.99 EnemiesLocked= 0.12
+  EnemiesKilled/Episode=531.00
+  Legacy: SimpleSuccess=0.055 WeakSuccess=0.079 WinRate=0.133
+--------------------------------------------------------------------------------
+EnvStep=47    EpisodeLength=1266.31 Return=0.32
+  Victory Breakdown: Complete=0.015 Great=0.032 Normal=0.056 Narrow=0.034 Failure=0.862
+  Total Victory Rate=0.138 AliveCount= 0.873 BloodAdvantage=  -83.20 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=493.00
+  Legacy: SimpleSuccess=0.048 WeakSuccess=0.090 WinRate=0.138
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 48
+EnvStep=48    EpisodeLength=1215.58 Return=0.30
+  Victory Breakdown: Complete=0.026 Great=0.038 Normal=0.058 Narrow=0.036 Failure=0.841
+  Total Victory Rate=0.159 AliveCount= 0.882 BloodAdvantage=  -78.78 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=655.00
+  Legacy: SimpleSuccess=0.065 WeakSuccess=0.094 WinRate=0.159
+--------------------------------------------------------------------------------
+EnvStep=49    EpisodeLength=1244.51 Return=0.33
+  Victory Breakdown: Complete=0.022 Great=0.043 Normal=0.055 Narrow=0.046 Failure=0.835
+  Total Victory Rate=0.165 AliveCount= 0.888 BloodAdvantage=  -77.51 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=616.00
+  Legacy: SimpleSuccess=0.065 WeakSuccess=0.101 WinRate=0.165
+--------------------------------------------------------------------------------
+EnvStep=50    EpisodeLength=1260.48 Return=0.39
+  Victory Breakdown: Complete=0.024 Great=0.032 Normal=0.065 Narrow=0.052 Failure=0.827
+  Total Victory Rate=0.173 AliveCount= 0.938 BloodAdvantage=  -75.37 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=570.00
+  Legacy: SimpleSuccess=0.056 WeakSuccess=0.117 WinRate=0.173
+--------------------------------------------------------------------------------
+EnvStep=51    EpisodeLength=1286.75 Return=0.45
+  Victory Breakdown: Complete=0.023 Great=0.033 Normal=0.062 Narrow=0.050 Failure=0.832
+  Total Victory Rate=0.168 AliveCount= 0.984 BloodAdvantage=  -73.27 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=524.00
+  Legacy: SimpleSuccess=0.056 WeakSuccess=0.113 WinRate=0.168
+--------------------------------------------------------------------------------
+EnvStep=52    EpisodeLength=1292.76 Return=0.46
+  Victory Breakdown: Complete=0.024 Great=0.030 Normal=0.073 Narrow=0.046 Failure=0.826
+  Total Victory Rate=0.174 AliveCount= 1.002 BloodAdvantage=  -72.56 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=538.00
+  Legacy: SimpleSuccess=0.054 WeakSuccess=0.119 WinRate=0.174
+--------------------------------------------------------------------------------
+EnvStep=53    EpisodeLength=1287.68 Return=0.50
+  Victory Breakdown: Complete=0.026 Great=0.036 Normal=0.073 Narrow=0.053 Failure=0.813
+  Total Victory Rate=0.187 AliveCount= 1.017 BloodAdvantage=  -69.46 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=603.00
+  Legacy: SimpleSuccess=0.062 WeakSuccess=0.126 WinRate=0.187
+--------------------------------------------------------------------------------
+EnvStep=54    EpisodeLength=1295.28 Return=0.51
+  Victory Breakdown: Complete=0.028 Great=0.037 Normal=0.076 Narrow=0.057 Failure=0.802
+  Total Victory Rate=0.198 AliveCount= 1.018 BloodAdvantage=  -68.85 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=560.00
+  Legacy: SimpleSuccess=0.066 WeakSuccess=0.132 WinRate=0.198
+--------------------------------------------------------------------------------
+EnvStep=55    EpisodeLength=1290.24 Return=0.50
+  Victory Breakdown: Complete=0.022 Great=0.035 Normal=0.073 Narrow=0.059 Failure=0.812
+  Total Victory Rate=0.188 AliveCount= 1.020 BloodAdvantage=  -69.53 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=536.00
+  Legacy: SimpleSuccess=0.056 WeakSuccess=0.132 WinRate=0.188
+--------------------------------------------------------------------------------
+EnvStep=56    EpisodeLength=1284.91 Return=0.55
+  Victory Breakdown: Complete=0.026 Great=0.032 Normal=0.078 Narrow=0.068 Failure=0.796
+  Total Victory Rate=0.204 AliveCount= 1.042 BloodAdvantage=  -66.31 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=568.00
+  Legacy: SimpleSuccess=0.058 WeakSuccess=0.146 WinRate=0.204
+--------------------------------------------------------------------------------
+EnvStep=57    EpisodeLength=1309.42 Return=0.60
+  Victory Breakdown: Complete=0.018 Great=0.034 Normal=0.074 Narrow=0.084 Failure=0.790
+  Total Victory Rate=0.210 AliveCount= 1.055 BloodAdvantage=  -64.96 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=538.00
+  Legacy: SimpleSuccess=0.052 WeakSuccess=0.158 WinRate=0.210
+--------------------------------------------------------------------------------
+EnvStep=58    EpisodeLength=1310.79 Return=0.60
+  Victory Breakdown: Complete=0.029 Great=0.032 Normal=0.073 Narrow=0.079 Failure=0.786
+  Total Victory Rate=0.214 AliveCount= 1.052 BloodAdvantage=  -61.21 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=533.00
+  Legacy: SimpleSuccess=0.061 WeakSuccess=0.153 WinRate=0.214
+--------------------------------------------------------------------------------
+EnvStep=59    EpisodeLength=1293.35 Return=0.65
+  Victory Breakdown: Complete=0.032 Great=0.034 Normal=0.074 Narrow=0.093 Failure=0.767
+  Total Victory Rate=0.233 AliveCount= 1.071 BloodAdvantage=  -57.12 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=605.00
+  Legacy: SimpleSuccess=0.066 WeakSuccess=0.167 WinRate=0.233
+--------------------------------------------------------------------------------
+EnvStep=60    EpisodeLength=1297.95 Return=0.66
+  Victory Breakdown: Complete=0.029 Great=0.038 Normal=0.072 Narrow=0.097 Failure=0.763
+  Total Victory Rate=0.237 AliveCount= 1.075 BloodAdvantage=  -55.24 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=642.00
+  Legacy: SimpleSuccess=0.067 WeakSuccess=0.169 WinRate=0.237
+--------------------------------------------------------------------------------
+EnvStep=61    EpisodeLength=1315.88 Return=0.75
+  Victory Breakdown: Complete=0.035 Great=0.032 Normal=0.081 Narrow=0.111 Failure=0.742
+  Total Victory Rate=0.258 AliveCount= 1.134 BloodAdvantage=  -52.15 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=564.00
+  Legacy: SimpleSuccess=0.066 WeakSuccess=0.191 WinRate=0.258
+--------------------------------------------------------------------------------
+EnvStep=62    EpisodeLength=1313.83 Return=0.80
+  Victory Breakdown: Complete=0.037 Great=0.032 Normal=0.078 Narrow=0.118 Failure=0.735
+  Total Victory Rate=0.265 AliveCount= 1.141 BloodAdvantage=  -49.44 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=593.00
+  Legacy: SimpleSuccess=0.068 WeakSuccess=0.196 WinRate=0.265
+--------------------------------------------------------------------------------
+EnvStep=63    EpisodeLength=1329.97 Return=0.86
+  Victory Breakdown: Complete=0.035 Great=0.027 Normal=0.094 Narrow=0.129 Failure=0.715
+  Total Victory Rate=0.285 AliveCount= 1.203 BloodAdvantage=  -44.89 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=527.00
+  Legacy: SimpleSuccess=0.062 WeakSuccess=0.223 WinRate=0.285
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 64
+EnvStep=64    EpisodeLength=1298.88 Return=0.89
+  Victory Breakdown: Complete=0.040 Great=0.029 Normal=0.092 Narrow=0.138 Failure=0.701
+  Total Victory Rate=0.299 AliveCount= 1.175 BloodAdvantage=  -43.11 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=601.00
+  Legacy: SimpleSuccess=0.070 WeakSuccess=0.230 WinRate=0.299
+--------------------------------------------------------------------------------
+EnvStep=65    EpisodeLength=1319.50 Return=0.93
+  Victory Breakdown: Complete=0.044 Great=0.030 Normal=0.094 Narrow=0.139 Failure=0.693
+  Total Victory Rate=0.307 AliveCount= 1.205 BloodAdvantage=  -40.65 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=590.00
+  Legacy: SimpleSuccess=0.074 WeakSuccess=0.233 WinRate=0.307
+--------------------------------------------------------------------------------
+EnvStep=66    EpisodeLength=1305.82 Return=0.97
+  Victory Breakdown: Complete=0.045 Great=0.034 Normal=0.097 Narrow=0.146 Failure=0.678
+  Total Victory Rate=0.322 AliveCount= 1.226 BloodAdvantage=  -37.29 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=653.00
+  Legacy: SimpleSuccess=0.078 WeakSuccess=0.243 WinRate=0.322
+--------------------------------------------------------------------------------
+EnvStep=67    EpisodeLength=1327.03 Return=1.02
+  Victory Breakdown: Complete=0.051 Great=0.030 Normal=0.095 Narrow=0.151 Failure=0.672
+  Total Victory Rate=0.328 AliveCount= 1.243 BloodAdvantage=  -34.70 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=605.00
+  Legacy: SimpleSuccess=0.081 WeakSuccess=0.246 WinRate=0.328
+--------------------------------------------------------------------------------
+EnvStep=68    EpisodeLength=1326.91 Return=1.01
+  Victory Breakdown: Complete=0.041 Great=0.030 Normal=0.096 Narrow=0.169 Failure=0.664
+  Total Victory Rate=0.336 AliveCount= 1.220 BloodAdvantage=  -34.82 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=573.00
+  Legacy: SimpleSuccess=0.071 WeakSuccess=0.265 WinRate=0.336
+--------------------------------------------------------------------------------
+EnvStep=69    EpisodeLength=1327.67 Return=1.04
+  Victory Breakdown: Complete=0.039 Great=0.031 Normal=0.098 Narrow=0.169 Failure=0.663
+  Total Victory Rate=0.337 AliveCount= 1.240 BloodAdvantage=  -33.00 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=597.00
+  Legacy: SimpleSuccess=0.070 WeakSuccess=0.267 WinRate=0.337
+--------------------------------------------------------------------------------
+EnvStep=70    EpisodeLength=1333.05 Return=1.03
+  Victory Breakdown: Complete=0.040 Great=0.030 Normal=0.096 Narrow=0.164 Failure=0.670
+  Total Victory Rate=0.330 AliveCount= 1.223 BloodAdvantage=  -34.63 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=606.00
+  Legacy: SimpleSuccess=0.070 WeakSuccess=0.260 WinRate=0.330
+--------------------------------------------------------------------------------
+EnvStep=71    EpisodeLength=1334.89 Return=1.08
+  Victory Breakdown: Complete=0.045 Great=0.032 Normal=0.094 Narrow=0.182 Failure=0.648
+  Total Victory Rate=0.352 AliveCount= 1.247 BloodAdvantage=  -31.06 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=586.00
+  Legacy: SimpleSuccess=0.076 WeakSuccess=0.276 WinRate=0.352
+--------------------------------------------------------------------------------
+EnvStep=72    EpisodeLength=1333.93 Return=1.18
+  Victory Breakdown: Complete=0.058 Great=0.028 Normal=0.110 Narrow=0.180 Failure=0.624
+  Total Victory Rate=0.376 AliveCount= 1.289 BloodAdvantage=  -24.72 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=671.00
+  Legacy: SimpleSuccess=0.086 WeakSuccess=0.290 WinRate=0.376
+--------------------------------------------------------------------------------
+EnvStep=73    EpisodeLength=1327.20 Return=1.18
+  Victory Breakdown: Complete=0.061 Great=0.029 Normal=0.104 Narrow=0.183 Failure=0.623
+  Total Victory Rate=0.377 AliveCount= 1.276 BloodAdvantage=  -24.10 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=716.00
+  Legacy: SimpleSuccess=0.090 WeakSuccess=0.287 WinRate=0.377
+--------------------------------------------------------------------------------
+EnvStep=74    EpisodeLength=1338.22 Return=1.22
+  Victory Breakdown: Complete=0.054 Great=0.027 Normal=0.107 Narrow=0.191 Failure=0.621
+  Total Victory Rate=0.379 AliveCount= 1.291 BloodAdvantage=  -24.35 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=609.00
+  Legacy: SimpleSuccess=0.081 WeakSuccess=0.298 WinRate=0.379
+--------------------------------------------------------------------------------
+EnvStep=75    EpisodeLength=1341.52 Return=1.27
+  Victory Breakdown: Complete=0.059 Great=0.025 Normal=0.111 Narrow=0.182 Failure=0.624
+  Total Victory Rate=0.376 AliveCount= 1.297 BloodAdvantage=  -21.51 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=671.00
+  Legacy: SimpleSuccess=0.083 WeakSuccess=0.293 WinRate=0.376
+--------------------------------------------------------------------------------
+EnvStep=76    EpisodeLength=1340.20 Return=1.27
+  Victory Breakdown: Complete=0.065 Great=0.032 Normal=0.101 Narrow=0.189 Failure=0.614
+  Total Victory Rate=0.386 AliveCount= 1.316 BloodAdvantage=  -20.65 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=714.00
+  Legacy: SimpleSuccess=0.097 WeakSuccess=0.289 WinRate=0.386
+--------------------------------------------------------------------------------
+EnvStep=77    EpisodeLength=1352.79 Return=1.31
+  Victory Breakdown: Complete=0.063 Great=0.024 Normal=0.109 Narrow=0.192 Failure=0.612
+  Total Victory Rate=0.388 AliveCount= 1.328 BloodAdvantage=  -19.66 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=637.00
+  Legacy: SimpleSuccess=0.086 WeakSuccess=0.302 WinRate=0.388
+--------------------------------------------------------------------------------
+EnvStep=78    EpisodeLength=1349.07 Return=1.35
+  Victory Breakdown: Complete=0.072 Great=0.026 Normal=0.111 Narrow=0.185 Failure=0.606
+  Total Victory Rate=0.394 AliveCount= 1.349 BloodAdvantage=  -16.45 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=700.00
+  Legacy: SimpleSuccess=0.098 WeakSuccess=0.296 WinRate=0.394
+--------------------------------------------------------------------------------
+EnvStep=79    EpisodeLength=1342.17 Return=1.38
+  Victory Breakdown: Complete=0.084 Great=0.024 Normal=0.113 Narrow=0.176 Failure=0.604
+  Total Victory Rate=0.396 AliveCount= 1.357 BloodAdvantage=  -16.07 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=746.00
+  Legacy: SimpleSuccess=0.108 WeakSuccess=0.288 WinRate=0.396
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 80
+EnvStep=80    EpisodeLength=1323.23 Return=1.33
+  Victory Breakdown: Complete=0.085 Great=0.024 Normal=0.115 Narrow=0.180 Failure=0.595
+  Total Victory Rate=0.405 AliveCount= 1.332 BloodAdvantage=  -16.00 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=748.00
+  Legacy: SimpleSuccess=0.110 WeakSuccess=0.295 WinRate=0.405
+--------------------------------------------------------------------------------
+EnvStep=81    EpisodeLength=1324.48 Return=1.32
+  Victory Breakdown: Complete=0.078 Great=0.024 Normal=0.111 Narrow=0.177 Failure=0.610
+  Total Victory Rate=0.390 AliveCount= 1.333 BloodAdvantage=  -17.88 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=732.00
+  Legacy: SimpleSuccess=0.102 WeakSuccess=0.288 WinRate=0.390
+--------------------------------------------------------------------------------
+EnvStep=82    EpisodeLength=1327.32 Return=1.33
+  Victory Breakdown: Complete=0.076 Great=0.033 Normal=0.108 Narrow=0.177 Failure=0.606
+  Total Victory Rate=0.394 AliveCount= 1.322 BloodAdvantage=  -17.51 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=719.00
+  Legacy: SimpleSuccess=0.109 WeakSuccess=0.285 WinRate=0.394
+--------------------------------------------------------------------------------
+EnvStep=83    EpisodeLength=1337.58 Return=1.40
+  Victory Breakdown: Complete=0.090 Great=0.018 Normal=0.111 Narrow=0.182 Failure=0.598
+  Total Victory Rate=0.402 AliveCount= 1.374 BloodAdvantage=  -14.51 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=750.00
+  Legacy: SimpleSuccess=0.108 WeakSuccess=0.294 WinRate=0.402
+--------------------------------------------------------------------------------
+EnvStep=84    EpisodeLength=1336.44 Return=1.38
+  Victory Breakdown: Complete=0.083 Great=0.029 Normal=0.107 Narrow=0.186 Failure=0.595
+  Total Victory Rate=0.405 AliveCount= 1.346 BloodAdvantage=  -14.91 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=732.00
+  Legacy: SimpleSuccess=0.112 WeakSuccess=0.293 WinRate=0.405
+--------------------------------------------------------------------------------
+EnvStep=85    EpisodeLength=1327.68 Return=1.43
+  Victory Breakdown: Complete=0.097 Great=0.025 Normal=0.108 Narrow=0.190 Failure=0.580
+  Total Victory Rate=0.420 AliveCount= 1.365 BloodAdvantage=  -11.78 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=832.00
+  Legacy: SimpleSuccess=0.122 WeakSuccess=0.298 WinRate=0.420
+--------------------------------------------------------------------------------
+EnvStep=86    EpisodeLength=1329.40 Return=1.43
+  Victory Breakdown: Complete=0.094 Great=0.028 Normal=0.098 Narrow=0.193 Failure=0.588
+  Total Victory Rate=0.412 AliveCount= 1.349 BloodAdvantage=  -13.67 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=808.00
+  Legacy: SimpleSuccess=0.122 WeakSuccess=0.290 WinRate=0.412
+--------------------------------------------------------------------------------
+EnvStep=87    EpisodeLength=1330.38 Return=1.45
+  Victory Breakdown: Complete=0.092 Great=0.028 Normal=0.115 Narrow=0.188 Failure=0.578
+  Total Victory Rate=0.422 AliveCount= 1.369 BloodAdvantage=  -12.09 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=787.00
+  Legacy: SimpleSuccess=0.119 WeakSuccess=0.303 WinRate=0.422
+--------------------------------------------------------------------------------
+EnvStep=88    EpisodeLength=1336.16 Return=1.46
+  Victory Breakdown: Complete=0.093 Great=0.027 Normal=0.119 Narrow=0.182 Failure=0.578
+  Total Victory Rate=0.422 AliveCount= 1.364 BloodAdvantage=  -11.04 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=797.00
+  Legacy: SimpleSuccess=0.121 WeakSuccess=0.301 WinRate=0.422
+--------------------------------------------------------------------------------
+EnvStep=89    EpisodeLength=1326.66 Return=1.52
+  Victory Breakdown: Complete=0.106 Great=0.029 Normal=0.104 Narrow=0.202 Failure=0.558
+  Total Victory Rate=0.442 AliveCount= 1.390 BloodAdvantage=   -6.45 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=903.00
+  Legacy: SimpleSuccess=0.135 WeakSuccess=0.307 WinRate=0.442
+--------------------------------------------------------------------------------
+EnvStep=90    EpisodeLength=1328.40 Return=1.49
+  Victory Breakdown: Complete=0.114 Great=0.027 Normal=0.104 Narrow=0.178 Failure=0.577
+  Total Victory Rate=0.423 AliveCount= 1.377 BloodAdvantage=   -8.85 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=890.00
+  Legacy: SimpleSuccess=0.141 WeakSuccess=0.282 WinRate=0.423
+--------------------------------------------------------------------------------
+EnvStep=91    EpisodeLength=1324.45 Return=1.54
+  Victory Breakdown: Complete=0.117 Great=0.031 Normal=0.115 Narrow=0.182 Failure=0.554
+  Total Victory Rate=0.446 AliveCount= 1.399 BloodAdvantage=   -5.81 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=935.00
+  Legacy: SimpleSuccess=0.148 WeakSuccess=0.297 WinRate=0.446
+--------------------------------------------------------------------------------
+EnvStep=92    EpisodeLength=1320.90 Return=1.54
+  Victory Breakdown: Complete=0.120 Great=0.026 Normal=0.108 Narrow=0.176 Failure=0.569
+  Total Victory Rate=0.431 AliveCount= 1.393 BloodAdvantage=   -7.93 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=927.00
+  Legacy: SimpleSuccess=0.146 WeakSuccess=0.284 WinRate=0.431
+--------------------------------------------------------------------------------
+EnvStep=93    EpisodeLength=1329.49 Return=1.59
+  Victory Breakdown: Complete=0.124 Great=0.029 Normal=0.099 Narrow=0.194 Failure=0.554
+  Total Victory Rate=0.446 AliveCount= 1.408 BloodAdvantage=   -5.41 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=938.00
+  Legacy: SimpleSuccess=0.153 WeakSuccess=0.292 WinRate=0.446
+--------------------------------------------------------------------------------
+EnvStep=94    EpisodeLength=1312.78 Return=1.56
+  Victory Breakdown: Complete=0.125 Great=0.028 Normal=0.095 Narrow=0.187 Failure=0.564
+  Total Victory Rate=0.436 AliveCount= 1.391 BloodAdvantage=   -5.69 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1003.00
+  Legacy: SimpleSuccess=0.153 WeakSuccess=0.283 WinRate=0.436
+--------------------------------------------------------------------------------
+EnvStep=95    EpisodeLength=1321.00 Return=1.60
+  Victory Breakdown: Complete=0.134 Great=0.027 Normal=0.100 Narrow=0.201 Failure=0.538
+  Total Victory Rate=0.462 AliveCount= 1.432 BloodAdvantage=   -2.07 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1011.00
+  Legacy: SimpleSuccess=0.161 WeakSuccess=0.301 WinRate=0.462
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 96
+EnvStep=96    EpisodeLength=1279.99 Return=1.61
+  Victory Breakdown: Complete=0.151 Great=0.030 Normal=0.101 Narrow=0.188 Failure=0.530
+  Total Victory Rate=0.470 AliveCount= 1.407 BloodAdvantage=   -0.76 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1090.00
+  Legacy: SimpleSuccess=0.180 WeakSuccess=0.290 WinRate=0.470
+--------------------------------------------------------------------------------
+EnvStep=97    EpisodeLength=1312.19 Return=1.61
+  Victory Breakdown: Complete=0.143 Great=0.030 Normal=0.094 Narrow=0.190 Failure=0.543
+  Total Victory Rate=0.457 AliveCount= 1.415 BloodAdvantage=   -2.27 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=995.00
+  Legacy: SimpleSuccess=0.173 WeakSuccess=0.284 WinRate=0.457
+--------------------------------------------------------------------------------
+EnvStep=98    EpisodeLength=1311.93 Return=1.61
+  Victory Breakdown: Complete=0.139 Great=0.023 Normal=0.106 Narrow=0.188 Failure=0.545
+  Total Victory Rate=0.455 AliveCount= 1.410 BloodAdvantage=   -1.94 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=999.00
+  Legacy: SimpleSuccess=0.162 WeakSuccess=0.293 WinRate=0.455
+--------------------------------------------------------------------------------
+EnvStep=99    EpisodeLength=1322.52 Return=1.67
+  Victory Breakdown: Complete=0.141 Great=0.024 Normal=0.106 Narrow=0.203 Failure=0.527
+  Total Victory Rate=0.473 AliveCount= 1.443 BloodAdvantage=    0.21 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=980.00
+  Legacy: SimpleSuccess=0.165 WeakSuccess=0.308 WinRate=0.473
+--------------------------------------------------------------------------------
+EnvStep=100   EpisodeLength=1311.87 Return=1.67
+  Victory Breakdown: Complete=0.147 Great=0.027 Normal=0.110 Narrow=0.196 Failure=0.520
+  Total Victory Rate=0.480 AliveCount= 1.445 BloodAdvantage=    1.64 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1010.00
+  Legacy: SimpleSuccess=0.174 WeakSuccess=0.306 WinRate=0.480
+--------------------------------------------------------------------------------
+EnvStep=101   EpisodeLength=1323.38 Return=1.72
+  Victory Breakdown: Complete=0.145 Great=0.023 Normal=0.114 Narrow=0.204 Failure=0.513
+  Total Victory Rate=0.487 AliveCount= 1.462 BloodAdvantage=    2.27 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1005.00
+  Legacy: SimpleSuccess=0.168 WeakSuccess=0.318 WinRate=0.487
+--------------------------------------------------------------------------------
+EnvStep=102   EpisodeLength=1310.98 Return=1.67
+  Victory Breakdown: Complete=0.146 Great=0.029 Normal=0.116 Narrow=0.190 Failure=0.519
+  Total Victory Rate=0.481 AliveCount= 1.434 BloodAdvantage=    1.77 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1049.00
+  Legacy: SimpleSuccess=0.175 WeakSuccess=0.306 WinRate=0.481
+--------------------------------------------------------------------------------
+EnvStep=103   EpisodeLength=1308.86 Return=1.72
+  Victory Breakdown: Complete=0.157 Great=0.026 Normal=0.127 Narrow=0.190 Failure=0.499
+  Total Victory Rate=0.501 AliveCount= 1.467 BloodAdvantage=    4.98 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1088.00
+  Legacy: SimpleSuccess=0.183 WeakSuccess=0.318 WinRate=0.501
+--------------------------------------------------------------------------------
+EnvStep=104   EpisodeLength=1301.49 Return=1.73
+  Victory Breakdown: Complete=0.153 Great=0.028 Normal=0.120 Narrow=0.199 Failure=0.500
+  Total Victory Rate=0.500 AliveCount= 1.454 BloodAdvantage=    5.36 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1135.00
+  Legacy: SimpleSuccess=0.181 WeakSuccess=0.319 WinRate=0.500
+--------------------------------------------------------------------------------
+EnvStep=105   EpisodeLength=1326.01 Return=1.75
+  Victory Breakdown: Complete=0.147 Great=0.028 Normal=0.117 Narrow=0.200 Failure=0.508
+  Total Victory Rate=0.492 AliveCount= 1.463 BloodAdvantage=    4.29 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1042.00
+  Legacy: SimpleSuccess=0.175 WeakSuccess=0.317 WinRate=0.492
+--------------------------------------------------------------------------------
+EnvStep=106   EpisodeLength=1306.76 Return=1.77
+  Victory Breakdown: Complete=0.163 Great=0.028 Normal=0.116 Narrow=0.193 Failure=0.499
+  Total Victory Rate=0.501 AliveCount= 1.471 BloodAdvantage=    6.58 EnemiesLocked= 0.23
+  EnemiesKilled/Episode=1169.00
+  Legacy: SimpleSuccess=0.191 WeakSuccess=0.310 WinRate=0.501
+--------------------------------------------------------------------------------
+EnvStep=107   EpisodeLength=1313.51 Return=1.76
+  Victory Breakdown: Complete=0.161 Great=0.026 Normal=0.119 Narrow=0.203 Failure=0.492
+  Total Victory Rate=0.508 AliveCount= 1.468 BloodAdvantage=    6.93 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1085.00
+  Legacy: SimpleSuccess=0.187 WeakSuccess=0.321 WinRate=0.508
+--------------------------------------------------------------------------------
+EnvStep=108   EpisodeLength=1304.02 Return=1.78
+  Victory Breakdown: Complete=0.162 Great=0.024 Normal=0.137 Narrow=0.189 Failure=0.488
+  Total Victory Rate=0.512 AliveCount= 1.491 BloodAdvantage=    9.13 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1155.00
+  Legacy: SimpleSuccess=0.186 WeakSuccess=0.326 WinRate=0.512
+--------------------------------------------------------------------------------
+EnvStep=109   EpisodeLength=1312.68 Return=1.78
+  Victory Breakdown: Complete=0.162 Great=0.026 Normal=0.125 Narrow=0.203 Failure=0.484
+  Total Victory Rate=0.516 AliveCount= 1.481 BloodAdvantage=    7.59 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1126.00
+  Legacy: SimpleSuccess=0.188 WeakSuccess=0.328 WinRate=0.516
+--------------------------------------------------------------------------------
+EnvStep=110   EpisodeLength=1319.56 Return=1.75
+  Victory Breakdown: Complete=0.146 Great=0.034 Normal=0.131 Narrow=0.203 Failure=0.487
+  Total Victory Rate=0.513 AliveCount= 1.463 BloodAdvantage=    6.85 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1064.00
+  Legacy: SimpleSuccess=0.180 WeakSuccess=0.333 WinRate=0.513
+--------------------------------------------------------------------------------
+EnvStep=111   EpisodeLength=1309.44 Return=1.77
+  Victory Breakdown: Complete=0.159 Great=0.030 Normal=0.132 Narrow=0.195 Failure=0.484
+  Total Victory Rate=0.516 AliveCount= 1.469 BloodAdvantage=    7.84 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1117.00
+  Legacy: SimpleSuccess=0.189 WeakSuccess=0.327 WinRate=0.516
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 112
+EnvStep=112   EpisodeLength=1259.57 Return=1.81
+  Victory Breakdown: Complete=0.194 Great=0.033 Normal=0.135 Narrow=0.183 Failure=0.454
+  Total Victory Rate=0.546 AliveCount= 1.484 BloodAdvantage=   14.45 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1275.00
+  Legacy: SimpleSuccess=0.227 WeakSuccess=0.318 WinRate=0.546
+--------------------------------------------------------------------------------
+EnvStep=113   EpisodeLength=1271.25 Return=1.85
+  Victory Breakdown: Complete=0.200 Great=0.027 Normal=0.140 Narrow=0.189 Failure=0.444
+  Total Victory Rate=0.556 AliveCount= 1.493 BloodAdvantage=   16.33 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1294.00
+  Legacy: SimpleSuccess=0.227 WeakSuccess=0.329 WinRate=0.556
+--------------------------------------------------------------------------------
+EnvStep=114   EpisodeLength=1277.90 Return=1.88
+  Victory Breakdown: Complete=0.196 Great=0.029 Normal=0.131 Narrow=0.211 Failure=0.432
+  Total Victory Rate=0.568 AliveCount= 1.506 BloodAdvantage=   16.84 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1308.00
+  Legacy: SimpleSuccess=0.226 WeakSuccess=0.342 WinRate=0.568
+--------------------------------------------------------------------------------
+EnvStep=115   EpisodeLength=1284.32 Return=1.90
+  Victory Breakdown: Complete=0.194 Great=0.029 Normal=0.149 Narrow=0.198 Failure=0.430
+  Total Victory Rate=0.570 AliveCount= 1.519 BloodAdvantage=   17.78 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1261.00
+  Legacy: SimpleSuccess=0.223 WeakSuccess=0.347 WinRate=0.570
+--------------------------------------------------------------------------------
+EnvStep=116   EpisodeLength=1296.71 Return=1.92
+  Victory Breakdown: Complete=0.189 Great=0.028 Normal=0.155 Narrow=0.191 Failure=0.438
+  Total Victory Rate=0.562 AliveCount= 1.525 BloodAdvantage=   17.48 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1224.00
+  Legacy: SimpleSuccess=0.216 WeakSuccess=0.346 WinRate=0.562
+--------------------------------------------------------------------------------
+EnvStep=117   EpisodeLength=1284.83 Return=1.94
+  Victory Breakdown: Complete=0.207 Great=0.029 Normal=0.148 Narrow=0.186 Failure=0.430
+  Total Victory Rate=0.570 AliveCount= 1.530 BloodAdvantage=   19.31 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1345.00
+  Legacy: SimpleSuccess=0.236 WeakSuccess=0.333 WinRate=0.570
+--------------------------------------------------------------------------------
+EnvStep=118   EpisodeLength=1276.53 Return=1.95
+  Victory Breakdown: Complete=0.209 Great=0.027 Normal=0.151 Narrow=0.188 Failure=0.425
+  Total Victory Rate=0.575 AliveCount= 1.515 BloodAdvantage=   19.49 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1355.00
+  Legacy: SimpleSuccess=0.237 WeakSuccess=0.339 WinRate=0.575
+--------------------------------------------------------------------------------
+EnvStep=119   EpisodeLength=1293.12 Return=1.96
+  Victory Breakdown: Complete=0.204 Great=0.028 Normal=0.157 Narrow=0.189 Failure=0.422
+  Total Victory Rate=0.578 AliveCount= 1.529 BloodAdvantage=   19.24 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1321.00
+  Legacy: SimpleSuccess=0.232 WeakSuccess=0.346 WinRate=0.578
+--------------------------------------------------------------------------------
+EnvStep=120   EpisodeLength=1280.70 Return=1.99
+  Victory Breakdown: Complete=0.211 Great=0.026 Normal=0.148 Narrow=0.199 Failure=0.416
+  Total Victory Rate=0.584 AliveCount= 1.536 BloodAdvantage=   21.52 EnemiesLocked= 0.23
+  EnemiesKilled/Episode=1391.00
+  Legacy: SimpleSuccess=0.237 WeakSuccess=0.347 WinRate=0.584
+--------------------------------------------------------------------------------
+EnvStep=121   EpisodeLength=1279.13 Return=1.99
+  Victory Breakdown: Complete=0.219 Great=0.028 Normal=0.152 Narrow=0.190 Failure=0.411
+  Total Victory Rate=0.589 AliveCount= 1.545 BloodAdvantage=   22.95 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1447.00
+  Legacy: SimpleSuccess=0.247 WeakSuccess=0.342 WinRate=0.589
+--------------------------------------------------------------------------------
+EnvStep=122   EpisodeLength=1281.80 Return=2.00
+  Victory Breakdown: Complete=0.216 Great=0.030 Normal=0.156 Narrow=0.197 Failure=0.401
+  Total Victory Rate=0.599 AliveCount= 1.544 BloodAdvantage=   22.77 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1444.00
+  Legacy: SimpleSuccess=0.246 WeakSuccess=0.353 WinRate=0.599
+--------------------------------------------------------------------------------
+EnvStep=123   EpisodeLength=1270.81 Return=2.01
+  Victory Breakdown: Complete=0.220 Great=0.029 Normal=0.161 Narrow=0.188 Failure=0.402
+  Total Victory Rate=0.598 AliveCount= 1.549 BloodAdvantage=   24.02 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1502.00
+  Legacy: SimpleSuccess=0.249 WeakSuccess=0.349 WinRate=0.598
+--------------------------------------------------------------------------------
+EnvStep=124   EpisodeLength=1273.51 Return=2.04
+  Victory Breakdown: Complete=0.235 Great=0.028 Normal=0.155 Narrow=0.186 Failure=0.395
+  Total Victory Rate=0.605 AliveCount= 1.552 BloodAdvantage=   25.96 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1537.00
+  Legacy: SimpleSuccess=0.263 WeakSuccess=0.342 WinRate=0.605
+--------------------------------------------------------------------------------
+EnvStep=125   EpisodeLength=1273.51 Return=2.03
+  Victory Breakdown: Complete=0.232 Great=0.024 Normal=0.158 Narrow=0.188 Failure=0.399
+  Total Victory Rate=0.601 AliveCount= 1.543 BloodAdvantage=   23.89 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1510.00
+  Legacy: SimpleSuccess=0.256 WeakSuccess=0.345 WinRate=0.601
+--------------------------------------------------------------------------------
+EnvStep=126   EpisodeLength=1273.17 Return=2.00
+  Victory Breakdown: Complete=0.225 Great=0.027 Normal=0.160 Narrow=0.180 Failure=0.407
+  Total Victory Rate=0.593 AliveCount= 1.537 BloodAdvantage=   22.43 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1473.00
+  Legacy: SimpleSuccess=0.252 WeakSuccess=0.341 WinRate=0.593
+--------------------------------------------------------------------------------
+EnvStep=127   EpisodeLength=1270.44 Return=2.04
+  Victory Breakdown: Complete=0.242 Great=0.026 Normal=0.157 Narrow=0.183 Failure=0.391
+  Total Victory Rate=0.609 AliveCount= 1.562 BloodAdvantage=   25.89 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1540.00
+  Legacy: SimpleSuccess=0.269 WeakSuccess=0.341 WinRate=0.609
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 128
+EnvStep=128   EpisodeLength=1235.89 Return=2.07
+  Victory Breakdown: Complete=0.267 Great=0.025 Normal=0.157 Narrow=0.174 Failure=0.377
+  Total Victory Rate=0.623 AliveCount= 1.559 BloodAdvantage=   30.81 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1550.00
+  Legacy: SimpleSuccess=0.293 WeakSuccess=0.331 WinRate=0.623
+--------------------------------------------------------------------------------
+EnvStep=129   EpisodeLength=1246.11 Return=2.05
+  Victory Breakdown: Complete=0.243 Great=0.031 Normal=0.167 Narrow=0.178 Failure=0.380
+  Total Victory Rate=0.620 AliveCount= 1.549 BloodAdvantage=   28.45 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1544.00
+  Legacy: SimpleSuccess=0.274 WeakSuccess=0.346 WinRate=0.620
+--------------------------------------------------------------------------------
+EnvStep=130   EpisodeLength=1249.40 Return=2.05
+  Victory Breakdown: Complete=0.249 Great=0.024 Normal=0.161 Narrow=0.173 Failure=0.394
+  Total Victory Rate=0.606 AliveCount= 1.549 BloodAdvantage=   27.43 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1523.00
+  Legacy: SimpleSuccess=0.273 WeakSuccess=0.333 WinRate=0.606
+--------------------------------------------------------------------------------
+EnvStep=131   EpisodeLength=1257.78 Return=2.08
+  Victory Breakdown: Complete=0.250 Great=0.026 Normal=0.162 Narrow=0.181 Failure=0.381
+  Total Victory Rate=0.619 AliveCount= 1.562 BloodAdvantage=   28.45 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1546.00
+  Legacy: SimpleSuccess=0.276 WeakSuccess=0.343 WinRate=0.619
+--------------------------------------------------------------------------------
+EnvStep=132   EpisodeLength=1255.00 Return=2.11
+  Victory Breakdown: Complete=0.264 Great=0.025 Normal=0.159 Narrow=0.181 Failure=0.371
+  Total Victory Rate=0.629 AliveCount= 1.574 BloodAdvantage=   31.13 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1622.00
+  Legacy: SimpleSuccess=0.289 WeakSuccess=0.340 WinRate=0.629
+--------------------------------------------------------------------------------
+EnvStep=133   EpisodeLength=1260.20 Return=2.08
+  Victory Breakdown: Complete=0.258 Great=0.024 Normal=0.173 Narrow=0.171 Failure=0.374
+  Total Victory Rate=0.626 AliveCount= 1.552 BloodAdvantage=   30.22 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1623.00
+  Legacy: SimpleSuccess=0.282 WeakSuccess=0.344 WinRate=0.626
+--------------------------------------------------------------------------------
+EnvStep=134   EpisodeLength=1259.24 Return=2.13
+  Victory Breakdown: Complete=0.265 Great=0.029 Normal=0.159 Narrow=0.179 Failure=0.369
+  Total Victory Rate=0.631 AliveCount= 1.577 BloodAdvantage=   30.71 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1651.00
+  Legacy: SimpleSuccess=0.293 WeakSuccess=0.338 WinRate=0.631
+--------------------------------------------------------------------------------
+EnvStep=135   EpisodeLength=1280.96 Return=2.13
+  Victory Breakdown: Complete=0.243 Great=0.024 Normal=0.173 Narrow=0.187 Failure=0.373
+  Total Victory Rate=0.627 AliveCount= 1.584 BloodAdvantage=   29.62 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1509.00
+  Legacy: SimpleSuccess=0.267 WeakSuccess=0.360 WinRate=0.627
+--------------------------------------------------------------------------------
+EnvStep=136   EpisodeLength=1268.78 Return=2.13
+  Victory Breakdown: Complete=0.247 Great=0.024 Normal=0.171 Narrow=0.188 Failure=0.371
+  Total Victory Rate=0.629 AliveCount= 1.571 BloodAdvantage=   30.39 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1555.00
+  Legacy: SimpleSuccess=0.271 WeakSuccess=0.359 WinRate=0.629
+--------------------------------------------------------------------------------
+EnvStep=137   EpisodeLength=1278.58 Return=2.09
+  Victory Breakdown: Complete=0.241 Great=0.024 Normal=0.165 Narrow=0.176 Failure=0.394
+  Total Victory Rate=0.606 AliveCount= 1.562 BloodAdvantage=   26.30 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1509.00
+  Legacy: SimpleSuccess=0.265 WeakSuccess=0.341 WinRate=0.606
+--------------------------------------------------------------------------------
+EnvStep=138   EpisodeLength=1268.09 Return=2.11
+  Victory Breakdown: Complete=0.253 Great=0.023 Normal=0.158 Narrow=0.189 Failure=0.376
+  Total Victory Rate=0.624 AliveCount= 1.567 BloodAdvantage=   29.31 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1658.00
+  Legacy: SimpleSuccess=0.276 WeakSuccess=0.348 WinRate=0.624
+--------------------------------------------------------------------------------
+EnvStep=139   EpisodeLength=1262.49 Return=2.08
+  Victory Breakdown: Complete=0.249 Great=0.029 Normal=0.159 Narrow=0.175 Failure=0.388
+  Total Victory Rate=0.612 AliveCount= 1.552 BloodAdvantage=   28.34 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1654.00
+  Legacy: SimpleSuccess=0.278 WeakSuccess=0.334 WinRate=0.612
+--------------------------------------------------------------------------------
+EnvStep=140   EpisodeLength=1270.04 Return=2.10
+  Victory Breakdown: Complete=0.255 Great=0.027 Normal=0.169 Narrow=0.172 Failure=0.378
+  Total Victory Rate=0.622 AliveCount= 1.572 BloodAdvantage=   28.52 EnemiesLocked= 0.22
+  EnemiesKilled/Episode=1628.00
+  Legacy: SimpleSuccess=0.282 WeakSuccess=0.341 WinRate=0.622
+--------------------------------------------------------------------------------
+EnvStep=141   EpisodeLength=1262.84 Return=2.09
+  Victory Breakdown: Complete=0.256 Great=0.027 Normal=0.165 Narrow=0.175 Failure=0.378
+  Total Victory Rate=0.622 AliveCount= 1.554 BloodAdvantage=   29.31 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1641.00
+  Legacy: SimpleSuccess=0.282 WeakSuccess=0.340 WinRate=0.622
+--------------------------------------------------------------------------------
+EnvStep=142   EpisodeLength=1267.17 Return=2.13
+  Victory Breakdown: Complete=0.267 Great=0.025 Normal=0.169 Narrow=0.174 Failure=0.364
+  Total Victory Rate=0.636 AliveCount= 1.575 BloodAdvantage=   30.60 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1636.00
+  Legacy: SimpleSuccess=0.292 WeakSuccess=0.343 WinRate=0.636
+--------------------------------------------------------------------------------
+EnvStep=143   EpisodeLength=1269.82 Return=2.11
+  Victory Breakdown: Complete=0.257 Great=0.025 Normal=0.169 Narrow=0.169 Failure=0.380
+  Total Victory Rate=0.620 AliveCount= 1.566 BloodAdvantage=   30.07 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1629.00
+  Legacy: SimpleSuccess=0.282 WeakSuccess=0.339 WinRate=0.620
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 144
+EnvStep=144   EpisodeLength=1218.69 Return=2.09
+  Victory Breakdown: Complete=0.284 Great=0.026 Normal=0.153 Narrow=0.169 Failure=0.368
+  Total Victory Rate=0.632 AliveCount= 1.541 BloodAdvantage=   31.74 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1636.00
+  Legacy: SimpleSuccess=0.311 WeakSuccess=0.322 WinRate=0.632
+--------------------------------------------------------------------------------
+EnvStep=145   EpisodeLength=1231.72 Return=2.11
+  Victory Breakdown: Complete=0.276 Great=0.023 Normal=0.165 Narrow=0.171 Failure=0.365
+  Total Victory Rate=0.635 AliveCount= 1.567 BloodAdvantage=   32.89 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1644.00
+  Legacy: SimpleSuccess=0.299 WeakSuccess=0.336 WinRate=0.635
+--------------------------------------------------------------------------------
+EnvStep=146   EpisodeLength=1247.87 Return=2.16
+  Victory Breakdown: Complete=0.284 Great=0.022 Normal=0.162 Narrow=0.180 Failure=0.352
+  Total Victory Rate=0.648 AliveCount= 1.585 BloodAdvantage=   34.00 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1671.00
+  Legacy: SimpleSuccess=0.307 WeakSuccess=0.342 WinRate=0.648
+--------------------------------------------------------------------------------
+EnvStep=147   EpisodeLength=1237.49 Return=2.12
+  Victory Breakdown: Complete=0.275 Great=0.028 Normal=0.172 Narrow=0.177 Failure=0.349
+  Total Victory Rate=0.651 AliveCount= 1.576 BloodAdvantage=   33.83 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1697.00
+  Legacy: SimpleSuccess=0.303 WeakSuccess=0.349 WinRate=0.651
+--------------------------------------------------------------------------------
+EnvStep=148   EpisodeLength=1241.31 Return=2.14
+  Victory Breakdown: Complete=0.282 Great=0.023 Normal=0.164 Narrow=0.171 Failure=0.360
+  Total Victory Rate=0.640 AliveCount= 1.577 BloodAdvantage=   32.84 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1727.00
+  Legacy: SimpleSuccess=0.305 WeakSuccess=0.335 WinRate=0.640
+--------------------------------------------------------------------------------
+EnvStep=149   EpisodeLength=1244.57 Return=2.18
+  Victory Breakdown: Complete=0.292 Great=0.025 Normal=0.170 Narrow=0.167 Failure=0.346
+  Total Victory Rate=0.654 AliveCount= 1.594 BloodAdvantage=   36.15 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1796.00
+  Legacy: SimpleSuccess=0.317 WeakSuccess=0.337 WinRate=0.654
+--------------------------------------------------------------------------------
+EnvStep=150   EpisodeLength=1243.96 Return=2.17
+  Victory Breakdown: Complete=0.294 Great=0.024 Normal=0.168 Narrow=0.168 Failure=0.346
+  Total Victory Rate=0.654 AliveCount= 1.598 BloodAdvantage=   36.38 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1809.00
+  Legacy: SimpleSuccess=0.318 WeakSuccess=0.336 WinRate=0.654
+--------------------------------------------------------------------------------
+EnvStep=151   EpisodeLength=1247.59 Return=2.17
+  Victory Breakdown: Complete=0.288 Great=0.028 Normal=0.172 Narrow=0.167 Failure=0.345
+  Total Victory Rate=0.655 AliveCount= 1.590 BloodAdvantage=   36.31 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1797.00
+  Legacy: SimpleSuccess=0.316 WeakSuccess=0.339 WinRate=0.655
+--------------------------------------------------------------------------------
+EnvStep=152   EpisodeLength=1247.17 Return=2.17
+  Victory Breakdown: Complete=0.294 Great=0.022 Normal=0.170 Narrow=0.168 Failure=0.346
+  Total Victory Rate=0.654 AliveCount= 1.593 BloodAdvantage=   36.06 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1759.00
+  Legacy: SimpleSuccess=0.316 WeakSuccess=0.338 WinRate=0.654
+--------------------------------------------------------------------------------
+EnvStep=153   EpisodeLength=1232.43 Return=2.18
+  Victory Breakdown: Complete=0.301 Great=0.027 Normal=0.169 Narrow=0.162 Failure=0.342
+  Total Victory Rate=0.658 AliveCount= 1.590 BloodAdvantage=   37.32 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=1883.00
+  Legacy: SimpleSuccess=0.328 WeakSuccess=0.330 WinRate=0.658
+--------------------------------------------------------------------------------
+EnvStep=154   EpisodeLength=1250.50 Return=2.18
+  Victory Breakdown: Complete=0.290 Great=0.032 Normal=0.176 Narrow=0.173 Failure=0.329
+  Total Victory Rate=0.671 AliveCount= 1.586 BloodAdvantage=   37.82 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1804.00
+  Legacy: SimpleSuccess=0.322 WeakSuccess=0.349 WinRate=0.671
+--------------------------------------------------------------------------------
+EnvStep=155   EpisodeLength=1248.89 Return=2.19
+  Victory Breakdown: Complete=0.297 Great=0.024 Normal=0.177 Narrow=0.168 Failure=0.335
+  Total Victory Rate=0.665 AliveCount= 1.602 BloodAdvantage=   38.90 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=1826.00
+  Legacy: SimpleSuccess=0.320 WeakSuccess=0.345 WinRate=0.665
+--------------------------------------------------------------------------------
+EnvStep=156   EpisodeLength=1240.80 Return=2.19
+  Victory Breakdown: Complete=0.299 Great=0.027 Normal=0.177 Narrow=0.165 Failure=0.332
+  Total Victory Rate=0.668 AliveCount= 1.595 BloodAdvantage=   38.15 EnemiesLocked= 0.21
+  EnemiesKilled/Episode=1909.00
+  Legacy: SimpleSuccess=0.326 WeakSuccess=0.342 WinRate=0.668
+--------------------------------------------------------------------------------
+EnvStep=157   EpisodeLength=1238.10 Return=2.19
+  Victory Breakdown: Complete=0.306 Great=0.029 Normal=0.174 Narrow=0.162 Failure=0.329
+  Total Victory Rate=0.671 AliveCount= 1.592 BloodAdvantage=   38.95 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1889.00
+  Legacy: SimpleSuccess=0.335 WeakSuccess=0.337 WinRate=0.671
+--------------------------------------------------------------------------------
+EnvStep=158   EpisodeLength=1221.19 Return=2.20
+  Victory Breakdown: Complete=0.319 Great=0.027 Normal=0.168 Narrow=0.158 Failure=0.328
+  Total Victory Rate=0.672 AliveCount= 1.589 BloodAdvantage=   40.06 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2052.00
+  Legacy: SimpleSuccess=0.346 WeakSuccess=0.326 WinRate=0.672
+--------------------------------------------------------------------------------
+EnvStep=159   EpisodeLength=1217.21 Return=2.21
+  Victory Breakdown: Complete=0.322 Great=0.024 Normal=0.170 Narrow=0.159 Failure=0.325
+  Total Victory Rate=0.675 AliveCount= 1.598 BloodAdvantage=   41.34 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2031.00
+  Legacy: SimpleSuccess=0.346 WeakSuccess=0.329 WinRate=0.675
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 160
+EnvStep=160   EpisodeLength=1194.56 Return=2.11
+  Victory Breakdown: Complete=0.309 Great=0.025 Normal=0.169 Narrow=0.151 Failure=0.347
+  Total Victory Rate=0.653 AliveCount= 1.555 BloodAdvantage=   37.82 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1812.00
+  Legacy: SimpleSuccess=0.334 WeakSuccess=0.319 WinRate=0.653
+--------------------------------------------------------------------------------
+EnvStep=161   EpisodeLength=1198.09 Return=2.18
+  Victory Breakdown: Complete=0.321 Great=0.027 Normal=0.172 Narrow=0.157 Failure=0.323
+  Total Victory Rate=0.677 AliveCount= 1.589 BloodAdvantage=   40.45 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=1876.00
+  Legacy: SimpleSuccess=0.348 WeakSuccess=0.329 WinRate=0.677
+--------------------------------------------------------------------------------
+EnvStep=162   EpisodeLength=1205.73 Return=2.15
+  Victory Breakdown: Complete=0.318 Great=0.024 Normal=0.176 Narrow=0.143 Failure=0.340
+  Total Victory Rate=0.660 AliveCount= 1.580 BloodAdvantage=   39.42 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1972.00
+  Legacy: SimpleSuccess=0.341 WeakSuccess=0.319 WinRate=0.660
+--------------------------------------------------------------------------------
+EnvStep=163   EpisodeLength=1216.11 Return=2.19
+  Victory Breakdown: Complete=0.319 Great=0.026 Normal=0.172 Narrow=0.146 Failure=0.337
+  Total Victory Rate=0.663 AliveCount= 1.586 BloodAdvantage=   40.29 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=1941.00
+  Legacy: SimpleSuccess=0.346 WeakSuccess=0.318 WinRate=0.663
+--------------------------------------------------------------------------------
+EnvStep=164   EpisodeLength=1223.61 Return=2.24
+  Victory Breakdown: Complete=0.333 Great=0.024 Normal=0.163 Narrow=0.158 Failure=0.322
+  Total Victory Rate=0.678 AliveCount= 1.613 BloodAdvantage=   41.31 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=1944.00
+  Legacy: SimpleSuccess=0.356 WeakSuccess=0.321 WinRate=0.678
+--------------------------------------------------------------------------------
+EnvStep=165   EpisodeLength=1214.05 Return=2.23
+  Victory Breakdown: Complete=0.337 Great=0.027 Normal=0.179 Narrow=0.146 Failure=0.311
+  Total Victory Rate=0.689 AliveCount= 1.608 BloodAdvantage=   44.19 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2129.00
+  Legacy: SimpleSuccess=0.364 WeakSuccess=0.325 WinRate=0.689
+--------------------------------------------------------------------------------
+EnvStep=166   EpisodeLength=1216.19 Return=2.23
+  Victory Breakdown: Complete=0.336 Great=0.030 Normal=0.173 Narrow=0.151 Failure=0.310
+  Total Victory Rate=0.690 AliveCount= 1.607 BloodAdvantage=   43.65 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2102.00
+  Legacy: SimpleSuccess=0.366 WeakSuccess=0.324 WinRate=0.690
+--------------------------------------------------------------------------------
+EnvStep=167   EpisodeLength=1216.46 Return=2.23
+  Victory Breakdown: Complete=0.332 Great=0.027 Normal=0.177 Narrow=0.150 Failure=0.313
+  Total Victory Rate=0.687 AliveCount= 1.606 BloodAdvantage=   43.59 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2083.00
+  Legacy: SimpleSuccess=0.359 WeakSuccess=0.328 WinRate=0.687
+--------------------------------------------------------------------------------
+EnvStep=168   EpisodeLength=1228.36 Return=2.27
+  Victory Breakdown: Complete=0.327 Great=0.023 Normal=0.181 Narrow=0.153 Failure=0.316
+  Total Victory Rate=0.684 AliveCount= 1.610 BloodAdvantage=   44.01 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2016.00
+  Legacy: SimpleSuccess=0.350 WeakSuccess=0.334 WinRate=0.684
+--------------------------------------------------------------------------------
+EnvStep=169   EpisodeLength=1235.14 Return=2.29
+  Victory Breakdown: Complete=0.335 Great=0.025 Normal=0.189 Narrow=0.147 Failure=0.304
+  Total Victory Rate=0.696 AliveCount= 1.622 BloodAdvantage=   44.86 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=1966.00
+  Legacy: SimpleSuccess=0.360 WeakSuccess=0.336 WinRate=0.696
+--------------------------------------------------------------------------------
+EnvStep=170   EpisodeLength=1237.26 Return=2.28
+  Victory Breakdown: Complete=0.336 Great=0.023 Normal=0.178 Narrow=0.148 Failure=0.314
+  Total Victory Rate=0.686 AliveCount= 1.632 BloodAdvantage=   44.11 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2003.00
+  Legacy: SimpleSuccess=0.359 WeakSuccess=0.327 WinRate=0.686
+--------------------------------------------------------------------------------
+EnvStep=171   EpisodeLength=1213.72 Return=2.28
+  Victory Breakdown: Complete=0.355 Great=0.027 Normal=0.175 Narrow=0.141 Failure=0.302
+  Total Victory Rate=0.698 AliveCount= 1.623 BloodAdvantage=   46.33 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2205.00
+  Legacy: SimpleSuccess=0.382 WeakSuccess=0.316 WinRate=0.698
+--------------------------------------------------------------------------------
+EnvStep=172   EpisodeLength=1212.84 Return=2.27
+  Victory Breakdown: Complete=0.346 Great=0.026 Normal=0.176 Narrow=0.148 Failure=0.304
+  Total Victory Rate=0.696 AliveCount= 1.615 BloodAdvantage=   46.66 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2165.00
+  Legacy: SimpleSuccess=0.373 WeakSuccess=0.324 WinRate=0.696
+--------------------------------------------------------------------------------
+EnvStep=173   EpisodeLength=1210.01 Return=2.26
+  Victory Breakdown: Complete=0.346 Great=0.024 Normal=0.174 Narrow=0.144 Failure=0.312
+  Total Victory Rate=0.688 AliveCount= 1.617 BloodAdvantage=   44.86 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2168.00
+  Legacy: SimpleSuccess=0.370 WeakSuccess=0.318 WinRate=0.688
+--------------------------------------------------------------------------------
+EnvStep=174   EpisodeLength=1210.61 Return=2.32
+  Victory Breakdown: Complete=0.358 Great=0.026 Normal=0.173 Narrow=0.152 Failure=0.291
+  Total Victory Rate=0.709 AliveCount= 1.625 BloodAdvantage=   47.74 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2162.00
+  Legacy: SimpleSuccess=0.384 WeakSuccess=0.325 WinRate=0.709
+--------------------------------------------------------------------------------
+EnvStep=175   EpisodeLength=1200.11 Return=2.32
+  Victory Breakdown: Complete=0.371 Great=0.022 Normal=0.175 Narrow=0.133 Failure=0.298
+  Total Victory Rate=0.702 AliveCount= 1.636 BloodAdvantage=   49.30 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2301.00
+  Legacy: SimpleSuccess=0.393 WeakSuccess=0.308 WinRate=0.702
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 176
+EnvStep=176   EpisodeLength=1157.14 Return=2.26
+  Victory Breakdown: Complete=0.380 Great=0.028 Normal=0.168 Narrow=0.137 Failure=0.286
+  Total Victory Rate=0.714 AliveCount= 1.610 BloodAdvantage=   49.96 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2124.00
+  Legacy: SimpleSuccess=0.408 WeakSuccess=0.306 WinRate=0.714
+--------------------------------------------------------------------------------
+EnvStep=177   EpisodeLength=1178.22 Return=2.26
+  Victory Breakdown: Complete=0.375 Great=0.026 Normal=0.172 Narrow=0.126 Failure=0.301
+  Total Victory Rate=0.699 AliveCount= 1.608 BloodAdvantage=   48.70 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2190.00
+  Legacy: SimpleSuccess=0.401 WeakSuccess=0.298 WinRate=0.699
+--------------------------------------------------------------------------------
+EnvStep=178   EpisodeLength=1185.21 Return=2.30
+  Victory Breakdown: Complete=0.375 Great=0.023 Normal=0.169 Narrow=0.145 Failure=0.288
+  Total Victory Rate=0.712 AliveCount= 1.624 BloodAdvantage=   50.11 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2223.00
+  Legacy: SimpleSuccess=0.398 WeakSuccess=0.314 WinRate=0.712
+--------------------------------------------------------------------------------
+EnvStep=179   EpisodeLength=1188.10 Return=2.27
+  Victory Breakdown: Complete=0.381 Great=0.027 Normal=0.168 Narrow=0.129 Failure=0.296
+  Total Victory Rate=0.704 AliveCount= 1.624 BloodAdvantage=   48.62 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2237.00
+  Legacy: SimpleSuccess=0.408 WeakSuccess=0.296 WinRate=0.704
+--------------------------------------------------------------------------------
+EnvStep=180   EpisodeLength=1193.27 Return=2.29
+  Victory Breakdown: Complete=0.372 Great=0.024 Normal=0.172 Narrow=0.134 Failure=0.298
+  Total Victory Rate=0.702 AliveCount= 1.619 BloodAdvantage=   48.56 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2302.00
+  Legacy: SimpleSuccess=0.396 WeakSuccess=0.305 WinRate=0.702
+--------------------------------------------------------------------------------
+EnvStep=181   EpisodeLength=1197.96 Return=2.32
+  Victory Breakdown: Complete=0.378 Great=0.028 Normal=0.172 Narrow=0.132 Failure=0.290
+  Total Victory Rate=0.710 AliveCount= 1.632 BloodAdvantage=   50.60 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=2296.00
+  Legacy: SimpleSuccess=0.406 WeakSuccess=0.304 WinRate=0.710
+--------------------------------------------------------------------------------
+EnvStep=182   EpisodeLength=1205.26 Return=2.35
+  Victory Breakdown: Complete=0.390 Great=0.024 Normal=0.181 Narrow=0.127 Failure=0.277
+  Total Victory Rate=0.723 AliveCount= 1.649 BloodAdvantage=   52.98 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2322.00
+  Legacy: SimpleSuccess=0.414 WeakSuccess=0.308 WinRate=0.723
+--------------------------------------------------------------------------------
+EnvStep=183   EpisodeLength=1196.45 Return=2.37
+  Victory Breakdown: Complete=0.385 Great=0.025 Normal=0.185 Narrow=0.128 Failure=0.277
+  Total Victory Rate=0.723 AliveCount= 1.638 BloodAdvantage=   52.36 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2349.00
+  Legacy: SimpleSuccess=0.409 WeakSuccess=0.313 WinRate=0.723
+--------------------------------------------------------------------------------
+EnvStep=184   EpisodeLength=1211.37 Return=2.33
+  Victory Breakdown: Complete=0.376 Great=0.024 Normal=0.185 Narrow=0.127 Failure=0.288
+  Total Victory Rate=0.712 AliveCount= 1.634 BloodAdvantage=   50.05 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2264.00
+  Legacy: SimpleSuccess=0.400 WeakSuccess=0.312 WinRate=0.712
+--------------------------------------------------------------------------------
+EnvStep=185   EpisodeLength=1211.40 Return=2.36
+  Victory Breakdown: Complete=0.385 Great=0.025 Normal=0.182 Narrow=0.131 Failure=0.276
+  Total Victory Rate=0.724 AliveCount= 1.648 BloodAdvantage=   51.87 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2318.00
+  Legacy: SimpleSuccess=0.410 WeakSuccess=0.313 WinRate=0.724
+--------------------------------------------------------------------------------
+EnvStep=186   EpisodeLength=1205.91 Return=2.39
+  Victory Breakdown: Complete=0.400 Great=0.021 Normal=0.180 Narrow=0.132 Failure=0.267
+  Total Victory Rate=0.733 AliveCount= 1.658 BloodAdvantage=   54.07 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2349.00
+  Legacy: SimpleSuccess=0.421 WeakSuccess=0.312 WinRate=0.733
+--------------------------------------------------------------------------------
+EnvStep=187   EpisodeLength=1205.09 Return=2.37
+  Victory Breakdown: Complete=0.390 Great=0.028 Normal=0.178 Narrow=0.122 Failure=0.282
+  Total Victory Rate=0.718 AliveCount= 1.639 BloodAdvantage=   52.47 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2388.00
+  Legacy: SimpleSuccess=0.418 WeakSuccess=0.301 WinRate=0.718
+--------------------------------------------------------------------------------
+EnvStep=188   EpisodeLength=1215.37 Return=2.38
+  Victory Breakdown: Complete=0.383 Great=0.021 Normal=0.196 Narrow=0.130 Failure=0.270
+  Total Victory Rate=0.730 AliveCount= 1.659 BloodAdvantage=   53.31 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2310.00
+  Legacy: SimpleSuccess=0.404 WeakSuccess=0.326 WinRate=0.730
+--------------------------------------------------------------------------------
+EnvStep=189   EpisodeLength=1214.91 Return=2.38
+  Victory Breakdown: Complete=0.380 Great=0.025 Normal=0.190 Narrow=0.128 Failure=0.278
+  Total Victory Rate=0.722 AliveCount= 1.646 BloodAdvantage=   51.88 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2312.00
+  Legacy: SimpleSuccess=0.405 WeakSuccess=0.317 WinRate=0.722
+--------------------------------------------------------------------------------
+EnvStep=190   EpisodeLength=1221.20 Return=2.38
+  Victory Breakdown: Complete=0.383 Great=0.023 Normal=0.188 Narrow=0.130 Failure=0.276
+  Total Victory Rate=0.724 AliveCount= 1.651 BloodAdvantage=   53.01 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2289.00
+  Legacy: SimpleSuccess=0.406 WeakSuccess=0.318 WinRate=0.724
+--------------------------------------------------------------------------------
+EnvStep=191   EpisodeLength=1236.48 Return=2.40
+  Victory Breakdown: Complete=0.377 Great=0.020 Normal=0.192 Narrow=0.135 Failure=0.276
+  Total Victory Rate=0.724 AliveCount= 1.656 BloodAdvantage=   51.16 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2176.00
+  Legacy: SimpleSuccess=0.397 WeakSuccess=0.327 WinRate=0.724
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 192
+EnvStep=192   EpisodeLength=1159.63 Return=2.35
+  Victory Breakdown: Complete=0.422 Great=0.026 Normal=0.170 Narrow=0.118 Failure=0.264
+  Total Victory Rate=0.736 AliveCount= 1.642 BloodAdvantage=   57.56 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2315.00
+  Legacy: SimpleSuccess=0.448 WeakSuccess=0.288 WinRate=0.736
+--------------------------------------------------------------------------------
+EnvStep=193   EpisodeLength=1200.94 Return=2.40
+  Victory Breakdown: Complete=0.405 Great=0.021 Normal=0.185 Narrow=0.127 Failure=0.262
+  Total Victory Rate=0.738 AliveCount= 1.664 BloodAdvantage=   55.33 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2219.00
+  Legacy: SimpleSuccess=0.426 WeakSuccess=0.312 WinRate=0.738
+--------------------------------------------------------------------------------
+EnvStep=194   EpisodeLength=1185.75 Return=2.38
+  Victory Breakdown: Complete=0.411 Great=0.024 Normal=0.181 Narrow=0.122 Failure=0.262
+  Total Victory Rate=0.738 AliveCount= 1.643 BloodAdvantage=   55.88 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2388.00
+  Legacy: SimpleSuccess=0.435 WeakSuccess=0.303 WinRate=0.738
+--------------------------------------------------------------------------------
+EnvStep=195   EpisodeLength=1180.73 Return=2.42
+  Victory Breakdown: Complete=0.423 Great=0.021 Normal=0.186 Narrow=0.110 Failure=0.260
+  Total Victory Rate=0.740 AliveCount= 1.663 BloodAdvantage=   57.66 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2479.00
+  Legacy: SimpleSuccess=0.444 WeakSuccess=0.296 WinRate=0.740
+--------------------------------------------------------------------------------
+EnvStep=196   EpisodeLength=1205.42 Return=2.42
+  Victory Breakdown: Complete=0.410 Great=0.026 Normal=0.177 Narrow=0.122 Failure=0.265
+  Total Victory Rate=0.735 AliveCount= 1.650 BloodAdvantage=   54.35 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2406.00
+  Legacy: SimpleSuccess=0.436 WeakSuccess=0.299 WinRate=0.735
+--------------------------------------------------------------------------------
+EnvStep=197   EpisodeLength=1196.02 Return=2.42
+  Victory Breakdown: Complete=0.405 Great=0.027 Normal=0.183 Narrow=0.124 Failure=0.262
+  Total Victory Rate=0.738 AliveCount= 1.660 BloodAdvantage=   56.20 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2467.00
+  Legacy: SimpleSuccess=0.432 WeakSuccess=0.307 WinRate=0.738
+--------------------------------------------------------------------------------
+EnvStep=198   EpisodeLength=1201.19 Return=2.43
+  Victory Breakdown: Complete=0.407 Great=0.028 Normal=0.184 Narrow=0.129 Failure=0.252
+  Total Victory Rate=0.748 AliveCount= 1.664 BloodAdvantage=   56.74 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2458.00
+  Legacy: SimpleSuccess=0.435 WeakSuccess=0.313 WinRate=0.748
+--------------------------------------------------------------------------------
+EnvStep=199   EpisodeLength=1195.58 Return=2.45
+  Victory Breakdown: Complete=0.417 Great=0.024 Normal=0.191 Narrow=0.119 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.668 BloodAdvantage=   57.94 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2509.00
+  Legacy: SimpleSuccess=0.441 WeakSuccess=0.310 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=200   EpisodeLength=1185.21 Return=2.41
+  Victory Breakdown: Complete=0.416 Great=0.024 Normal=0.167 Narrow=0.129 Failure=0.263
+  Total Victory Rate=0.737 AliveCount= 1.650 BloodAdvantage=   55.80 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2566.00
+  Legacy: SimpleSuccess=0.440 WeakSuccess=0.297 WinRate=0.737
+--------------------------------------------------------------------------------
+EnvStep=201   EpisodeLength=1196.36 Return=2.44
+  Victory Breakdown: Complete=0.417 Great=0.029 Normal=0.183 Narrow=0.122 Failure=0.250
+  Total Victory Rate=0.750 AliveCount= 1.666 BloodAdvantage=   57.93 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2537.00
+  Legacy: SimpleSuccess=0.446 WeakSuccess=0.305 WinRate=0.750
+--------------------------------------------------------------------------------
+EnvStep=202   EpisodeLength=1196.52 Return=2.43
+  Victory Breakdown: Complete=0.416 Great=0.025 Normal=0.186 Narrow=0.121 Failure=0.252
+  Total Victory Rate=0.748 AliveCount= 1.662 BloodAdvantage=   57.19 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2527.00
+  Legacy: SimpleSuccess=0.441 WeakSuccess=0.307 WinRate=0.748
+--------------------------------------------------------------------------------
+EnvStep=203   EpisodeLength=1195.71 Return=2.45
+  Victory Breakdown: Complete=0.423 Great=0.032 Normal=0.181 Narrow=0.123 Failure=0.241
+  Total Victory Rate=0.759 AliveCount= 1.681 BloodAdvantage=   59.90 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2574.00
+  Legacy: SimpleSuccess=0.455 WeakSuccess=0.304 WinRate=0.759
+--------------------------------------------------------------------------------
+EnvStep=204   EpisodeLength=1198.56 Return=2.43
+  Victory Breakdown: Complete=0.420 Great=0.027 Normal=0.178 Narrow=0.121 Failure=0.254
+  Total Victory Rate=0.746 AliveCount= 1.664 BloodAdvantage=   57.87 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2565.00
+  Legacy: SimpleSuccess=0.447 WeakSuccess=0.299 WinRate=0.746
+--------------------------------------------------------------------------------
+EnvStep=205   EpisodeLength=1197.12 Return=2.44
+  Victory Breakdown: Complete=0.416 Great=0.026 Normal=0.180 Narrow=0.123 Failure=0.254
+  Total Victory Rate=0.746 AliveCount= 1.654 BloodAdvantage=   57.68 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2539.00
+  Legacy: SimpleSuccess=0.442 WeakSuccess=0.304 WinRate=0.746
+--------------------------------------------------------------------------------
+EnvStep=206   EpisodeLength=1213.81 Return=2.51
+  Victory Breakdown: Complete=0.426 Great=0.025 Normal=0.191 Narrow=0.127 Failure=0.231
+  Total Victory Rate=0.769 AliveCount= 1.691 BloodAdvantage=   60.62 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2504.00
+  Legacy: SimpleSuccess=0.451 WeakSuccess=0.318 WinRate=0.769
+--------------------------------------------------------------------------------
+EnvStep=207   EpisodeLength=1213.74 Return=2.48
+  Victory Breakdown: Complete=0.414 Great=0.025 Normal=0.194 Narrow=0.125 Failure=0.241
+  Total Victory Rate=0.759 AliveCount= 1.677 BloodAdvantage=   59.90 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2490.00
+  Legacy: SimpleSuccess=0.439 WeakSuccess=0.320 WinRate=0.759
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 208
+EnvStep=208   EpisodeLength=1159.59 Return=2.43
+  Victory Breakdown: Complete=0.435 Great=0.027 Normal=0.180 Narrow=0.117 Failure=0.241
+  Total Victory Rate=0.759 AliveCount= 1.663 BloodAdvantage=   61.55 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2337.00
+  Legacy: SimpleSuccess=0.462 WeakSuccess=0.297 WinRate=0.759
+--------------------------------------------------------------------------------
+EnvStep=209   EpisodeLength=1180.13 Return=2.44
+  Victory Breakdown: Complete=0.426 Great=0.031 Normal=0.179 Narrow=0.114 Failure=0.251
+  Total Victory Rate=0.749 AliveCount= 1.668 BloodAdvantage=   59.64 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2387.00
+  Legacy: SimpleSuccess=0.456 WeakSuccess=0.292 WinRate=0.749
+--------------------------------------------------------------------------------
+EnvStep=210   EpisodeLength=1188.75 Return=2.45
+  Victory Breakdown: Complete=0.434 Great=0.028 Normal=0.177 Narrow=0.117 Failure=0.244
+  Total Victory Rate=0.756 AliveCount= 1.671 BloodAdvantage=   59.68 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2496.00
+  Legacy: SimpleSuccess=0.462 WeakSuccess=0.294 WinRate=0.756
+--------------------------------------------------------------------------------
+EnvStep=211   EpisodeLength=1192.99 Return=2.51
+  Victory Breakdown: Complete=0.446 Great=0.025 Normal=0.185 Narrow=0.107 Failure=0.237
+  Total Victory Rate=0.763 AliveCount= 1.695 BloodAdvantage=   62.71 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2554.00
+  Legacy: SimpleSuccess=0.471 WeakSuccess=0.292 WinRate=0.763
+--------------------------------------------------------------------------------
+EnvStep=212   EpisodeLength=1194.37 Return=2.47
+  Victory Breakdown: Complete=0.430 Great=0.029 Normal=0.181 Narrow=0.117 Failure=0.242
+  Total Victory Rate=0.758 AliveCount= 1.674 BloodAdvantage=   60.49 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2567.00
+  Legacy: SimpleSuccess=0.460 WeakSuccess=0.298 WinRate=0.758
+--------------------------------------------------------------------------------
+EnvStep=213   EpisodeLength=1193.80 Return=2.50
+  Victory Breakdown: Complete=0.439 Great=0.028 Normal=0.184 Narrow=0.121 Failure=0.228
+  Total Victory Rate=0.772 AliveCount= 1.693 BloodAdvantage=   62.42 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2596.00
+  Legacy: SimpleSuccess=0.467 WeakSuccess=0.305 WinRate=0.772
+--------------------------------------------------------------------------------
+EnvStep=214   EpisodeLength=1202.19 Return=2.46
+  Victory Breakdown: Complete=0.418 Great=0.029 Normal=0.201 Narrow=0.115 Failure=0.237
+  Total Victory Rate=0.763 AliveCount= 1.674 BloodAdvantage=   60.54 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2542.00
+  Legacy: SimpleSuccess=0.447 WeakSuccess=0.316 WinRate=0.763
+--------------------------------------------------------------------------------
+EnvStep=215   EpisodeLength=1185.54 Return=2.46
+  Victory Breakdown: Complete=0.437 Great=0.029 Normal=0.175 Narrow=0.127 Failure=0.231
+  Total Victory Rate=0.769 AliveCount= 1.673 BloodAdvantage=   61.39 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2653.00
+  Legacy: SimpleSuccess=0.466 WeakSuccess=0.303 WinRate=0.769
+--------------------------------------------------------------------------------
+EnvStep=216   EpisodeLength=1184.52 Return=2.46
+  Victory Breakdown: Complete=0.433 Great=0.029 Normal=0.180 Narrow=0.121 Failure=0.237
+  Total Victory Rate=0.763 AliveCount= 1.668 BloodAdvantage=   60.86 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2653.00
+  Legacy: SimpleSuccess=0.461 WeakSuccess=0.301 WinRate=0.763
+--------------------------------------------------------------------------------
+EnvStep=217   EpisodeLength=1192.97 Return=2.50
+  Victory Breakdown: Complete=0.440 Great=0.025 Normal=0.185 Narrow=0.122 Failure=0.228
+  Total Victory Rate=0.772 AliveCount= 1.695 BloodAdvantage=   62.57 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2645.00
+  Legacy: SimpleSuccess=0.465 WeakSuccess=0.307 WinRate=0.772
+--------------------------------------------------------------------------------
+EnvStep=218   EpisodeLength=1196.52 Return=2.44
+  Victory Breakdown: Complete=0.410 Great=0.023 Normal=0.190 Narrow=0.119 Failure=0.258
+  Total Victory Rate=0.742 AliveCount= 1.664 BloodAdvantage=   57.34 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2503.00
+  Legacy: SimpleSuccess=0.434 WeakSuccess=0.308 WinRate=0.742
+--------------------------------------------------------------------------------
+EnvStep=219   EpisodeLength=1193.72 Return=2.49
+  Victory Breakdown: Complete=0.434 Great=0.027 Normal=0.186 Narrow=0.118 Failure=0.236
+  Total Victory Rate=0.764 AliveCount= 1.682 BloodAdvantage=   60.38 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2613.00
+  Legacy: SimpleSuccess=0.461 WeakSuccess=0.304 WinRate=0.764
+--------------------------------------------------------------------------------
+EnvStep=220   EpisodeLength=1185.34 Return=2.48
+  Victory Breakdown: Complete=0.425 Great=0.029 Normal=0.189 Narrow=0.129 Failure=0.228
+  Total Victory Rate=0.772 AliveCount= 1.680 BloodAdvantage=   60.97 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2643.00
+  Legacy: SimpleSuccess=0.454 WeakSuccess=0.318 WinRate=0.772
+--------------------------------------------------------------------------------
+EnvStep=221   EpisodeLength=1191.84 Return=2.46
+  Victory Breakdown: Complete=0.422 Great=0.024 Normal=0.188 Narrow=0.124 Failure=0.242
+  Total Victory Rate=0.758 AliveCount= 1.664 BloodAdvantage=   58.77 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2567.00
+  Legacy: SimpleSuccess=0.446 WeakSuccess=0.312 WinRate=0.758
+--------------------------------------------------------------------------------
+EnvStep=222   EpisodeLength=1206.65 Return=2.44
+  Victory Breakdown: Complete=0.412 Great=0.029 Normal=0.189 Narrow=0.121 Failure=0.248
+  Total Victory Rate=0.752 AliveCount= 1.664 BloodAdvantage=   56.74 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2468.00
+  Legacy: SimpleSuccess=0.441 WeakSuccess=0.310 WinRate=0.752
+--------------------------------------------------------------------------------
+EnvStep=223   EpisodeLength=1204.89 Return=2.47
+  Victory Breakdown: Complete=0.417 Great=0.031 Normal=0.189 Narrow=0.120 Failure=0.243
+  Total Victory Rate=0.757 AliveCount= 1.676 BloodAdvantage=   58.75 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2520.00
+  Legacy: SimpleSuccess=0.448 WeakSuccess=0.309 WinRate=0.757
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 224
+EnvStep=224   EpisodeLength=1142.04 Return=2.42
+  Victory Breakdown: Complete=0.439 Great=0.030 Normal=0.185 Narrow=0.111 Failure=0.235
+  Total Victory Rate=0.765 AliveCount= 1.659 BloodAdvantage=   60.94 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2365.00
+  Legacy: SimpleSuccess=0.469 WeakSuccess=0.296 WinRate=0.765
+--------------------------------------------------------------------------------
+EnvStep=225   EpisodeLength=1173.70 Return=2.43
+  Victory Breakdown: Complete=0.430 Great=0.028 Normal=0.179 Narrow=0.126 Failure=0.237
+  Total Victory Rate=0.763 AliveCount= 1.669 BloodAdvantage=   60.58 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2419.00
+  Legacy: SimpleSuccess=0.458 WeakSuccess=0.305 WinRate=0.763
+--------------------------------------------------------------------------------
+EnvStep=226   EpisodeLength=1184.25 Return=2.44
+  Victory Breakdown: Complete=0.425 Great=0.029 Normal=0.192 Narrow=0.122 Failure=0.232
+  Total Victory Rate=0.768 AliveCount= 1.674 BloodAdvantage=   58.24 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2398.00
+  Legacy: SimpleSuccess=0.454 WeakSuccess=0.314 WinRate=0.768
+--------------------------------------------------------------------------------
+EnvStep=227   EpisodeLength=1186.50 Return=2.46
+  Victory Breakdown: Complete=0.427 Great=0.028 Normal=0.189 Narrow=0.125 Failure=0.231
+  Total Victory Rate=0.769 AliveCount= 1.675 BloodAdvantage=   60.20 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2552.00
+  Legacy: SimpleSuccess=0.455 WeakSuccess=0.314 WinRate=0.769
+--------------------------------------------------------------------------------
+EnvStep=228   EpisodeLength=1194.97 Return=2.49
+  Victory Breakdown: Complete=0.437 Great=0.026 Normal=0.194 Narrow=0.117 Failure=0.225
+  Total Victory Rate=0.775 AliveCount= 1.693 BloodAdvantage=   62.80 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2581.00
+  Legacy: SimpleSuccess=0.463 WeakSuccess=0.311 WinRate=0.775
+--------------------------------------------------------------------------------
+EnvStep=229   EpisodeLength=1200.17 Return=2.49
+  Victory Breakdown: Complete=0.434 Great=0.027 Normal=0.178 Narrow=0.123 Failure=0.237
+  Total Victory Rate=0.763 AliveCount= 1.687 BloodAdvantage=   60.43 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2563.00
+  Legacy: SimpleSuccess=0.461 WeakSuccess=0.301 WinRate=0.763
+--------------------------------------------------------------------------------
+EnvStep=230   EpisodeLength=1190.35 Return=2.47
+  Victory Breakdown: Complete=0.437 Great=0.029 Normal=0.177 Narrow=0.117 Failure=0.240
+  Total Victory Rate=0.760 AliveCount= 1.686 BloodAdvantage=   60.02 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2624.00
+  Legacy: SimpleSuccess=0.465 WeakSuccess=0.294 WinRate=0.760
+--------------------------------------------------------------------------------
+EnvStep=231   EpisodeLength=1188.64 Return=2.49
+  Victory Breakdown: Complete=0.434 Great=0.028 Normal=0.180 Narrow=0.120 Failure=0.239
+  Total Victory Rate=0.761 AliveCount= 1.673 BloodAdvantage=   60.24 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2630.00
+  Legacy: SimpleSuccess=0.462 WeakSuccess=0.300 WinRate=0.761
+--------------------------------------------------------------------------------
+EnvStep=232   EpisodeLength=1199.80 Return=2.51
+  Victory Breakdown: Complete=0.430 Great=0.029 Normal=0.189 Narrow=0.124 Failure=0.228
+  Total Victory Rate=0.772 AliveCount= 1.690 BloodAdvantage=   60.80 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2604.00
+  Legacy: SimpleSuccess=0.459 WeakSuccess=0.313 WinRate=0.772
+--------------------------------------------------------------------------------
+EnvStep=233   EpisodeLength=1204.66 Return=2.52
+  Victory Breakdown: Complete=0.441 Great=0.027 Normal=0.185 Narrow=0.112 Failure=0.236
+  Total Victory Rate=0.764 AliveCount= 1.685 BloodAdvantage=   60.10 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2599.00
+  Legacy: SimpleSuccess=0.468 WeakSuccess=0.297 WinRate=0.764
+--------------------------------------------------------------------------------
+EnvStep=234   EpisodeLength=1213.21 Return=2.51
+  Victory Breakdown: Complete=0.419 Great=0.020 Normal=0.202 Narrow=0.121 Failure=0.238
+  Total Victory Rate=0.762 AliveCount= 1.693 BloodAdvantage=   59.70 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2425.00
+  Legacy: SimpleSuccess=0.439 WeakSuccess=0.323 WinRate=0.762
+--------------------------------------------------------------------------------
+EnvStep=235   EpisodeLength=1209.46 Return=2.50
+  Victory Breakdown: Complete=0.423 Great=0.025 Normal=0.191 Narrow=0.125 Failure=0.236
+  Total Victory Rate=0.764 AliveCount= 1.687 BloodAdvantage=   59.55 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2541.00
+  Legacy: SimpleSuccess=0.448 WeakSuccess=0.316 WinRate=0.764
+--------------------------------------------------------------------------------
+EnvStep=236   EpisodeLength=1202.73 Return=2.50
+  Victory Breakdown: Complete=0.421 Great=0.027 Normal=0.196 Narrow=0.127 Failure=0.230
+  Total Victory Rate=0.770 AliveCount= 1.690 BloodAdvantage=   60.81 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2556.00
+  Legacy: SimpleSuccess=0.447 WeakSuccess=0.323 WinRate=0.770
+--------------------------------------------------------------------------------
+EnvStep=237   EpisodeLength=1214.32 Return=2.51
+  Victory Breakdown: Complete=0.418 Great=0.029 Normal=0.191 Narrow=0.123 Failure=0.239
+  Total Victory Rate=0.761 AliveCount= 1.688 BloodAdvantage=   59.03 EnemiesLocked= 0.20
+  EnemiesKilled/Episode=2531.00
+  Legacy: SimpleSuccess=0.447 WeakSuccess=0.314 WinRate=0.761
+--------------------------------------------------------------------------------
+EnvStep=238   EpisodeLength=1219.03 Return=2.53
+  Victory Breakdown: Complete=0.435 Great=0.024 Normal=0.192 Narrow=0.120 Failure=0.230
+  Total Victory Rate=0.770 AliveCount= 1.698 BloodAdvantage=   60.71 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2513.00
+  Legacy: SimpleSuccess=0.459 WeakSuccess=0.312 WinRate=0.770
+--------------------------------------------------------------------------------
+EnvStep=239   EpisodeLength=1215.52 Return=2.54
+  Victory Breakdown: Complete=0.433 Great=0.024 Normal=0.181 Narrow=0.128 Failure=0.234
+  Total Victory Rate=0.766 AliveCount= 1.695 BloodAdvantage=   60.79 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2542.00
+  Legacy: SimpleSuccess=0.457 WeakSuccess=0.309 WinRate=0.766
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 240
+EnvStep=240   EpisodeLength=1150.49 Return=2.46
+  Victory Breakdown: Complete=0.446 Great=0.029 Normal=0.172 Narrow=0.110 Failure=0.242
+  Total Victory Rate=0.758 AliveCount= 1.664 BloodAdvantage=   61.50 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2413.00
+  Legacy: SimpleSuccess=0.475 WeakSuccess=0.283 WinRate=0.758
+--------------------------------------------------------------------------------
+EnvStep=241   EpisodeLength=1166.85 Return=2.50
+  Victory Breakdown: Complete=0.452 Great=0.028 Normal=0.177 Narrow=0.116 Failure=0.227
+  Total Victory Rate=0.773 AliveCount= 1.675 BloodAdvantage=   62.95 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2505.00
+  Legacy: SimpleSuccess=0.480 WeakSuccess=0.293 WinRate=0.773
+--------------------------------------------------------------------------------
+EnvStep=242   EpisodeLength=1184.08 Return=2.51
+  Victory Breakdown: Complete=0.447 Great=0.023 Normal=0.174 Narrow=0.124 Failure=0.232
+  Total Victory Rate=0.768 AliveCount= 1.687 BloodAdvantage=   61.64 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2522.00
+  Legacy: SimpleSuccess=0.470 WeakSuccess=0.298 WinRate=0.768
+--------------------------------------------------------------------------------
+EnvStep=243   EpisodeLength=1174.37 Return=2.51
+  Victory Breakdown: Complete=0.452 Great=0.027 Normal=0.182 Narrow=0.116 Failure=0.222
+  Total Victory Rate=0.778 AliveCount= 1.697 BloodAdvantage=   61.83 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2649.00
+  Legacy: SimpleSuccess=0.479 WeakSuccess=0.298 WinRate=0.778
+--------------------------------------------------------------------------------
+EnvStep=244   EpisodeLength=1176.46 Return=2.54
+  Victory Breakdown: Complete=0.458 Great=0.021 Normal=0.178 Narrow=0.118 Failure=0.224
+  Total Victory Rate=0.776 AliveCount= 1.700 BloodAdvantage=   62.89 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2718.00
+  Legacy: SimpleSuccess=0.479 WeakSuccess=0.296 WinRate=0.776
+--------------------------------------------------------------------------------
+EnvStep=245   EpisodeLength=1177.14 Return=2.53
+  Victory Breakdown: Complete=0.450 Great=0.024 Normal=0.188 Narrow=0.115 Failure=0.223
+  Total Victory Rate=0.777 AliveCount= 1.700 BloodAdvantage=   63.13 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2689.00
+  Legacy: SimpleSuccess=0.474 WeakSuccess=0.303 WinRate=0.777
+--------------------------------------------------------------------------------
+EnvStep=246   EpisodeLength=1192.41 Return=2.53
+  Victory Breakdown: Complete=0.443 Great=0.026 Normal=0.188 Narrow=0.118 Failure=0.225
+  Total Victory Rate=0.775 AliveCount= 1.703 BloodAdvantage=   60.91 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2635.00
+  Legacy: SimpleSuccess=0.469 WeakSuccess=0.306 WinRate=0.775
+--------------------------------------------------------------------------------
+EnvStep=247   EpisodeLength=1194.64 Return=2.53
+  Victory Breakdown: Complete=0.444 Great=0.028 Normal=0.189 Narrow=0.113 Failure=0.226
+  Total Victory Rate=0.774 AliveCount= 1.696 BloodAdvantage=   62.57 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2638.00
+  Legacy: SimpleSuccess=0.471 WeakSuccess=0.303 WinRate=0.774
+--------------------------------------------------------------------------------
+EnvStep=248   EpisodeLength=1185.80 Return=2.54
+  Victory Breakdown: Complete=0.446 Great=0.021 Normal=0.200 Narrow=0.107 Failure=0.226
+  Total Victory Rate=0.774 AliveCount= 1.701 BloodAdvantage=   62.58 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2696.00
+  Legacy: SimpleSuccess=0.468 WeakSuccess=0.306 WinRate=0.774
+--------------------------------------------------------------------------------
+EnvStep=249   EpisodeLength=1187.37 Return=2.50
+  Victory Breakdown: Complete=0.432 Great=0.026 Normal=0.196 Narrow=0.112 Failure=0.234
+  Total Victory Rate=0.766 AliveCount= 1.684 BloodAdvantage=   60.55 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2632.00
+  Legacy: SimpleSuccess=0.458 WeakSuccess=0.309 WinRate=0.766
+--------------------------------------------------------------------------------
+EnvStep=250   EpisodeLength=1187.07 Return=2.52
+  Victory Breakdown: Complete=0.439 Great=0.026 Normal=0.187 Narrow=0.118 Failure=0.229
+  Total Victory Rate=0.771 AliveCount= 1.691 BloodAdvantage=   61.44 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2681.00
+  Legacy: SimpleSuccess=0.466 WeakSuccess=0.305 WinRate=0.771
+--------------------------------------------------------------------------------
+EnvStep=251   EpisodeLength=1197.15 Return=2.53
+  Victory Breakdown: Complete=0.435 Great=0.026 Normal=0.188 Narrow=0.121 Failure=0.231
+  Total Victory Rate=0.769 AliveCount= 1.692 BloodAdvantage=   59.53 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2574.00
+  Legacy: SimpleSuccess=0.461 WeakSuccess=0.308 WinRate=0.769
+--------------------------------------------------------------------------------
+EnvStep=252   EpisodeLength=1194.00 Return=2.54
+  Victory Breakdown: Complete=0.442 Great=0.027 Normal=0.192 Narrow=0.114 Failure=0.225
+  Total Victory Rate=0.775 AliveCount= 1.704 BloodAdvantage=   60.91 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2663.00
+  Legacy: SimpleSuccess=0.469 WeakSuccess=0.305 WinRate=0.775
+--------------------------------------------------------------------------------
+EnvStep=253   EpisodeLength=1181.66 Return=2.54
+  Victory Breakdown: Complete=0.459 Great=0.023 Normal=0.180 Narrow=0.115 Failure=0.223
+  Total Victory Rate=0.777 AliveCount= 1.700 BloodAdvantage=   63.20 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2760.00
+  Legacy: SimpleSuccess=0.482 WeakSuccess=0.296 WinRate=0.777
+--------------------------------------------------------------------------------
+EnvStep=254   EpisodeLength=1178.37 Return=2.54
+  Victory Breakdown: Complete=0.454 Great=0.023 Normal=0.187 Narrow=0.113 Failure=0.223
+  Total Victory Rate=0.777 AliveCount= 1.698 BloodAdvantage=   63.75 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2757.00
+  Legacy: SimpleSuccess=0.477 WeakSuccess=0.300 WinRate=0.777
+--------------------------------------------------------------------------------
+EnvStep=255   EpisodeLength=1190.71 Return=2.55
+  Victory Breakdown: Complete=0.450 Great=0.023 Normal=0.193 Narrow=0.107 Failure=0.226
+  Total Victory Rate=0.774 AliveCount= 1.707 BloodAdvantage=   63.54 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2712.00
+  Legacy: SimpleSuccess=0.473 WeakSuccess=0.301 WinRate=0.774
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 256
+EnvStep=256   EpisodeLength=1126.82 Return=2.50
+  Victory Breakdown: Complete=0.484 Great=0.029 Normal=0.175 Narrow=0.093 Failure=0.220
+  Total Victory Rate=0.780 AliveCount= 1.693 BloodAdvantage=   67.01 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2591.00
+  Legacy: SimpleSuccess=0.513 WeakSuccess=0.267 WinRate=0.780
+--------------------------------------------------------------------------------
+EnvStep=257   EpisodeLength=1146.63 Return=2.50
+  Victory Breakdown: Complete=0.472 Great=0.025 Normal=0.170 Narrow=0.100 Failure=0.232
+  Total Victory Rate=0.768 AliveCount= 1.686 BloodAdvantage=   65.21 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2706.00
+  Legacy: SimpleSuccess=0.497 WeakSuccess=0.271 WinRate=0.768
+--------------------------------------------------------------------------------
+EnvStep=258   EpisodeLength=1172.14 Return=2.54
+  Victory Breakdown: Complete=0.465 Great=0.020 Normal=0.182 Narrow=0.111 Failure=0.221
+  Total Victory Rate=0.779 AliveCount= 1.699 BloodAdvantage=   64.29 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2671.00
+  Legacy: SimpleSuccess=0.486 WeakSuccess=0.293 WinRate=0.779
+--------------------------------------------------------------------------------
+EnvStep=259   EpisodeLength=1174.14 Return=2.56
+  Victory Breakdown: Complete=0.461 Great=0.022 Normal=0.180 Narrow=0.111 Failure=0.226
+  Total Victory Rate=0.774 AliveCount= 1.708 BloodAdvantage=   64.04 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2701.00
+  Legacy: SimpleSuccess=0.483 WeakSuccess=0.291 WinRate=0.774
+--------------------------------------------------------------------------------
+EnvStep=260   EpisodeLength=1187.38 Return=2.57
+  Victory Breakdown: Complete=0.460 Great=0.024 Normal=0.188 Narrow=0.113 Failure=0.214
+  Total Victory Rate=0.786 AliveCount= 1.710 BloodAdvantage=   64.38 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2690.00
+  Legacy: SimpleSuccess=0.484 WeakSuccess=0.301 WinRate=0.786
+--------------------------------------------------------------------------------
+EnvStep=261   EpisodeLength=1194.49 Return=2.57
+  Victory Breakdown: Complete=0.448 Great=0.023 Normal=0.193 Narrow=0.118 Failure=0.218
+  Total Victory Rate=0.782 AliveCount= 1.718 BloodAdvantage=   62.98 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2612.00
+  Legacy: SimpleSuccess=0.470 WeakSuccess=0.312 WinRate=0.782
+--------------------------------------------------------------------------------
+EnvStep=262   EpisodeLength=1202.66 Return=2.56
+  Victory Breakdown: Complete=0.446 Great=0.023 Normal=0.180 Narrow=0.125 Failure=0.226
+  Total Victory Rate=0.774 AliveCount= 1.702 BloodAdvantage=   62.40 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2591.00
+  Legacy: SimpleSuccess=0.469 WeakSuccess=0.305 WinRate=0.774
+--------------------------------------------------------------------------------
+EnvStep=263   EpisodeLength=1187.80 Return=2.52
+  Victory Breakdown: Complete=0.437 Great=0.025 Normal=0.180 Narrow=0.127 Failure=0.231
+  Total Victory Rate=0.769 AliveCount= 1.689 BloodAdvantage=   61.77 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2661.00
+  Legacy: SimpleSuccess=0.462 WeakSuccess=0.307 WinRate=0.769
+--------------------------------------------------------------------------------
+EnvStep=264   EpisodeLength=1193.12 Return=2.55
+  Victory Breakdown: Complete=0.443 Great=0.024 Normal=0.189 Narrow=0.121 Failure=0.223
+  Total Victory Rate=0.777 AliveCount= 1.701 BloodAdvantage=   62.32 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2635.00
+  Legacy: SimpleSuccess=0.467 WeakSuccess=0.310 WinRate=0.777
+--------------------------------------------------------------------------------
+EnvStep=265   EpisodeLength=1196.47 Return=2.55
+  Victory Breakdown: Complete=0.437 Great=0.028 Normal=0.197 Narrow=0.112 Failure=0.227
+  Total Victory Rate=0.773 AliveCount= 1.697 BloodAdvantage=   62.10 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2644.00
+  Legacy: SimpleSuccess=0.464 WeakSuccess=0.308 WinRate=0.773
+--------------------------------------------------------------------------------
+EnvStep=266   EpisodeLength=1178.86 Return=2.54
+  Victory Breakdown: Complete=0.455 Great=0.026 Normal=0.180 Narrow=0.118 Failure=0.221
+  Total Victory Rate=0.779 AliveCount= 1.704 BloodAdvantage=   63.47 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2751.00
+  Legacy: SimpleSuccess=0.481 WeakSuccess=0.298 WinRate=0.779
+--------------------------------------------------------------------------------
+EnvStep=267   EpisodeLength=1187.49 Return=2.53
+  Victory Breakdown: Complete=0.438 Great=0.025 Normal=0.180 Narrow=0.127 Failure=0.230
+  Total Victory Rate=0.770 AliveCount= 1.691 BloodAdvantage=   61.18 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2662.00
+  Legacy: SimpleSuccess=0.463 WeakSuccess=0.307 WinRate=0.770
+--------------------------------------------------------------------------------
+EnvStep=268   EpisodeLength=1185.64 Return=2.56
+  Victory Breakdown: Complete=0.445 Great=0.026 Normal=0.179 Narrow=0.123 Failure=0.227
+  Total Victory Rate=0.773 AliveCount= 1.700 BloodAdvantage=   62.30 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2719.00
+  Legacy: SimpleSuccess=0.470 WeakSuccess=0.303 WinRate=0.773
+--------------------------------------------------------------------------------
+EnvStep=269   EpisodeLength=1202.78 Return=2.57
+  Victory Breakdown: Complete=0.441 Great=0.020 Normal=0.189 Narrow=0.120 Failure=0.231
+  Total Victory Rate=0.769 AliveCount= 1.707 BloodAdvantage=   61.12 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2577.00
+  Legacy: SimpleSuccess=0.460 WeakSuccess=0.309 WinRate=0.769
+--------------------------------------------------------------------------------
+EnvStep=270   EpisodeLength=1204.19 Return=2.56
+  Victory Breakdown: Complete=0.434 Great=0.025 Normal=0.188 Narrow=0.128 Failure=0.226
+  Total Victory Rate=0.774 AliveCount= 1.704 BloodAdvantage=   60.88 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2553.00
+  Legacy: SimpleSuccess=0.458 WeakSuccess=0.316 WinRate=0.774
+--------------------------------------------------------------------------------
+EnvStep=271   EpisodeLength=1193.42 Return=2.55
+  Victory Breakdown: Complete=0.439 Great=0.024 Normal=0.193 Narrow=0.121 Failure=0.223
+  Total Victory Rate=0.777 AliveCount= 1.704 BloodAdvantage=   61.89 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2629.00
+  Legacy: SimpleSuccess=0.463 WeakSuccess=0.313 WinRate=0.777
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 272
+EnvStep=272   EpisodeLength=1145.80 Return=2.48
+  Victory Breakdown: Complete=0.452 Great=0.030 Normal=0.173 Narrow=0.118 Failure=0.227
+  Total Victory Rate=0.773 AliveCount= 1.680 BloodAdvantage=   63.24 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2424.00
+  Legacy: SimpleSuccess=0.482 WeakSuccess=0.291 WinRate=0.773
+--------------------------------------------------------------------------------
+EnvStep=273   EpisodeLength=1164.23 Return=2.48
+  Victory Breakdown: Complete=0.447 Great=0.026 Normal=0.182 Narrow=0.114 Failure=0.231
+  Total Victory Rate=0.769 AliveCount= 1.688 BloodAdvantage=   62.48 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2521.00
+  Legacy: SimpleSuccess=0.473 WeakSuccess=0.296 WinRate=0.769
+--------------------------------------------------------------------------------
+EnvStep=274   EpisodeLength=1180.67 Return=2.52
+  Victory Breakdown: Complete=0.447 Great=0.023 Normal=0.188 Narrow=0.117 Failure=0.225
+  Total Victory Rate=0.775 AliveCount= 1.686 BloodAdvantage=   62.36 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2547.00
+  Legacy: SimpleSuccess=0.470 WeakSuccess=0.305 WinRate=0.775
+--------------------------------------------------------------------------------
+EnvStep=275   EpisodeLength=1180.21 Return=2.51
+  Victory Breakdown: Complete=0.445 Great=0.023 Normal=0.187 Narrow=0.115 Failure=0.230
+  Total Victory Rate=0.770 AliveCount= 1.692 BloodAdvantage=   62.45 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2612.00
+  Legacy: SimpleSuccess=0.468 WeakSuccess=0.302 WinRate=0.770
+--------------------------------------------------------------------------------
+EnvStep=276   EpisodeLength=1182.59 Return=2.54
+  Victory Breakdown: Complete=0.456 Great=0.030 Normal=0.181 Narrow=0.109 Failure=0.225
+  Total Victory Rate=0.775 AliveCount= 1.695 BloodAdvantage=   63.05 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2693.00
+  Legacy: SimpleSuccess=0.485 WeakSuccess=0.290 WinRate=0.775
+--------------------------------------------------------------------------------
+EnvStep=277   EpisodeLength=1194.11 Return=2.54
+  Victory Breakdown: Complete=0.445 Great=0.027 Normal=0.181 Narrow=0.123 Failure=0.224
+  Total Victory Rate=0.776 AliveCount= 1.701 BloodAdvantage=   62.25 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2589.00
+  Legacy: SimpleSuccess=0.472 WeakSuccess=0.304 WinRate=0.776
+--------------------------------------------------------------------------------
+EnvStep=278   EpisodeLength=1201.34 Return=2.46
+  Victory Breakdown: Complete=0.413 Great=0.026 Normal=0.208 Narrow=0.113 Failure=0.241
+  Total Victory Rate=0.759 AliveCount= 1.677 BloodAdvantage=   58.44 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2516.00
+  Legacy: SimpleSuccess=0.439 WeakSuccess=0.320 WinRate=0.759
+--------------------------------------------------------------------------------
+EnvStep=279   EpisodeLength=1196.39 Return=2.49
+  Victory Breakdown: Complete=0.419 Great=0.026 Normal=0.201 Narrow=0.118 Failure=0.236
+  Total Victory Rate=0.764 AliveCount= 1.675 BloodAdvantage=   60.00 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2564.00
+  Legacy: SimpleSuccess=0.445 WeakSuccess=0.319 WinRate=0.764
+--------------------------------------------------------------------------------
+EnvStep=280   EpisodeLength=1209.85 Return=2.46
+  Victory Breakdown: Complete=0.413 Great=0.030 Normal=0.192 Narrow=0.115 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.666 BloodAdvantage=   57.33 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2464.00
+  Legacy: SimpleSuccess=0.443 WeakSuccess=0.308 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=281   EpisodeLength=1214.13 Return=2.47
+  Victory Breakdown: Complete=0.396 Great=0.026 Normal=0.214 Narrow=0.124 Failure=0.240
+  Total Victory Rate=0.760 AliveCount= 1.676 BloodAdvantage=   57.68 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2395.00
+  Legacy: SimpleSuccess=0.422 WeakSuccess=0.338 WinRate=0.760
+--------------------------------------------------------------------------------
+EnvStep=282   EpisodeLength=1218.04 Return=2.48
+  Victory Breakdown: Complete=0.395 Great=0.027 Normal=0.208 Narrow=0.131 Failure=0.239
+  Total Victory Rate=0.761 AliveCount= 1.681 BloodAdvantage=   57.76 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2383.00
+  Legacy: SimpleSuccess=0.422 WeakSuccess=0.339 WinRate=0.761
+--------------------------------------------------------------------------------
+EnvStep=283   EpisodeLength=1230.30 Return=2.46
+  Victory Breakdown: Complete=0.390 Great=0.028 Normal=0.211 Narrow=0.117 Failure=0.253
+  Total Victory Rate=0.747 AliveCount= 1.668 BloodAdvantage=   55.78 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2310.00
+  Legacy: SimpleSuccess=0.418 WeakSuccess=0.329 WinRate=0.747
+--------------------------------------------------------------------------------
+EnvStep=284   EpisodeLength=1237.63 Return=2.45
+  Victory Breakdown: Complete=0.378 Great=0.027 Normal=0.200 Narrow=0.133 Failure=0.262
+  Total Victory Rate=0.738 AliveCount= 1.653 BloodAdvantage=   53.52 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2268.00
+  Legacy: SimpleSuccess=0.405 WeakSuccess=0.333 WinRate=0.738
+--------------------------------------------------------------------------------
+EnvStep=285   EpisodeLength=1242.99 Return=2.48
+  Victory Breakdown: Complete=0.388 Great=0.025 Normal=0.210 Narrow=0.131 Failure=0.247
+  Total Victory Rate=0.753 AliveCount= 1.678 BloodAdvantage=   56.66 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2244.00
+  Legacy: SimpleSuccess=0.413 WeakSuccess=0.340 WinRate=0.753
+--------------------------------------------------------------------------------
+EnvStep=286   EpisodeLength=1243.53 Return=2.45
+  Victory Breakdown: Complete=0.376 Great=0.024 Normal=0.215 Narrow=0.126 Failure=0.259
+  Total Victory Rate=0.741 AliveCount= 1.662 BloodAdvantage=   55.39 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2215.00
+  Legacy: SimpleSuccess=0.400 WeakSuccess=0.341 WinRate=0.741
+--------------------------------------------------------------------------------
+EnvStep=287   EpisodeLength=1241.83 Return=2.43
+  Victory Breakdown: Complete=0.383 Great=0.027 Normal=0.211 Narrow=0.118 Failure=0.261
+  Total Victory Rate=0.739 AliveCount= 1.664 BloodAdvantage=   55.44 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2263.00
+  Legacy: SimpleSuccess=0.411 WeakSuccess=0.329 WinRate=0.739
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 288
+EnvStep=288   EpisodeLength=1212.44 Return=2.40
+  Victory Breakdown: Complete=0.384 Great=0.032 Normal=0.208 Narrow=0.121 Failure=0.254
+  Total Victory Rate=0.746 AliveCount= 1.647 BloodAdvantage=   56.26 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2076.00
+  Legacy: SimpleSuccess=0.416 WeakSuccess=0.329 WinRate=0.746
+--------------------------------------------------------------------------------
+EnvStep=289   EpisodeLength=1210.80 Return=2.40
+  Victory Breakdown: Complete=0.400 Great=0.028 Normal=0.205 Narrow=0.120 Failure=0.247
+  Total Victory Rate=0.753 AliveCount= 1.651 BloodAdvantage=   57.46 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2245.00
+  Legacy: SimpleSuccess=0.428 WeakSuccess=0.325 WinRate=0.753
+--------------------------------------------------------------------------------
+EnvStep=290   EpisodeLength=1229.12 Return=2.43
+  Victory Breakdown: Complete=0.390 Great=0.029 Normal=0.213 Narrow=0.122 Failure=0.247
+  Total Victory Rate=0.753 AliveCount= 1.663 BloodAdvantage=   57.18 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2181.00
+  Legacy: SimpleSuccess=0.418 WeakSuccess=0.335 WinRate=0.753
+--------------------------------------------------------------------------------
+EnvStep=291   EpisodeLength=1231.03 Return=2.50
+  Victory Breakdown: Complete=0.403 Great=0.031 Normal=0.202 Narrow=0.126 Failure=0.237
+  Total Victory Rate=0.763 AliveCount= 1.684 BloodAdvantage=   58.64 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2266.00
+  Legacy: SimpleSuccess=0.435 WeakSuccess=0.328 WinRate=0.763
+--------------------------------------------------------------------------------
+EnvStep=292   EpisodeLength=1221.15 Return=2.45
+  Victory Breakdown: Complete=0.390 Great=0.027 Normal=0.206 Narrow=0.128 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.666 BloodAdvantage=   57.03 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2285.00
+  Legacy: SimpleSuccess=0.417 WeakSuccess=0.335 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=293   EpisodeLength=1221.59 Return=2.40
+  Victory Breakdown: Complete=0.382 Great=0.032 Normal=0.193 Narrow=0.133 Failure=0.260
+  Total Victory Rate=0.740 AliveCount= 1.644 BloodAdvantage=   55.14 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2342.00
+  Legacy: SimpleSuccess=0.414 WeakSuccess=0.326 WinRate=0.740
+--------------------------------------------------------------------------------
+EnvStep=294   EpisodeLength=1230.98 Return=2.46
+  Victory Breakdown: Complete=0.384 Great=0.025 Normal=0.205 Narrow=0.136 Failure=0.251
+  Total Victory Rate=0.749 AliveCount= 1.670 BloodAdvantage=   56.10 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2275.00
+  Legacy: SimpleSuccess=0.409 WeakSuccess=0.340 WinRate=0.749
+--------------------------------------------------------------------------------
+EnvStep=295   EpisodeLength=1224.42 Return=2.45
+  Victory Breakdown: Complete=0.394 Great=0.026 Normal=0.198 Narrow=0.125 Failure=0.257
+  Total Victory Rate=0.743 AliveCount= 1.661 BloodAdvantage=   56.40 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2357.00
+  Legacy: SimpleSuccess=0.420 WeakSuccess=0.323 WinRate=0.743
+--------------------------------------------------------------------------------
+EnvStep=296   EpisodeLength=1226.23 Return=2.39
+  Victory Breakdown: Complete=0.381 Great=0.022 Normal=0.195 Narrow=0.133 Failure=0.269
+  Total Victory Rate=0.731 AliveCount= 1.646 BloodAdvantage=   52.37 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2254.00
+  Legacy: SimpleSuccess=0.403 WeakSuccess=0.328 WinRate=0.731
+--------------------------------------------------------------------------------
+EnvStep=297   EpisodeLength=1231.78 Return=2.44
+  Victory Breakdown: Complete=0.391 Great=0.029 Normal=0.201 Narrow=0.125 Failure=0.254
+  Total Victory Rate=0.746 AliveCount= 1.653 BloodAdvantage=   55.88 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2385.00
+  Legacy: SimpleSuccess=0.420 WeakSuccess=0.326 WinRate=0.746
+--------------------------------------------------------------------------------
+EnvStep=298   EpisodeLength=1229.24 Return=2.42
+  Victory Breakdown: Complete=0.385 Great=0.025 Normal=0.198 Narrow=0.131 Failure=0.262
+  Total Victory Rate=0.738 AliveCount= 1.657 BloodAdvantage=   55.23 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2296.00
+  Legacy: SimpleSuccess=0.410 WeakSuccess=0.329 WinRate=0.738
+--------------------------------------------------------------------------------
+EnvStep=299   EpisodeLength=1239.90 Return=2.46
+  Victory Breakdown: Complete=0.383 Great=0.025 Normal=0.209 Narrow=0.127 Failure=0.256
+  Total Victory Rate=0.744 AliveCount= 1.667 BloodAdvantage=   56.29 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2269.00
+  Legacy: SimpleSuccess=0.408 WeakSuccess=0.336 WinRate=0.744
+--------------------------------------------------------------------------------
+EnvStep=300   EpisodeLength=1232.62 Return=2.46
+  Victory Breakdown: Complete=0.384 Great=0.033 Normal=0.211 Narrow=0.124 Failure=0.247
+  Total Victory Rate=0.753 AliveCount= 1.665 BloodAdvantage=   57.18 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2346.00
+  Legacy: SimpleSuccess=0.418 WeakSuccess=0.335 WinRate=0.753
+--------------------------------------------------------------------------------
+EnvStep=301   EpisodeLength=1234.01 Return=2.41
+  Victory Breakdown: Complete=0.384 Great=0.029 Normal=0.191 Narrow=0.126 Failure=0.270
+  Total Victory Rate=0.730 AliveCount= 1.636 BloodAdvantage=   54.22 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2332.00
+  Legacy: SimpleSuccess=0.413 WeakSuccess=0.317 WinRate=0.730
+--------------------------------------------------------------------------------
+EnvStep=302   EpisodeLength=1239.40 Return=2.45
+  Victory Breakdown: Complete=0.383 Great=0.032 Normal=0.212 Narrow=0.134 Failure=0.239
+  Total Victory Rate=0.761 AliveCount= 1.669 BloodAdvantage=   58.04 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2286.00
+  Legacy: SimpleSuccess=0.415 WeakSuccess=0.346 WinRate=0.761
+--------------------------------------------------------------------------------
+EnvStep=303   EpisodeLength=1238.10 Return=2.46
+  Victory Breakdown: Complete=0.393 Great=0.028 Normal=0.200 Narrow=0.126 Failure=0.253
+  Total Victory Rate=0.747 AliveCount= 1.664 BloodAdvantage=   57.10 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2346.00
+  Legacy: SimpleSuccess=0.421 WeakSuccess=0.326 WinRate=0.747
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 304
+EnvStep=304   EpisodeLength=1195.31 Return=2.38
+  Victory Breakdown: Complete=0.388 Great=0.029 Normal=0.195 Narrow=0.132 Failure=0.256
+  Total Victory Rate=0.744 AliveCount= 1.645 BloodAdvantage=   57.19 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2148.00
+  Legacy: SimpleSuccess=0.417 WeakSuccess=0.327 WinRate=0.744
+--------------------------------------------------------------------------------
+EnvStep=305   EpisodeLength=1198.49 Return=2.43
+  Victory Breakdown: Complete=0.407 Great=0.033 Normal=0.180 Narrow=0.130 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.662 BloodAdvantage=   58.06 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2276.00
+  Legacy: SimpleSuccess=0.440 WeakSuccess=0.311 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=306   EpisodeLength=1208.16 Return=2.44
+  Victory Breakdown: Complete=0.404 Great=0.032 Normal=0.191 Narrow=0.122 Failure=0.251
+  Total Victory Rate=0.749 AliveCount= 1.661 BloodAdvantage=   56.56 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2318.00
+  Legacy: SimpleSuccess=0.436 WeakSuccess=0.313 WinRate=0.749
+--------------------------------------------------------------------------------
+EnvStep=307   EpisodeLength=1204.87 Return=2.50
+  Victory Breakdown: Complete=0.423 Great=0.026 Normal=0.191 Narrow=0.126 Failure=0.234
+  Total Victory Rate=0.766 AliveCount= 1.684 BloodAdvantage=   60.58 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2429.00
+  Legacy: SimpleSuccess=0.449 WeakSuccess=0.317 WinRate=0.766
+--------------------------------------------------------------------------------
+EnvStep=308   EpisodeLength=1200.25 Return=2.46
+  Victory Breakdown: Complete=0.421 Great=0.027 Normal=0.189 Narrow=0.120 Failure=0.243
+  Total Victory Rate=0.757 AliveCount= 1.667 BloodAdvantage=   58.63 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2481.00
+  Legacy: SimpleSuccess=0.448 WeakSuccess=0.309 WinRate=0.757
+--------------------------------------------------------------------------------
+EnvStep=309   EpisodeLength=1203.27 Return=2.51
+  Victory Breakdown: Complete=0.426 Great=0.030 Normal=0.185 Narrow=0.128 Failure=0.230
+  Total Victory Rate=0.770 AliveCount= 1.689 BloodAdvantage=   61.43 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2548.00
+  Legacy: SimpleSuccess=0.456 WeakSuccess=0.314 WinRate=0.770
+--------------------------------------------------------------------------------
+EnvStep=310   EpisodeLength=1205.40 Return=2.48
+  Victory Breakdown: Complete=0.414 Great=0.028 Normal=0.188 Narrow=0.132 Failure=0.239
+  Total Victory Rate=0.761 AliveCount= 1.684 BloodAdvantage=   59.20 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2471.00
+  Legacy: SimpleSuccess=0.441 WeakSuccess=0.320 WinRate=0.761
+--------------------------------------------------------------------------------
+EnvStep=311   EpisodeLength=1215.10 Return=2.46
+  Victory Breakdown: Complete=0.408 Great=0.030 Normal=0.198 Narrow=0.128 Failure=0.236
+  Total Victory Rate=0.764 AliveCount= 1.679 BloodAdvantage=   59.06 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2453.00
+  Legacy: SimpleSuccess=0.438 WeakSuccess=0.326 WinRate=0.764
+--------------------------------------------------------------------------------
+EnvStep=312   EpisodeLength=1197.45 Return=2.47
+  Victory Breakdown: Complete=0.424 Great=0.027 Normal=0.188 Narrow=0.129 Failure=0.231
+  Total Victory Rate=0.769 AliveCount= 1.686 BloodAdvantage=   60.91 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2557.00
+  Legacy: SimpleSuccess=0.451 WeakSuccess=0.317 WinRate=0.769
+--------------------------------------------------------------------------------
+EnvStep=313   EpisodeLength=1198.12 Return=2.49
+  Victory Breakdown: Complete=0.425 Great=0.030 Normal=0.191 Narrow=0.124 Failure=0.230
+  Total Victory Rate=0.770 AliveCount= 1.678 BloodAdvantage=   60.92 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2597.00
+  Legacy: SimpleSuccess=0.455 WeakSuccess=0.315 WinRate=0.770
+--------------------------------------------------------------------------------
+EnvStep=314   EpisodeLength=1207.41 Return=2.49
+  Victory Breakdown: Complete=0.422 Great=0.028 Normal=0.193 Narrow=0.122 Failure=0.235
+  Total Victory Rate=0.765 AliveCount= 1.685 BloodAdvantage=   60.59 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2530.00
+  Legacy: SimpleSuccess=0.450 WeakSuccess=0.315 WinRate=0.765
+--------------------------------------------------------------------------------
+EnvStep=315   EpisodeLength=1207.44 Return=2.49
+  Victory Breakdown: Complete=0.415 Great=0.024 Normal=0.203 Narrow=0.117 Failure=0.240
+  Total Victory Rate=0.760 AliveCount= 1.681 BloodAdvantage=   60.58 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2469.00
+  Legacy: SimpleSuccess=0.439 WeakSuccess=0.321 WinRate=0.760
+--------------------------------------------------------------------------------
+EnvStep=316   EpisodeLength=1220.22 Return=2.51
+  Victory Breakdown: Complete=0.424 Great=0.024 Normal=0.194 Narrow=0.124 Failure=0.234
+  Total Victory Rate=0.766 AliveCount= 1.684 BloodAdvantage=   60.04 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2490.00
+  Legacy: SimpleSuccess=0.448 WeakSuccess=0.318 WinRate=0.766
+--------------------------------------------------------------------------------
+EnvStep=317   EpisodeLength=1209.46 Return=2.45
+  Victory Breakdown: Complete=0.406 Great=0.027 Normal=0.203 Narrow=0.117 Failure=0.247
+  Total Victory Rate=0.753 AliveCount= 1.669 BloodAdvantage=   58.63 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2495.00
+  Legacy: SimpleSuccess=0.433 WeakSuccess=0.320 WinRate=0.753
+--------------------------------------------------------------------------------
+EnvStep=318   EpisodeLength=1204.38 Return=2.48
+  Victory Breakdown: Complete=0.420 Great=0.026 Normal=0.196 Narrow=0.116 Failure=0.242
+  Total Victory Rate=0.758 AliveCount= 1.680 BloodAdvantage=   59.69 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2509.00
+  Legacy: SimpleSuccess=0.446 WeakSuccess=0.312 WinRate=0.758
+--------------------------------------------------------------------------------
+EnvStep=319   EpisodeLength=1205.59 Return=2.51
+  Victory Breakdown: Complete=0.425 Great=0.027 Normal=0.200 Narrow=0.116 Failure=0.232
+  Total Victory Rate=0.768 AliveCount= 1.690 BloodAdvantage=   61.54 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2543.00
+  Legacy: SimpleSuccess=0.452 WeakSuccess=0.316 WinRate=0.768
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 320
+EnvStep=320   EpisodeLength=1142.00 Return=2.41
+  Victory Breakdown: Complete=0.448 Great=0.028 Normal=0.172 Narrow=0.104 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.644 BloodAdvantage=   61.15 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2457.00
+  Legacy: SimpleSuccess=0.475 WeakSuccess=0.276 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=321   EpisodeLength=1179.60 Return=2.50
+  Victory Breakdown: Complete=0.443 Great=0.023 Normal=0.188 Narrow=0.108 Failure=0.238
+  Total Victory Rate=0.762 AliveCount= 1.678 BloodAdvantage=   61.93 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2459.00
+  Legacy: SimpleSuccess=0.466 WeakSuccess=0.296 WinRate=0.762
+--------------------------------------------------------------------------------
+EnvStep=322   EpisodeLength=1185.12 Return=2.48
+  Victory Breakdown: Complete=0.431 Great=0.027 Normal=0.187 Narrow=0.119 Failure=0.236
+  Total Victory Rate=0.764 AliveCount= 1.675 BloodAdvantage=   61.27 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2473.00
+  Legacy: SimpleSuccess=0.458 WeakSuccess=0.306 WinRate=0.764
+--------------------------------------------------------------------------------
+EnvStep=323   EpisodeLength=1196.77 Return=2.48
+  Victory Breakdown: Complete=0.426 Great=0.030 Normal=0.193 Narrow=0.119 Failure=0.231
+  Total Victory Rate=0.769 AliveCount= 1.670 BloodAdvantage=   61.69 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2473.00
+  Legacy: SimpleSuccess=0.456 WeakSuccess=0.313 WinRate=0.769
+--------------------------------------------------------------------------------
+EnvStep=324   EpisodeLength=1223.42 Return=2.53
+  Victory Breakdown: Complete=0.419 Great=0.025 Normal=0.204 Narrow=0.116 Failure=0.236
+  Total Victory Rate=0.764 AliveCount= 1.690 BloodAdvantage=   60.82 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2382.00
+  Legacy: SimpleSuccess=0.444 WeakSuccess=0.320 WinRate=0.764
+--------------------------------------------------------------------------------
+EnvStep=325   EpisodeLength=1214.93 Return=2.47
+  Victory Breakdown: Complete=0.407 Great=0.031 Normal=0.206 Narrow=0.121 Failure=0.235
+  Total Victory Rate=0.765 AliveCount= 1.666 BloodAdvantage=   60.00 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2469.00
+  Legacy: SimpleSuccess=0.438 WeakSuccess=0.327 WinRate=0.765
+--------------------------------------------------------------------------------
+EnvStep=326   EpisodeLength=1245.50 Return=2.51
+  Victory Breakdown: Complete=0.383 Great=0.025 Normal=0.226 Narrow=0.128 Failure=0.237
+  Total Victory Rate=0.763 AliveCount= 1.685 BloodAdvantage=   59.20 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2253.00
+  Legacy: SimpleSuccess=0.409 WeakSuccess=0.354 WinRate=0.763
+--------------------------------------------------------------------------------
+EnvStep=327   EpisodeLength=1243.43 Return=2.49
+  Victory Breakdown: Complete=0.381 Great=0.024 Normal=0.221 Narrow=0.126 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.679 BloodAdvantage=   57.66 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2236.00
+  Legacy: SimpleSuccess=0.405 WeakSuccess=0.347 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=328   EpisodeLength=1244.22 Return=2.48
+  Victory Breakdown: Complete=0.382 Great=0.025 Normal=0.219 Narrow=0.126 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.675 BloodAdvantage=   57.96 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2290.00
+  Legacy: SimpleSuccess=0.407 WeakSuccess=0.344 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=329   EpisodeLength=1243.43 Return=2.47
+  Victory Breakdown: Complete=0.383 Great=0.026 Normal=0.224 Narrow=0.122 Failure=0.245
+  Total Victory Rate=0.755 AliveCount= 1.674 BloodAdvantage=   56.88 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2269.00
+  Legacy: SimpleSuccess=0.409 WeakSuccess=0.346 WinRate=0.755
+--------------------------------------------------------------------------------
+EnvStep=330   EpisodeLength=1241.75 Return=2.45
+  Victory Breakdown: Complete=0.380 Great=0.027 Normal=0.217 Narrow=0.121 Failure=0.255
+  Total Victory Rate=0.745 AliveCount= 1.650 BloodAdvantage=   55.74 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2238.00
+  Legacy: SimpleSuccess=0.407 WeakSuccess=0.338 WinRate=0.745
+--------------------------------------------------------------------------------
+EnvStep=331   EpisodeLength=1239.83 Return=2.43
+  Victory Breakdown: Complete=0.379 Great=0.028 Normal=0.209 Narrow=0.116 Failure=0.269
+  Total Victory Rate=0.731 AliveCount= 1.653 BloodAdvantage=   55.55 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2265.00
+  Legacy: SimpleSuccess=0.407 WeakSuccess=0.325 WinRate=0.731
+--------------------------------------------------------------------------------
+EnvStep=332   EpisodeLength=1243.55 Return=2.40
+  Victory Breakdown: Complete=0.362 Great=0.031 Normal=0.210 Narrow=0.127 Failure=0.271
+  Total Victory Rate=0.729 AliveCount= 1.640 BloodAdvantage=   53.28 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2190.00
+  Legacy: SimpleSuccess=0.392 WeakSuccess=0.337 WinRate=0.729
+--------------------------------------------------------------------------------
+EnvStep=333   EpisodeLength=1238.56 Return=2.46
+  Victory Breakdown: Complete=0.382 Great=0.031 Normal=0.213 Narrow=0.129 Failure=0.245
+  Total Victory Rate=0.755 AliveCount= 1.671 BloodAdvantage=   58.36 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2297.00
+  Legacy: SimpleSuccess=0.413 WeakSuccess=0.342 WinRate=0.755
+--------------------------------------------------------------------------------
+EnvStep=334   EpisodeLength=1229.60 Return=2.43
+  Victory Breakdown: Complete=0.390 Great=0.026 Normal=0.208 Narrow=0.116 Failure=0.260
+  Total Victory Rate=0.740 AliveCount= 1.657 BloodAdvantage=   56.30 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2315.00
+  Legacy: SimpleSuccess=0.416 WeakSuccess=0.324 WinRate=0.740
+--------------------------------------------------------------------------------
+EnvStep=335   EpisodeLength=1226.40 Return=2.45
+  Victory Breakdown: Complete=0.387 Great=0.032 Normal=0.205 Narrow=0.123 Failure=0.253
+  Total Victory Rate=0.747 AliveCount= 1.650 BloodAdvantage=   57.15 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2398.00
+  Legacy: SimpleSuccess=0.419 WeakSuccess=0.328 WinRate=0.747
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 336
+EnvStep=336   EpisodeLength=1187.22 Return=2.36
+  Victory Breakdown: Complete=0.396 Great=0.034 Normal=0.206 Narrow=0.105 Failure=0.259
+  Total Victory Rate=0.741 AliveCount= 1.630 BloodAdvantage=   57.56 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2176.00
+  Legacy: SimpleSuccess=0.430 WeakSuccess=0.311 WinRate=0.741
+--------------------------------------------------------------------------------
+EnvStep=337   EpisodeLength=1197.37 Return=2.44
+  Victory Breakdown: Complete=0.406 Great=0.031 Normal=0.201 Narrow=0.123 Failure=0.239
+  Total Victory Rate=0.761 AliveCount= 1.658 BloodAdvantage=   59.88 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2274.00
+  Legacy: SimpleSuccess=0.437 WeakSuccess=0.324 WinRate=0.761
+--------------------------------------------------------------------------------
+EnvStep=338   EpisodeLength=1197.94 Return=2.44
+  Victory Breakdown: Complete=0.410 Great=0.027 Normal=0.194 Narrow=0.120 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.648 BloodAdvantage=   59.73 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2388.00
+  Legacy: SimpleSuccess=0.437 WeakSuccess=0.314 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=339   EpisodeLength=1202.75 Return=2.45
+  Victory Breakdown: Complete=0.418 Great=0.027 Normal=0.199 Narrow=0.109 Failure=0.247
+  Total Victory Rate=0.753 AliveCount= 1.663 BloodAdvantage=   59.83 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2414.00
+  Legacy: SimpleSuccess=0.445 WeakSuccess=0.308 WinRate=0.753
+--------------------------------------------------------------------------------
+EnvStep=340   EpisodeLength=1206.26 Return=2.41
+  Victory Breakdown: Complete=0.398 Great=0.031 Normal=0.208 Narrow=0.106 Failure=0.257
+  Total Victory Rate=0.743 AliveCount= 1.650 BloodAdvantage=   58.38 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2443.00
+  Legacy: SimpleSuccess=0.429 WeakSuccess=0.314 WinRate=0.743
+--------------------------------------------------------------------------------
+EnvStep=341   EpisodeLength=1207.81 Return=2.45
+  Victory Breakdown: Complete=0.414 Great=0.033 Normal=0.194 Narrow=0.112 Failure=0.247
+  Total Victory Rate=0.753 AliveCount= 1.664 BloodAdvantage=   59.81 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2471.00
+  Legacy: SimpleSuccess=0.448 WeakSuccess=0.306 WinRate=0.753
+--------------------------------------------------------------------------------
+EnvStep=342   EpisodeLength=1213.79 Return=2.46
+  Victory Breakdown: Complete=0.413 Great=0.028 Normal=0.193 Narrow=0.121 Failure=0.245
+  Total Victory Rate=0.755 AliveCount= 1.667 BloodAdvantage=   59.54 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2440.00
+  Legacy: SimpleSuccess=0.441 WeakSuccess=0.314 WinRate=0.755
+--------------------------------------------------------------------------------
+EnvStep=343   EpisodeLength=1200.84 Return=2.42
+  Victory Breakdown: Complete=0.408 Great=0.034 Normal=0.184 Narrow=0.119 Failure=0.254
+  Total Victory Rate=0.746 AliveCount= 1.653 BloodAdvantage=   58.49 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2507.00
+  Legacy: SimpleSuccess=0.442 WeakSuccess=0.304 WinRate=0.746
+--------------------------------------------------------------------------------
+EnvStep=344   EpisodeLength=1194.46 Return=2.43
+  Victory Breakdown: Complete=0.411 Great=0.033 Normal=0.182 Narrow=0.127 Failure=0.247
+  Total Victory Rate=0.753 AliveCount= 1.648 BloodAdvantage=   58.73 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2557.00
+  Legacy: SimpleSuccess=0.444 WeakSuccess=0.309 WinRate=0.753
+--------------------------------------------------------------------------------
+EnvStep=345   EpisodeLength=1203.75 Return=2.46
+  Victory Breakdown: Complete=0.419 Great=0.031 Normal=0.185 Narrow=0.126 Failure=0.239
+  Total Victory Rate=0.761 AliveCount= 1.648 BloodAdvantage=   59.71 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2544.00
+  Legacy: SimpleSuccess=0.450 WeakSuccess=0.311 WinRate=0.761
+--------------------------------------------------------------------------------
+EnvStep=346   EpisodeLength=1212.15 Return=2.42
+  Victory Breakdown: Complete=0.399 Great=0.032 Normal=0.190 Narrow=0.121 Failure=0.259
+  Total Victory Rate=0.741 AliveCount= 1.647 BloodAdvantage=   57.00 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2419.00
+  Legacy: SimpleSuccess=0.431 WeakSuccess=0.311 WinRate=0.741
+--------------------------------------------------------------------------------
+EnvStep=347   EpisodeLength=1227.58 Return=2.42
+  Victory Breakdown: Complete=0.383 Great=0.034 Normal=0.199 Narrow=0.135 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.648 BloodAdvantage=   57.24 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2316.00
+  Legacy: SimpleSuccess=0.417 WeakSuccess=0.334 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=348   EpisodeLength=1228.73 Return=2.42
+  Victory Breakdown: Complete=0.377 Great=0.035 Normal=0.212 Narrow=0.119 Failure=0.256
+  Total Victory Rate=0.744 AliveCount= 1.637 BloodAdvantage=   55.85 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2328.00
+  Legacy: SimpleSuccess=0.412 WeakSuccess=0.332 WinRate=0.744
+--------------------------------------------------------------------------------
+EnvStep=349   EpisodeLength=1240.28 Return=2.42
+  Victory Breakdown: Complete=0.373 Great=0.037 Normal=0.208 Narrow=0.127 Failure=0.255
+  Total Victory Rate=0.745 AliveCount= 1.634 BloodAdvantage=   56.04 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2253.00
+  Legacy: SimpleSuccess=0.410 WeakSuccess=0.335 WinRate=0.745
+--------------------------------------------------------------------------------
+EnvStep=350   EpisodeLength=1252.65 Return=2.43
+  Victory Breakdown: Complete=0.368 Great=0.030 Normal=0.218 Narrow=0.127 Failure=0.256
+  Total Victory Rate=0.744 AliveCount= 1.652 BloodAdvantage=   54.83 EnemiesLocked= 0.19
+  EnemiesKilled/Episode=2156.00
+  Legacy: SimpleSuccess=0.398 WeakSuccess=0.346 WinRate=0.744
+--------------------------------------------------------------------------------
+EnvStep=351   EpisodeLength=1245.29 Return=2.40
+  Victory Breakdown: Complete=0.368 Great=0.033 Normal=0.209 Narrow=0.134 Failure=0.256
+  Total Victory Rate=0.744 AliveCount= 1.640 BloodAdvantage=   55.56 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2192.00
+  Legacy: SimpleSuccess=0.401 WeakSuccess=0.343 WinRate=0.744
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 352
+EnvStep=352   EpisodeLength=1193.77 Return=2.33
+  Victory Breakdown: Complete=0.378 Great=0.034 Normal=0.198 Narrow=0.122 Failure=0.267
+  Total Victory Rate=0.733 AliveCount= 1.610 BloodAdvantage=   54.82 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2119.00
+  Legacy: SimpleSuccess=0.413 WeakSuccess=0.320 WinRate=0.733
+--------------------------------------------------------------------------------
+EnvStep=353   EpisodeLength=1223.61 Return=2.40
+  Victory Breakdown: Complete=0.377 Great=0.037 Normal=0.208 Narrow=0.127 Failure=0.250
+  Total Victory Rate=0.750 AliveCount= 1.635 BloodAdvantage=   56.96 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2106.00
+  Legacy: SimpleSuccess=0.414 WeakSuccess=0.336 WinRate=0.750
+--------------------------------------------------------------------------------
+EnvStep=354   EpisodeLength=1224.48 Return=2.36
+  Victory Breakdown: Complete=0.375 Great=0.035 Normal=0.190 Narrow=0.133 Failure=0.268
+  Total Victory Rate=0.732 AliveCount= 1.626 BloodAdvantage=   55.32 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2172.00
+  Legacy: SimpleSuccess=0.409 WeakSuccess=0.323 WinRate=0.732
+--------------------------------------------------------------------------------
+EnvStep=355   EpisodeLength=1208.45 Return=2.39
+  Victory Breakdown: Complete=0.403 Great=0.031 Normal=0.187 Narrow=0.112 Failure=0.266
+  Total Victory Rate=0.734 AliveCount= 1.635 BloodAdvantage=   56.13 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2353.00
+  Legacy: SimpleSuccess=0.435 WeakSuccess=0.299 WinRate=0.734
+--------------------------------------------------------------------------------
+EnvStep=356   EpisodeLength=1198.55 Return=2.36
+  Victory Breakdown: Complete=0.405 Great=0.032 Normal=0.177 Narrow=0.121 Failure=0.265
+  Total Victory Rate=0.735 AliveCount= 1.626 BloodAdvantage=   55.96 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2411.00
+  Legacy: SimpleSuccess=0.437 WeakSuccess=0.298 WinRate=0.735
+--------------------------------------------------------------------------------
+EnvStep=357   EpisodeLength=1205.63 Return=2.39
+  Victory Breakdown: Complete=0.398 Great=0.030 Normal=0.186 Narrow=0.122 Failure=0.264
+  Total Victory Rate=0.736 AliveCount= 1.628 BloodAdvantage=   56.69 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2443.00
+  Legacy: SimpleSuccess=0.428 WeakSuccess=0.308 WinRate=0.736
+--------------------------------------------------------------------------------
+EnvStep=358   EpisodeLength=1200.67 Return=2.42
+  Victory Breakdown: Complete=0.408 Great=0.030 Normal=0.192 Narrow=0.116 Failure=0.254
+  Total Victory Rate=0.746 AliveCount= 1.650 BloodAdvantage=   57.93 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2473.00
+  Legacy: SimpleSuccess=0.438 WeakSuccess=0.309 WinRate=0.746
+--------------------------------------------------------------------------------
+EnvStep=359   EpisodeLength=1199.25 Return=2.42
+  Victory Breakdown: Complete=0.409 Great=0.036 Normal=0.189 Narrow=0.115 Failure=0.250
+  Total Victory Rate=0.750 AliveCount= 1.646 BloodAdvantage=   58.30 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2503.00
+  Legacy: SimpleSuccess=0.445 WeakSuccess=0.305 WinRate=0.750
+--------------------------------------------------------------------------------
+EnvStep=360   EpisodeLength=1186.76 Return=2.42
+  Victory Breakdown: Complete=0.426 Great=0.035 Normal=0.172 Narrow=0.112 Failure=0.255
+  Total Victory Rate=0.745 AliveCount= 1.643 BloodAdvantage=   59.87 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2640.00
+  Legacy: SimpleSuccess=0.461 WeakSuccess=0.284 WinRate=0.745
+--------------------------------------------------------------------------------
+EnvStep=361   EpisodeLength=1196.36 Return=2.43
+  Victory Breakdown: Complete=0.418 Great=0.034 Normal=0.182 Narrow=0.113 Failure=0.254
+  Total Victory Rate=0.746 AliveCount= 1.643 BloodAdvantage=   58.99 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2527.00
+  Legacy: SimpleSuccess=0.452 WeakSuccess=0.294 WinRate=0.746
+--------------------------------------------------------------------------------
+EnvStep=362   EpisodeLength=1181.06 Return=2.43
+  Victory Breakdown: Complete=0.428 Great=0.031 Normal=0.177 Narrow=0.118 Failure=0.246
+  Total Victory Rate=0.754 AliveCount= 1.650 BloodAdvantage=   60.23 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2704.00
+  Legacy: SimpleSuccess=0.459 WeakSuccess=0.295 WinRate=0.754
+--------------------------------------------------------------------------------
+EnvStep=363   EpisodeLength=1187.12 Return=2.40
+  Victory Breakdown: Complete=0.414 Great=0.039 Normal=0.176 Narrow=0.121 Failure=0.250
+  Total Victory Rate=0.750 AliveCount= 1.638 BloodAdvantage=   57.80 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2594.00
+  Legacy: SimpleSuccess=0.453 WeakSuccess=0.297 WinRate=0.750
+--------------------------------------------------------------------------------
+EnvStep=364   EpisodeLength=1179.83 Return=2.41
+  Victory Breakdown: Complete=0.422 Great=0.033 Normal=0.182 Narrow=0.113 Failure=0.249
+  Total Victory Rate=0.751 AliveCount= 1.648 BloodAdvantage=   59.53 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2672.00
+  Legacy: SimpleSuccess=0.456 WeakSuccess=0.295 WinRate=0.751
+--------------------------------------------------------------------------------
+EnvStep=365   EpisodeLength=1190.78 Return=2.44
+  Victory Breakdown: Complete=0.423 Great=0.036 Normal=0.186 Narrow=0.113 Failure=0.243
+  Total Victory Rate=0.757 AliveCount= 1.661 BloodAdvantage=   59.45 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2622.00
+  Legacy: SimpleSuccess=0.459 WeakSuccess=0.298 WinRate=0.757
+--------------------------------------------------------------------------------
+EnvStep=366   EpisodeLength=1187.19 Return=2.42
+  Victory Breakdown: Complete=0.427 Great=0.033 Normal=0.181 Narrow=0.112 Failure=0.246
+  Total Victory Rate=0.754 AliveCount= 1.659 BloodAdvantage=   59.43 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2573.00
+  Legacy: SimpleSuccess=0.461 WeakSuccess=0.293 WinRate=0.754
+--------------------------------------------------------------------------------
+EnvStep=367   EpisodeLength=1182.27 Return=2.42
+  Victory Breakdown: Complete=0.424 Great=0.034 Normal=0.173 Narrow=0.119 Failure=0.250
+  Total Victory Rate=0.750 AliveCount= 1.641 BloodAdvantage=   58.51 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2669.00
+  Legacy: SimpleSuccess=0.459 WeakSuccess=0.292 WinRate=0.750
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 368
+EnvStep=368   EpisodeLength=1125.82 Return=2.38
+  Victory Breakdown: Complete=0.453 Great=0.039 Normal=0.164 Narrow=0.099 Failure=0.245
+  Total Victory Rate=0.755 AliveCount= 1.638 BloodAdvantage=   61.91 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2530.00
+  Legacy: SimpleSuccess=0.492 WeakSuccess=0.263 WinRate=0.755
+--------------------------------------------------------------------------------
+EnvStep=369   EpisodeLength=1144.64 Return=2.39
+  Victory Breakdown: Complete=0.438 Great=0.036 Normal=0.166 Narrow=0.105 Failure=0.255
+  Total Victory Rate=0.745 AliveCount= 1.637 BloodAdvantage=   60.12 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2571.00
+  Legacy: SimpleSuccess=0.474 WeakSuccess=0.271 WinRate=0.745
+--------------------------------------------------------------------------------
+EnvStep=370   EpisodeLength=1156.84 Return=2.44
+  Victory Breakdown: Complete=0.446 Great=0.034 Normal=0.174 Narrow=0.108 Failure=0.239
+  Total Victory Rate=0.761 AliveCount= 1.661 BloodAdvantage=   61.89 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2684.00
+  Legacy: SimpleSuccess=0.480 WeakSuccess=0.282 WinRate=0.761
+--------------------------------------------------------------------------------
+EnvStep=371   EpisodeLength=1168.09 Return=2.45
+  Victory Breakdown: Complete=0.436 Great=0.037 Normal=0.175 Narrow=0.120 Failure=0.232
+  Total Victory Rate=0.768 AliveCount= 1.658 BloodAdvantage=   61.18 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2670.00
+  Legacy: SimpleSuccess=0.472 WeakSuccess=0.296 WinRate=0.768
+--------------------------------------------------------------------------------
+EnvStep=372   EpisodeLength=1154.91 Return=2.50
+  Victory Breakdown: Complete=0.458 Great=0.035 Normal=0.176 Narrow=0.104 Failure=0.227
+  Total Victory Rate=0.773 AliveCount= 1.673 BloodAdvantage=   64.42 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2865.00
+  Legacy: SimpleSuccess=0.493 WeakSuccess=0.280 WinRate=0.773
+--------------------------------------------------------------------------------
+EnvStep=373   EpisodeLength=1175.49 Return=2.47
+  Victory Breakdown: Complete=0.443 Great=0.032 Normal=0.178 Narrow=0.107 Failure=0.239
+  Total Victory Rate=0.761 AliveCount= 1.668 BloodAdvantage=   61.84 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2720.00
+  Legacy: SimpleSuccess=0.476 WeakSuccess=0.285 WinRate=0.761
+--------------------------------------------------------------------------------
+EnvStep=374   EpisodeLength=1183.49 Return=2.48
+  Victory Breakdown: Complete=0.442 Great=0.035 Normal=0.182 Narrow=0.113 Failure=0.228
+  Total Victory Rate=0.772 AliveCount= 1.670 BloodAdvantage=   61.22 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2687.00
+  Legacy: SimpleSuccess=0.477 WeakSuccess=0.295 WinRate=0.772
+--------------------------------------------------------------------------------
+EnvStep=375   EpisodeLength=1176.90 Return=2.47
+  Victory Breakdown: Complete=0.437 Great=0.034 Normal=0.183 Narrow=0.114 Failure=0.232
+  Total Victory Rate=0.768 AliveCount= 1.669 BloodAdvantage=   61.74 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2724.00
+  Legacy: SimpleSuccess=0.471 WeakSuccess=0.297 WinRate=0.768
+--------------------------------------------------------------------------------
+EnvStep=376   EpisodeLength=1187.06 Return=2.46
+  Victory Breakdown: Complete=0.434 Great=0.034 Normal=0.177 Narrow=0.123 Failure=0.232
+  Total Victory Rate=0.768 AliveCount= 1.665 BloodAdvantage=   60.54 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2641.00
+  Legacy: SimpleSuccess=0.468 WeakSuccess=0.300 WinRate=0.768
+--------------------------------------------------------------------------------
+EnvStep=377   EpisodeLength=1175.96 Return=2.46
+  Victory Breakdown: Complete=0.434 Great=0.035 Normal=0.185 Narrow=0.110 Failure=0.235
+  Total Victory Rate=0.765 AliveCount= 1.670 BloodAdvantage=   61.60 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2685.00
+  Legacy: SimpleSuccess=0.469 WeakSuccess=0.296 WinRate=0.765
+--------------------------------------------------------------------------------
+EnvStep=378   EpisodeLength=1172.86 Return=2.55
+  Victory Breakdown: Complete=0.453 Great=0.028 Normal=0.185 Narrow=0.118 Failure=0.214
+  Total Victory Rate=0.786 AliveCount= 1.697 BloodAdvantage=   65.82 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2770.00
+  Legacy: SimpleSuccess=0.482 WeakSuccess=0.304 WinRate=0.786
+--------------------------------------------------------------------------------
+EnvStep=379   EpisodeLength=1174.27 Return=2.50
+  Victory Breakdown: Complete=0.451 Great=0.033 Normal=0.192 Narrow=0.104 Failure=0.221
+  Total Victory Rate=0.779 AliveCount= 1.681 BloodAdvantage=   63.81 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2779.00
+  Legacy: SimpleSuccess=0.484 WeakSuccess=0.295 WinRate=0.779
+--------------------------------------------------------------------------------
+EnvStep=380   EpisodeLength=1172.91 Return=2.49
+  Victory Breakdown: Complete=0.442 Great=0.030 Normal=0.191 Narrow=0.114 Failure=0.223
+  Total Victory Rate=0.777 AliveCount= 1.684 BloodAdvantage=   63.07 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2761.00
+  Legacy: SimpleSuccess=0.471 WeakSuccess=0.305 WinRate=0.777
+--------------------------------------------------------------------------------
+EnvStep=381   EpisodeLength=1175.18 Return=2.52
+  Victory Breakdown: Complete=0.453 Great=0.035 Normal=0.184 Narrow=0.118 Failure=0.209
+  Total Victory Rate=0.791 AliveCount= 1.688 BloodAdvantage=   64.93 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2803.00
+  Legacy: SimpleSuccess=0.489 WeakSuccess=0.302 WinRate=0.791
+--------------------------------------------------------------------------------
+EnvStep=382   EpisodeLength=1174.53 Return=2.52
+  Victory Breakdown: Complete=0.461 Great=0.029 Normal=0.186 Narrow=0.103 Failure=0.221
+  Total Victory Rate=0.779 AliveCount= 1.684 BloodAdvantage=   64.47 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2799.00
+  Legacy: SimpleSuccess=0.490 WeakSuccess=0.289 WinRate=0.779
+--------------------------------------------------------------------------------
+EnvStep=383   EpisodeLength=1169.52 Return=2.54
+  Victory Breakdown: Complete=0.468 Great=0.031 Normal=0.175 Narrow=0.112 Failure=0.215
+  Total Victory Rate=0.785 AliveCount= 1.697 BloodAdvantage=   65.64 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2871.00
+  Legacy: SimpleSuccess=0.498 WeakSuccess=0.286 WinRate=0.785
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 384
+EnvStep=384   EpisodeLength=1122.85 Return=2.49
+  Victory Breakdown: Complete=0.478 Great=0.028 Normal=0.181 Narrow=0.098 Failure=0.215
+  Total Victory Rate=0.785 AliveCount= 1.682 BloodAdvantage=   66.89 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2600.00
+  Legacy: SimpleSuccess=0.506 WeakSuccess=0.278 WinRate=0.785
+--------------------------------------------------------------------------------
+EnvStep=385   EpisodeLength=1157.53 Return=2.53
+  Victory Breakdown: Complete=0.468 Great=0.032 Normal=0.178 Narrow=0.104 Failure=0.219
+  Total Victory Rate=0.781 AliveCount= 1.689 BloodAdvantage=   65.48 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2603.00
+  Legacy: SimpleSuccess=0.500 WeakSuccess=0.281 WinRate=0.781
+--------------------------------------------------------------------------------
+EnvStep=386   EpisodeLength=1160.68 Return=2.53
+  Victory Breakdown: Complete=0.468 Great=0.027 Normal=0.190 Narrow=0.101 Failure=0.214
+  Total Victory Rate=0.786 AliveCount= 1.699 BloodAdvantage=   65.76 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2696.00
+  Legacy: SimpleSuccess=0.494 WeakSuccess=0.292 WinRate=0.786
+--------------------------------------------------------------------------------
+EnvStep=387   EpisodeLength=1170.43 Return=2.54
+  Victory Breakdown: Complete=0.457 Great=0.032 Normal=0.190 Narrow=0.108 Failure=0.212
+  Total Victory Rate=0.788 AliveCount= 1.707 BloodAdvantage=   65.10 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2699.00
+  Legacy: SimpleSuccess=0.489 WeakSuccess=0.299 WinRate=0.788
+--------------------------------------------------------------------------------
+EnvStep=388   EpisodeLength=1162.56 Return=2.57
+  Victory Breakdown: Complete=0.472 Great=0.025 Normal=0.190 Narrow=0.110 Failure=0.203
+  Total Victory Rate=0.797 AliveCount= 1.717 BloodAdvantage=   67.73 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2838.00
+  Legacy: SimpleSuccess=0.498 WeakSuccess=0.300 WinRate=0.797
+--------------------------------------------------------------------------------
+EnvStep=389   EpisodeLength=1167.11 Return=2.55
+  Victory Breakdown: Complete=0.476 Great=0.028 Normal=0.169 Narrow=0.110 Failure=0.216
+  Total Victory Rate=0.784 AliveCount= 1.709 BloodAdvantage=   66.33 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2858.00
+  Legacy: SimpleSuccess=0.505 WeakSuccess=0.279 WinRate=0.784
+--------------------------------------------------------------------------------
+EnvStep=390   EpisodeLength=1164.82 Return=2.56
+  Victory Breakdown: Complete=0.479 Great=0.027 Normal=0.174 Narrow=0.112 Failure=0.209
+  Total Victory Rate=0.791 AliveCount= 1.709 BloodAdvantage=   66.10 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2910.00
+  Legacy: SimpleSuccess=0.505 WeakSuccess=0.286 WinRate=0.791
+--------------------------------------------------------------------------------
+EnvStep=391   EpisodeLength=1166.83 Return=2.56
+  Victory Breakdown: Complete=0.469 Great=0.027 Normal=0.193 Narrow=0.100 Failure=0.211
+  Total Victory Rate=0.789 AliveCount= 1.708 BloodAdvantage=   66.29 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2895.00
+  Legacy: SimpleSuccess=0.496 WeakSuccess=0.293 WinRate=0.789
+--------------------------------------------------------------------------------
+EnvStep=392   EpisodeLength=1175.22 Return=2.54
+  Victory Breakdown: Complete=0.459 Great=0.029 Normal=0.190 Narrow=0.113 Failure=0.209
+  Total Victory Rate=0.791 AliveCount= 1.706 BloodAdvantage=   65.30 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2809.00
+  Legacy: SimpleSuccess=0.488 WeakSuccess=0.303 WinRate=0.791
+--------------------------------------------------------------------------------
+EnvStep=393   EpisodeLength=1167.99 Return=2.55
+  Victory Breakdown: Complete=0.466 Great=0.028 Normal=0.186 Narrow=0.108 Failure=0.212
+  Total Victory Rate=0.788 AliveCount= 1.708 BloodAdvantage=   65.65 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2848.00
+  Legacy: SimpleSuccess=0.494 WeakSuccess=0.294 WinRate=0.788
+--------------------------------------------------------------------------------
+EnvStep=394   EpisodeLength=1175.48 Return=2.57
+  Victory Breakdown: Complete=0.462 Great=0.026 Normal=0.188 Narrow=0.117 Failure=0.207
+  Total Victory Rate=0.793 AliveCount= 1.711 BloodAdvantage=   65.26 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2793.00
+  Legacy: SimpleSuccess=0.488 WeakSuccess=0.305 WinRate=0.793
+--------------------------------------------------------------------------------
+EnvStep=395   EpisodeLength=1174.04 Return=2.58
+  Victory Breakdown: Complete=0.470 Great=0.027 Normal=0.189 Narrow=0.108 Failure=0.207
+  Total Victory Rate=0.793 AliveCount= 1.714 BloodAdvantage=   66.13 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2818.00
+  Legacy: SimpleSuccess=0.497 WeakSuccess=0.296 WinRate=0.793
+--------------------------------------------------------------------------------
+EnvStep=396   EpisodeLength=1170.21 Return=2.61
+  Victory Breakdown: Complete=0.481 Great=0.026 Normal=0.191 Narrow=0.107 Failure=0.196
+  Total Victory Rate=0.804 AliveCount= 1.727 BloodAdvantage=   68.56 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2894.00
+  Legacy: SimpleSuccess=0.507 WeakSuccess=0.297 WinRate=0.804
+--------------------------------------------------------------------------------
+EnvStep=397   EpisodeLength=1153.53 Return=2.59
+  Victory Breakdown: Complete=0.492 Great=0.027 Normal=0.176 Narrow=0.101 Failure=0.204
+  Total Victory Rate=0.796 AliveCount= 1.714 BloodAdvantage=   68.65 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2990.00
+  Legacy: SimpleSuccess=0.518 WeakSuccess=0.278 WinRate=0.796
+--------------------------------------------------------------------------------
+EnvStep=398   EpisodeLength=1149.46 Return=2.62
+  Victory Breakdown: Complete=0.498 Great=0.030 Normal=0.179 Narrow=0.108 Failure=0.185
+  Total Victory Rate=0.815 AliveCount= 1.726 BloodAdvantage=   71.16 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3065.00
+  Legacy: SimpleSuccess=0.528 WeakSuccess=0.287 WinRate=0.815
+--------------------------------------------------------------------------------
+EnvStep=399   EpisodeLength=1161.95 Return=2.58
+  Victory Breakdown: Complete=0.479 Great=0.033 Normal=0.185 Narrow=0.108 Failure=0.195
+  Total Victory Rate=0.805 AliveCount= 1.713 BloodAdvantage=   67.70 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2969.00
+  Legacy: SimpleSuccess=0.512 WeakSuccess=0.293 WinRate=0.805
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 400
+EnvStep=400   EpisodeLength=1111.94 Return=2.53
+  Victory Breakdown: Complete=0.503 Great=0.027 Normal=0.171 Narrow=0.095 Failure=0.204
+  Total Victory Rate=0.796 AliveCount= 1.698 BloodAdvantage=   70.96 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=2774.00
+  Legacy: SimpleSuccess=0.530 WeakSuccess=0.266 WinRate=0.796
+--------------------------------------------------------------------------------
+EnvStep=401   EpisodeLength=1135.87 Return=2.58
+  Victory Breakdown: Complete=0.508 Great=0.023 Normal=0.173 Narrow=0.095 Failure=0.202
+  Total Victory Rate=0.798 AliveCount= 1.716 BloodAdvantage=   69.33 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2803.00
+  Legacy: SimpleSuccess=0.531 WeakSuccess=0.267 WinRate=0.798
+--------------------------------------------------------------------------------
+EnvStep=402   EpisodeLength=1154.22 Return=2.57
+  Victory Breakdown: Complete=0.490 Great=0.028 Normal=0.184 Narrow=0.094 Failure=0.205
+  Total Victory Rate=0.795 AliveCount= 1.711 BloodAdvantage=   67.46 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2829.00
+  Legacy: SimpleSuccess=0.517 WeakSuccess=0.278 WinRate=0.795
+--------------------------------------------------------------------------------
+EnvStep=403   EpisodeLength=1163.41 Return=2.58
+  Victory Breakdown: Complete=0.490 Great=0.026 Normal=0.183 Narrow=0.100 Failure=0.201
+  Total Victory Rate=0.799 AliveCount= 1.719 BloodAdvantage=   67.08 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2837.00
+  Legacy: SimpleSuccess=0.516 WeakSuccess=0.282 WinRate=0.799
+--------------------------------------------------------------------------------
+EnvStep=404   EpisodeLength=1158.09 Return=2.57
+  Victory Breakdown: Complete=0.478 Great=0.024 Normal=0.192 Narrow=0.104 Failure=0.202
+  Total Victory Rate=0.798 AliveCount= 1.713 BloodAdvantage=   67.65 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2896.00
+  Legacy: SimpleSuccess=0.502 WeakSuccess=0.296 WinRate=0.798
+--------------------------------------------------------------------------------
+EnvStep=405   EpisodeLength=1159.08 Return=2.61
+  Victory Breakdown: Complete=0.492 Great=0.028 Normal=0.190 Narrow=0.094 Failure=0.196
+  Total Victory Rate=0.804 AliveCount= 1.722 BloodAdvantage=   69.02 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=2993.00
+  Legacy: SimpleSuccess=0.520 WeakSuccess=0.283 WinRate=0.804
+--------------------------------------------------------------------------------
+EnvStep=406   EpisodeLength=1167.73 Return=2.58
+  Victory Breakdown: Complete=0.479 Great=0.031 Normal=0.183 Narrow=0.105 Failure=0.203
+  Total Victory Rate=0.797 AliveCount= 1.709 BloodAdvantage=   66.99 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2932.00
+  Legacy: SimpleSuccess=0.509 WeakSuccess=0.288 WinRate=0.797
+--------------------------------------------------------------------------------
+EnvStep=407   EpisodeLength=1160.79 Return=2.61
+  Victory Breakdown: Complete=0.490 Great=0.026 Normal=0.192 Narrow=0.100 Failure=0.193
+  Total Victory Rate=0.807 AliveCount= 1.721 BloodAdvantage=   68.71 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2974.00
+  Legacy: SimpleSuccess=0.516 WeakSuccess=0.291 WinRate=0.807
+--------------------------------------------------------------------------------
+EnvStep=408   EpisodeLength=1163.16 Return=2.60
+  Victory Breakdown: Complete=0.486 Great=0.024 Normal=0.195 Narrow=0.104 Failure=0.191
+  Total Victory Rate=0.809 AliveCount= 1.726 BloodAdvantage=   69.68 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2951.00
+  Legacy: SimpleSuccess=0.510 WeakSuccess=0.299 WinRate=0.809
+--------------------------------------------------------------------------------
+EnvStep=409   EpisodeLength=1168.57 Return=2.63
+  Victory Breakdown: Complete=0.493 Great=0.026 Normal=0.186 Narrow=0.099 Failure=0.196
+  Total Victory Rate=0.804 AliveCount= 1.722 BloodAdvantage=   68.56 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2974.00
+  Legacy: SimpleSuccess=0.519 WeakSuccess=0.285 WinRate=0.804
+--------------------------------------------------------------------------------
+EnvStep=410   EpisodeLength=1157.42 Return=2.59
+  Victory Breakdown: Complete=0.489 Great=0.025 Normal=0.185 Narrow=0.098 Failure=0.204
+  Total Victory Rate=0.796 AliveCount= 1.721 BloodAdvantage=   68.41 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=3004.00
+  Legacy: SimpleSuccess=0.513 WeakSuccess=0.283 WinRate=0.796
+--------------------------------------------------------------------------------
+EnvStep=411   EpisodeLength=1167.26 Return=2.60
+  Victory Breakdown: Complete=0.478 Great=0.025 Normal=0.193 Narrow=0.107 Failure=0.197
+  Total Victory Rate=0.803 AliveCount= 1.722 BloodAdvantage=   68.96 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2884.00
+  Legacy: SimpleSuccess=0.503 WeakSuccess=0.300 WinRate=0.803
+--------------------------------------------------------------------------------
+EnvStep=412   EpisodeLength=1171.04 Return=2.61
+  Victory Breakdown: Complete=0.478 Great=0.028 Normal=0.199 Narrow=0.095 Failure=0.201
+  Total Victory Rate=0.799 AliveCount= 1.722 BloodAdvantage=   68.13 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2906.00
+  Legacy: SimpleSuccess=0.506 WeakSuccess=0.293 WinRate=0.799
+--------------------------------------------------------------------------------
+EnvStep=413   EpisodeLength=1177.81 Return=2.61
+  Victory Breakdown: Complete=0.473 Great=0.026 Normal=0.192 Narrow=0.105 Failure=0.204
+  Total Victory Rate=0.796 AliveCount= 1.720 BloodAdvantage=   66.25 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2783.00
+  Legacy: SimpleSuccess=0.499 WeakSuccess=0.297 WinRate=0.796
+--------------------------------------------------------------------------------
+EnvStep=414   EpisodeLength=1182.27 Return=2.59
+  Victory Breakdown: Complete=0.466 Great=0.022 Normal=0.195 Narrow=0.108 Failure=0.209
+  Total Victory Rate=0.791 AliveCount= 1.721 BloodAdvantage=   66.92 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2785.00
+  Legacy: SimpleSuccess=0.488 WeakSuccess=0.303 WinRate=0.791
+--------------------------------------------------------------------------------
+EnvStep=415   EpisodeLength=1189.25 Return=2.59
+  Victory Breakdown: Complete=0.461 Great=0.029 Normal=0.194 Narrow=0.115 Failure=0.200
+  Total Victory Rate=0.800 AliveCount= 1.717 BloodAdvantage=   65.55 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2761.00
+  Legacy: SimpleSuccess=0.490 WeakSuccess=0.310 WinRate=0.800
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 416
+EnvStep=416   EpisodeLength=1123.96 Return=2.51
+  Victory Breakdown: Complete=0.482 Great=0.027 Normal=0.179 Narrow=0.102 Failure=0.210
+  Total Victory Rate=0.790 AliveCount= 1.691 BloodAdvantage=   68.74 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2647.00
+  Legacy: SimpleSuccess=0.509 WeakSuccess=0.281 WinRate=0.790
+--------------------------------------------------------------------------------
+EnvStep=417   EpisodeLength=1154.88 Return=2.58
+  Victory Breakdown: Complete=0.484 Great=0.028 Normal=0.183 Narrow=0.108 Failure=0.197
+  Total Victory Rate=0.803 AliveCount= 1.717 BloodAdvantage=   68.21 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2679.00
+  Legacy: SimpleSuccess=0.512 WeakSuccess=0.290 WinRate=0.803
+--------------------------------------------------------------------------------
+EnvStep=418   EpisodeLength=1172.23 Return=2.58
+  Victory Breakdown: Complete=0.473 Great=0.032 Normal=0.187 Narrow=0.103 Failure=0.205
+  Total Victory Rate=0.795 AliveCount= 1.706 BloodAdvantage=   67.14 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2712.00
+  Legacy: SimpleSuccess=0.505 WeakSuccess=0.290 WinRate=0.795
+--------------------------------------------------------------------------------
+EnvStep=419   EpisodeLength=1184.37 Return=2.58
+  Victory Breakdown: Complete=0.461 Great=0.030 Normal=0.202 Narrow=0.107 Failure=0.200
+  Total Victory Rate=0.800 AliveCount= 1.720 BloodAdvantage=   67.30 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2692.00
+  Legacy: SimpleSuccess=0.490 WeakSuccess=0.309 WinRate=0.800
+--------------------------------------------------------------------------------
+EnvStep=420   EpisodeLength=1180.87 Return=2.57
+  Victory Breakdown: Complete=0.462 Great=0.027 Normal=0.201 Narrow=0.104 Failure=0.205
+  Total Victory Rate=0.795 AliveCount= 1.710 BloodAdvantage=   65.86 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2711.00
+  Legacy: SimpleSuccess=0.489 WeakSuccess=0.306 WinRate=0.795
+--------------------------------------------------------------------------------
+EnvStep=421   EpisodeLength=1187.02 Return=2.57
+  Victory Breakdown: Complete=0.456 Great=0.028 Normal=0.193 Narrow=0.113 Failure=0.210
+  Total Victory Rate=0.790 AliveCount= 1.715 BloodAdvantage=   65.57 EnemiesLocked= 0.18
+  EnemiesKilled/Episode=2729.00
+  Legacy: SimpleSuccess=0.485 WeakSuccess=0.306 WinRate=0.790
+--------------------------------------------------------------------------------
+EnvStep=422   EpisodeLength=1181.02 Return=2.58
+  Victory Breakdown: Complete=0.469 Great=0.025 Normal=0.198 Narrow=0.105 Failure=0.203
+  Total Victory Rate=0.797 AliveCount= 1.714 BloodAdvantage=   66.00 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2814.00
+  Legacy: SimpleSuccess=0.494 WeakSuccess=0.304 WinRate=0.797
+--------------------------------------------------------------------------------
+EnvStep=423   EpisodeLength=1176.73 Return=2.57
+  Victory Breakdown: Complete=0.468 Great=0.026 Normal=0.192 Narrow=0.104 Failure=0.211
+  Total Victory Rate=0.789 AliveCount= 1.715 BloodAdvantage=   66.11 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2832.00
+  Legacy: SimpleSuccess=0.494 WeakSuccess=0.295 WinRate=0.789
+--------------------------------------------------------------------------------
+EnvStep=424   EpisodeLength=1183.37 Return=2.59
+  Victory Breakdown: Complete=0.472 Great=0.026 Normal=0.190 Narrow=0.101 Failure=0.212
+  Total Victory Rate=0.788 AliveCount= 1.713 BloodAdvantage=   65.83 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2795.00
+  Legacy: SimpleSuccess=0.497 WeakSuccess=0.291 WinRate=0.788
+--------------------------------------------------------------------------------
+EnvStep=425   EpisodeLength=1182.35 Return=2.59
+  Victory Breakdown: Complete=0.475 Great=0.026 Normal=0.192 Narrow=0.101 Failure=0.206
+  Total Victory Rate=0.794 AliveCount= 1.716 BloodAdvantage=   67.00 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2813.00
+  Legacy: SimpleSuccess=0.501 WeakSuccess=0.293 WinRate=0.794
+--------------------------------------------------------------------------------
+EnvStep=426   EpisodeLength=1189.49 Return=2.58
+  Victory Breakdown: Complete=0.469 Great=0.023 Normal=0.194 Narrow=0.106 Failure=0.207
+  Total Victory Rate=0.793 AliveCount= 1.711 BloodAdvantage=   66.12 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2819.00
+  Legacy: SimpleSuccess=0.493 WeakSuccess=0.300 WinRate=0.793
+--------------------------------------------------------------------------------
+EnvStep=427   EpisodeLength=1183.16 Return=2.56
+  Victory Breakdown: Complete=0.464 Great=0.029 Normal=0.194 Narrow=0.105 Failure=0.208
+  Total Victory Rate=0.792 AliveCount= 1.700 BloodAdvantage=   65.36 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2842.00
+  Legacy: SimpleSuccess=0.493 WeakSuccess=0.299 WinRate=0.792
+--------------------------------------------------------------------------------
+EnvStep=428   EpisodeLength=1191.13 Return=2.59
+  Victory Breakdown: Complete=0.471 Great=0.024 Normal=0.200 Narrow=0.099 Failure=0.206
+  Total Victory Rate=0.794 AliveCount= 1.719 BloodAdvantage=   66.82 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2756.00
+  Legacy: SimpleSuccess=0.495 WeakSuccess=0.299 WinRate=0.794
+--------------------------------------------------------------------------------
+EnvStep=429   EpisodeLength=1181.47 Return=2.60
+  Victory Breakdown: Complete=0.473 Great=0.028 Normal=0.197 Narrow=0.103 Failure=0.200
+  Total Victory Rate=0.800 AliveCount= 1.714 BloodAdvantage=   66.98 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2876.00
+  Legacy: SimpleSuccess=0.500 WeakSuccess=0.299 WinRate=0.800
+--------------------------------------------------------------------------------
+EnvStep=430   EpisodeLength=1184.07 Return=2.61
+  Victory Breakdown: Complete=0.481 Great=0.029 Normal=0.185 Narrow=0.105 Failure=0.199
+  Total Victory Rate=0.801 AliveCount= 1.719 BloodAdvantage=   67.30 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2812.00
+  Legacy: SimpleSuccess=0.510 WeakSuccess=0.291 WinRate=0.801
+--------------------------------------------------------------------------------
+EnvStep=431   EpisodeLength=1183.43 Return=2.59
+  Victory Breakdown: Complete=0.477 Great=0.025 Normal=0.185 Narrow=0.102 Failure=0.211
+  Total Victory Rate=0.789 AliveCount= 1.714 BloodAdvantage=   65.64 EnemiesLocked= 0.17
+  EnemiesKilled/Episode=2863.00
+  Legacy: SimpleSuccess=0.502 WeakSuccess=0.287 WinRate=0.789
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 432
+EnvStep=432   EpisodeLength=1108.02 Return=2.55
+  Victory Breakdown: Complete=0.520 Great=0.025 Normal=0.170 Narrow=0.083 Failure=0.202
+  Total Victory Rate=0.798 AliveCount= 1.700 BloodAdvantage=   70.85 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=2782.00
+  Legacy: SimpleSuccess=0.545 WeakSuccess=0.253 WinRate=0.798
+--------------------------------------------------------------------------------
+EnvStep=433   EpisodeLength=1127.44 Return=2.57
+  Victory Breakdown: Complete=0.496 Great=0.032 Normal=0.180 Narrow=0.095 Failure=0.197
+  Total Victory Rate=0.803 AliveCount= 1.709 BloodAdvantage=   70.49 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2849.00
+  Legacy: SimpleSuccess=0.528 WeakSuccess=0.275 WinRate=0.803
+--------------------------------------------------------------------------------
+EnvStep=434   EpisodeLength=1147.02 Return=2.59
+  Victory Breakdown: Complete=0.498 Great=0.025 Normal=0.184 Narrow=0.096 Failure=0.198
+  Total Victory Rate=0.802 AliveCount= 1.708 BloodAdvantage=   69.52 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2940.00
+  Legacy: SimpleSuccess=0.523 WeakSuccess=0.279 WinRate=0.802
+--------------------------------------------------------------------------------
+EnvStep=435   EpisodeLength=1147.39 Return=2.60
+  Victory Breakdown: Complete=0.496 Great=0.025 Normal=0.187 Narrow=0.095 Failure=0.196
+  Total Victory Rate=0.804 AliveCount= 1.714 BloodAdvantage=   69.64 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2962.00
+  Legacy: SimpleSuccess=0.522 WeakSuccess=0.282 WinRate=0.804
+--------------------------------------------------------------------------------
+EnvStep=436   EpisodeLength=1153.26 Return=2.60
+  Victory Breakdown: Complete=0.498 Great=0.030 Normal=0.182 Narrow=0.096 Failure=0.194
+  Total Victory Rate=0.806 AliveCount= 1.726 BloodAdvantage=   70.94 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3016.00
+  Legacy: SimpleSuccess=0.528 WeakSuccess=0.278 WinRate=0.806
+--------------------------------------------------------------------------------
+EnvStep=437   EpisodeLength=1157.85 Return=2.60
+  Victory Breakdown: Complete=0.499 Great=0.027 Normal=0.191 Narrow=0.095 Failure=0.189
+  Total Victory Rate=0.811 AliveCount= 1.721 BloodAdvantage=   70.55 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2992.00
+  Legacy: SimpleSuccess=0.525 WeakSuccess=0.286 WinRate=0.811
+--------------------------------------------------------------------------------
+EnvStep=438   EpisodeLength=1167.69 Return=2.63
+  Victory Breakdown: Complete=0.497 Great=0.025 Normal=0.195 Narrow=0.095 Failure=0.189
+  Total Victory Rate=0.811 AliveCount= 1.730 BloodAdvantage=   69.98 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2959.00
+  Legacy: SimpleSuccess=0.521 WeakSuccess=0.290 WinRate=0.811
+--------------------------------------------------------------------------------
+EnvStep=439   EpisodeLength=1176.17 Return=2.58
+  Victory Breakdown: Complete=0.470 Great=0.028 Normal=0.202 Narrow=0.104 Failure=0.196
+  Total Victory Rate=0.804 AliveCount= 1.711 BloodAdvantage=   67.22 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2847.00
+  Legacy: SimpleSuccess=0.498 WeakSuccess=0.306 WinRate=0.804
+--------------------------------------------------------------------------------
+EnvStep=440   EpisodeLength=1168.45 Return=2.59
+  Victory Breakdown: Complete=0.484 Great=0.026 Normal=0.189 Narrow=0.103 Failure=0.198
+  Total Victory Rate=0.802 AliveCount= 1.711 BloodAdvantage=   67.59 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2918.00
+  Legacy: SimpleSuccess=0.509 WeakSuccess=0.292 WinRate=0.802
+--------------------------------------------------------------------------------
+EnvStep=441   EpisodeLength=1174.12 Return=2.59
+  Victory Breakdown: Complete=0.483 Great=0.031 Normal=0.191 Narrow=0.104 Failure=0.192
+  Total Victory Rate=0.808 AliveCount= 1.708 BloodAdvantage=   69.29 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2949.00
+  Legacy: SimpleSuccess=0.514 WeakSuccess=0.294 WinRate=0.808
+--------------------------------------------------------------------------------
+EnvStep=442   EpisodeLength=1154.35 Return=2.58
+  Victory Breakdown: Complete=0.488 Great=0.033 Normal=0.195 Narrow=0.096 Failure=0.188
+  Total Victory Rate=0.812 AliveCount= 1.712 BloodAdvantage=   70.10 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3060.00
+  Legacy: SimpleSuccess=0.521 WeakSuccess=0.291 WinRate=0.812
+--------------------------------------------------------------------------------
+EnvStep=443   EpisodeLength=1152.04 Return=2.58
+  Victory Breakdown: Complete=0.496 Great=0.030 Normal=0.183 Narrow=0.093 Failure=0.197
+  Total Victory Rate=0.803 AliveCount= 1.708 BloodAdvantage=   68.21 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3049.00
+  Legacy: SimpleSuccess=0.526 WeakSuccess=0.277 WinRate=0.803
+--------------------------------------------------------------------------------
+EnvStep=444   EpisodeLength=1160.79 Return=2.59
+  Victory Breakdown: Complete=0.488 Great=0.033 Normal=0.190 Narrow=0.097 Failure=0.192
+  Total Victory Rate=0.808 AliveCount= 1.706 BloodAdvantage=   69.01 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2984.00
+  Legacy: SimpleSuccess=0.522 WeakSuccess=0.287 WinRate=0.808
+--------------------------------------------------------------------------------
+EnvStep=445   EpisodeLength=1162.21 Return=2.58
+  Victory Breakdown: Complete=0.490 Great=0.028 Normal=0.191 Narrow=0.094 Failure=0.197
+  Total Victory Rate=0.803 AliveCount= 1.709 BloodAdvantage=   68.92 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=2968.00
+  Legacy: SimpleSuccess=0.518 WeakSuccess=0.285 WinRate=0.803
+--------------------------------------------------------------------------------
+EnvStep=446   EpisodeLength=1166.47 Return=2.59
+  Victory Breakdown: Complete=0.492 Great=0.030 Normal=0.177 Narrow=0.106 Failure=0.195
+  Total Victory Rate=0.805 AliveCount= 1.713 BloodAdvantage=   69.28 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2960.00
+  Legacy: SimpleSuccess=0.522 WeakSuccess=0.283 WinRate=0.805
+--------------------------------------------------------------------------------
+EnvStep=447   EpisodeLength=1159.97 Return=2.61
+  Victory Breakdown: Complete=0.497 Great=0.029 Normal=0.183 Narrow=0.104 Failure=0.187
+  Total Victory Rate=0.813 AliveCount= 1.715 BloodAdvantage=   70.07 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3084.00
+  Legacy: SimpleSuccess=0.526 WeakSuccess=0.287 WinRate=0.813
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 448
+EnvStep=448   EpisodeLength=1088.18 Return=2.57
+  Victory Breakdown: Complete=0.533 Great=0.035 Normal=0.167 Narrow=0.079 Failure=0.186
+  Total Victory Rate=0.814 AliveCount= 1.699 BloodAdvantage=   74.67 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=2942.00
+  Legacy: SimpleSuccess=0.568 WeakSuccess=0.246 WinRate=0.814
+--------------------------------------------------------------------------------
+EnvStep=449   EpisodeLength=1133.23 Return=2.62
+  Victory Breakdown: Complete=0.531 Great=0.028 Normal=0.162 Narrow=0.090 Failure=0.190
+  Total Victory Rate=0.810 AliveCount= 1.714 BloodAdvantage=   71.66 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=2912.00
+  Legacy: SimpleSuccess=0.558 WeakSuccess=0.252 WinRate=0.810
+--------------------------------------------------------------------------------
+EnvStep=450   EpisodeLength=1127.48 Return=2.62
+  Victory Breakdown: Complete=0.528 Great=0.028 Normal=0.170 Narrow=0.091 Failure=0.182
+  Total Victory Rate=0.818 AliveCount= 1.730 BloodAdvantage=   73.41 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3072.00
+  Legacy: SimpleSuccess=0.557 WeakSuccess=0.261 WinRate=0.818
+--------------------------------------------------------------------------------
+EnvStep=451   EpisodeLength=1145.53 Return=2.61
+  Victory Breakdown: Complete=0.508 Great=0.033 Normal=0.179 Narrow=0.094 Failure=0.186
+  Total Victory Rate=0.814 AliveCount= 1.719 BloodAdvantage=   71.48 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3034.00
+  Legacy: SimpleSuccess=0.541 WeakSuccess=0.273 WinRate=0.814
+--------------------------------------------------------------------------------
+EnvStep=452   EpisodeLength=1168.29 Return=2.59
+  Victory Breakdown: Complete=0.481 Great=0.031 Normal=0.187 Narrow=0.094 Failure=0.207
+  Total Victory Rate=0.793 AliveCount= 1.707 BloodAdvantage=   67.96 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=2899.00
+  Legacy: SimpleSuccess=0.513 WeakSuccess=0.280 WinRate=0.793
+--------------------------------------------------------------------------------
+EnvStep=453   EpisodeLength=1158.72 Return=2.62
+  Victory Breakdown: Complete=0.506 Great=0.024 Normal=0.185 Narrow=0.100 Failure=0.186
+  Total Victory Rate=0.814 AliveCount= 1.727 BloodAdvantage=   70.73 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=2991.00
+  Legacy: SimpleSuccess=0.529 WeakSuccess=0.285 WinRate=0.814
+--------------------------------------------------------------------------------
+EnvStep=454   EpisodeLength=1152.23 Return=2.58
+  Victory Breakdown: Complete=0.489 Great=0.030 Normal=0.189 Narrow=0.097 Failure=0.195
+  Total Victory Rate=0.805 AliveCount= 1.713 BloodAdvantage=   69.61 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3053.00
+  Legacy: SimpleSuccess=0.519 WeakSuccess=0.286 WinRate=0.805
+--------------------------------------------------------------------------------
+EnvStep=455   EpisodeLength=1149.63 Return=2.61
+  Victory Breakdown: Complete=0.502 Great=0.027 Normal=0.178 Narrow=0.099 Failure=0.194
+  Total Victory Rate=0.806 AliveCount= 1.723 BloodAdvantage=   70.32 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3091.00
+  Legacy: SimpleSuccess=0.529 WeakSuccess=0.277 WinRate=0.806
+--------------------------------------------------------------------------------
+EnvStep=456   EpisodeLength=1149.97 Return=2.62
+  Victory Breakdown: Complete=0.506 Great=0.033 Normal=0.184 Narrow=0.088 Failure=0.190
+  Total Victory Rate=0.810 AliveCount= 1.717 BloodAdvantage=   71.11 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3091.00
+  Legacy: SimpleSuccess=0.538 WeakSuccess=0.272 WinRate=0.810
+--------------------------------------------------------------------------------
+EnvStep=457   EpisodeLength=1141.66 Return=2.61
+  Victory Breakdown: Complete=0.510 Great=0.026 Normal=0.181 Narrow=0.094 Failure=0.190
+  Total Victory Rate=0.810 AliveCount= 1.722 BloodAdvantage=   70.88 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3190.00
+  Legacy: SimpleSuccess=0.536 WeakSuccess=0.275 WinRate=0.810
+--------------------------------------------------------------------------------
+EnvStep=458   EpisodeLength=1144.88 Return=2.64
+  Victory Breakdown: Complete=0.505 Great=0.028 Normal=0.187 Narrow=0.092 Failure=0.188
+  Total Victory Rate=0.812 AliveCount= 1.717 BloodAdvantage=   71.00 EnemiesLocked= 0.16
+  EnemiesKilled/Episode=3122.00
+  Legacy: SimpleSuccess=0.533 WeakSuccess=0.279 WinRate=0.812
+--------------------------------------------------------------------------------
+EnvStep=459   EpisodeLength=1143.51 Return=2.65
+  Victory Breakdown: Complete=0.514 Great=0.028 Normal=0.175 Narrow=0.097 Failure=0.186
+  Total Victory Rate=0.814 AliveCount= 1.723 BloodAdvantage=   71.59 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3191.00
+  Legacy: SimpleSuccess=0.542 WeakSuccess=0.272 WinRate=0.814
+--------------------------------------------------------------------------------
+EnvStep=460   EpisodeLength=1159.60 Return=2.65
+  Victory Breakdown: Complete=0.503 Great=0.030 Normal=0.186 Narrow=0.096 Failure=0.185
+  Total Victory Rate=0.815 AliveCount= 1.721 BloodAdvantage=   70.37 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3073.00
+  Legacy: SimpleSuccess=0.533 WeakSuccess=0.282 WinRate=0.815
+--------------------------------------------------------------------------------
+EnvStep=461   EpisodeLength=1145.60 Return=2.64
+  Victory Breakdown: Complete=0.511 Great=0.030 Normal=0.183 Narrow=0.094 Failure=0.183
+  Total Victory Rate=0.817 AliveCount= 1.722 BloodAdvantage=   72.72 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3164.00
+  Legacy: SimpleSuccess=0.541 WeakSuccess=0.277 WinRate=0.817
+--------------------------------------------------------------------------------
+EnvStep=462   EpisodeLength=1154.71 Return=2.65
+  Victory Breakdown: Complete=0.513 Great=0.029 Normal=0.179 Narrow=0.102 Failure=0.178
+  Total Victory Rate=0.822 AliveCount= 1.738 BloodAdvantage=   73.29 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3088.00
+  Legacy: SimpleSuccess=0.542 WeakSuccess=0.280 WinRate=0.822
+--------------------------------------------------------------------------------
+EnvStep=463   EpisodeLength=1152.58 Return=2.64
+  Victory Breakdown: Complete=0.513 Great=0.029 Normal=0.178 Narrow=0.093 Failure=0.187
+  Total Victory Rate=0.813 AliveCount= 1.720 BloodAdvantage=   70.83 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3121.00
+  Legacy: SimpleSuccess=0.543 WeakSuccess=0.271 WinRate=0.813
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 464
+EnvStep=464   EpisodeLength=1068.39 Return=2.58
+  Victory Breakdown: Complete=0.561 Great=0.029 Normal=0.151 Narrow=0.077 Failure=0.182
+  Total Victory Rate=0.818 AliveCount= 1.710 BloodAdvantage=   76.46 EnemiesLocked= 0.12
+  EnemiesKilled/Episode=3081.00
+  Legacy: SimpleSuccess=0.590 WeakSuccess=0.228 WinRate=0.818
+--------------------------------------------------------------------------------
+EnvStep=465   EpisodeLength=1088.81 Return=2.63
+  Victory Breakdown: Complete=0.561 Great=0.027 Normal=0.152 Narrow=0.083 Failure=0.176
+  Total Victory Rate=0.824 AliveCount= 1.726 BloodAdvantage=   76.13 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=3287.00
+  Legacy: SimpleSuccess=0.588 WeakSuccess=0.235 WinRate=0.824
+--------------------------------------------------------------------------------
+EnvStep=466   EpisodeLength=1121.94 Return=2.66
+  Victory Breakdown: Complete=0.543 Great=0.029 Normal=0.161 Narrow=0.093 Failure=0.174
+  Total Victory Rate=0.826 AliveCount= 1.726 BloodAdvantage=   75.22 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3195.00
+  Legacy: SimpleSuccess=0.572 WeakSuccess=0.254 WinRate=0.826
+--------------------------------------------------------------------------------
+EnvStep=467   EpisodeLength=1124.90 Return=2.70
+  Victory Breakdown: Complete=0.557 Great=0.021 Normal=0.166 Narrow=0.084 Failure=0.171
+  Total Victory Rate=0.829 AliveCount= 1.743 BloodAdvantage=   75.86 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3300.00
+  Legacy: SimpleSuccess=0.579 WeakSuccess=0.250 WinRate=0.829
+--------------------------------------------------------------------------------
+EnvStep=468   EpisodeLength=1135.30 Return=2.67
+  Victory Breakdown: Complete=0.540 Great=0.028 Normal=0.164 Narrow=0.089 Failure=0.179
+  Total Victory Rate=0.821 AliveCount= 1.732 BloodAdvantage=   74.15 EnemiesLocked= 0.15
+  EnemiesKilled/Episode=3295.00
+  Legacy: SimpleSuccess=0.569 WeakSuccess=0.253 WinRate=0.821
+--------------------------------------------------------------------------------
+EnvStep=469   EpisodeLength=1132.87 Return=2.68
+  Victory Breakdown: Complete=0.537 Great=0.025 Normal=0.174 Narrow=0.086 Failure=0.177
+  Total Victory Rate=0.823 AliveCount= 1.738 BloodAdvantage=   74.75 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3313.00
+  Legacy: SimpleSuccess=0.562 WeakSuccess=0.261 WinRate=0.823
+--------------------------------------------------------------------------------
+EnvStep=470   EpisodeLength=1130.32 Return=2.71
+  Victory Breakdown: Complete=0.556 Great=0.028 Normal=0.165 Narrow=0.087 Failure=0.163
+  Total Victory Rate=0.837 AliveCount= 1.747 BloodAdvantage=   76.55 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=3425.00
+  Legacy: SimpleSuccess=0.584 WeakSuccess=0.252 WinRate=0.837
+--------------------------------------------------------------------------------
+EnvStep=471   EpisodeLength=1130.69 Return=2.69
+  Victory Breakdown: Complete=0.543 Great=0.028 Normal=0.181 Narrow=0.078 Failure=0.170
+  Total Victory Rate=0.830 AliveCount= 1.745 BloodAdvantage=   76.40 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3333.00
+  Legacy: SimpleSuccess=0.571 WeakSuccess=0.259 WinRate=0.830
+--------------------------------------------------------------------------------
+EnvStep=472   EpisodeLength=1131.85 Return=2.64
+  Victory Breakdown: Complete=0.527 Great=0.031 Normal=0.172 Narrow=0.091 Failure=0.179
+  Total Victory Rate=0.821 AliveCount= 1.719 BloodAdvantage=   72.94 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3305.00
+  Legacy: SimpleSuccess=0.558 WeakSuccess=0.263 WinRate=0.821
+--------------------------------------------------------------------------------
+EnvStep=473   EpisodeLength=1141.81 Return=2.66
+  Victory Breakdown: Complete=0.533 Great=0.030 Normal=0.175 Narrow=0.086 Failure=0.176
+  Total Victory Rate=0.824 AliveCount= 1.723 BloodAdvantage=   74.61 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3378.00
+  Legacy: SimpleSuccess=0.563 WeakSuccess=0.262 WinRate=0.824
+--------------------------------------------------------------------------------
+EnvStep=474   EpisodeLength=1133.44 Return=2.66
+  Victory Breakdown: Complete=0.542 Great=0.026 Normal=0.170 Narrow=0.091 Failure=0.170
+  Total Victory Rate=0.830 AliveCount= 1.735 BloodAdvantage=   75.81 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=3341.00
+  Legacy: SimpleSuccess=0.568 WeakSuccess=0.262 WinRate=0.830
+--------------------------------------------------------------------------------
+EnvStep=475   EpisodeLength=1130.08 Return=2.69
+  Victory Breakdown: Complete=0.544 Great=0.029 Normal=0.172 Narrow=0.087 Failure=0.169
+  Total Victory Rate=0.831 AliveCount= 1.744 BloodAdvantage=   76.37 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=3396.00
+  Legacy: SimpleSuccess=0.572 WeakSuccess=0.259 WinRate=0.831
+--------------------------------------------------------------------------------
+EnvStep=476   EpisodeLength=1134.26 Return=2.67
+  Victory Breakdown: Complete=0.537 Great=0.029 Normal=0.180 Narrow=0.086 Failure=0.168
+  Total Victory Rate=0.832 AliveCount= 1.735 BloodAdvantage=   75.92 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3326.00
+  Legacy: SimpleSuccess=0.566 WeakSuccess=0.266 WinRate=0.832
+--------------------------------------------------------------------------------
+EnvStep=477   EpisodeLength=1140.39 Return=2.69
+  Victory Breakdown: Complete=0.539 Great=0.027 Normal=0.171 Narrow=0.090 Failure=0.173
+  Total Victory Rate=0.827 AliveCount= 1.736 BloodAdvantage=   75.36 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3328.00
+  Legacy: SimpleSuccess=0.567 WeakSuccess=0.260 WinRate=0.827
+--------------------------------------------------------------------------------
+EnvStep=478   EpisodeLength=1133.96 Return=2.71
+  Victory Breakdown: Complete=0.554 Great=0.032 Normal=0.167 Narrow=0.088 Failure=0.158
+  Total Victory Rate=0.842 AliveCount= 1.750 BloodAdvantage=   77.57 EnemiesLocked= 0.14
+  EnemiesKilled/Episode=3384.00
+  Legacy: SimpleSuccess=0.586 WeakSuccess=0.255 WinRate=0.842
+--------------------------------------------------------------------------------
+EnvStep=479   EpisodeLength=1128.37 Return=2.67
+  Victory Breakdown: Complete=0.549 Great=0.030 Normal=0.165 Narrow=0.089 Failure=0.167
+  Total Victory Rate=0.833 AliveCount= 1.729 BloodAdvantage=   76.35 EnemiesLocked= 0.13
+  EnemiesKilled/Episode=3417.00
+  Legacy: SimpleSuccess=0.579 WeakSuccess=0.254 WinRate=0.833
+--------------------------------------------------------------------------------
+Checkpoint saved at epoch 480

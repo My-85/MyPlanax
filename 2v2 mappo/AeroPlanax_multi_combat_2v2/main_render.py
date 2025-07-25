@@ -76,7 +76,7 @@ config = {
     "OUTPUTDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time,
     "LOGDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/logs",
     "SAVEDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/checkpoints",
-    "LOADDIR": "/home/lczh/Git Project/results/combat_hierarchy_pitch_2025-05-19-13-25/checkpoints/checkpoint_epoch_26" 
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2 mappo/checkpoint_epoch_1360" 
 }
 # config = config | RENDER_CONFIG
 config["NUM_UPDATES"] = (

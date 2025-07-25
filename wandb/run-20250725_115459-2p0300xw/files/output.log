@@ -1,0 +1,16 @@
+jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/lczh_controller/formation-main/AeroPlanax/train_heading_pitch_V_discrete.py", line 546, in <module>
+    out = train_jit(rng)
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/lczh_controller/formation-main/AeroPlanax/train_heading_pitch_V_discrete.py", line 219, in train
+    obsv, env_state = jax.vmap(env.reset, in_axes=(0))(reset_rng)
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/lczh_controller/formation-main/AeroPlanax/envs/wrappers.py", line 53, in reset
+    obs, env_state = self._env.reset(key)
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/lczh_controller/formation-main/AeroPlanax/envs/aeroplanax.py", line 167, in reset
+    state, _ = self.get_reward(state, params)
+  File "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/lczh_controller/formation-main/AeroPlanax/envs/aeroplanax.py", line 475, in get_reward
+    if self.is_potential[i]:
+IndexError: list index out of range

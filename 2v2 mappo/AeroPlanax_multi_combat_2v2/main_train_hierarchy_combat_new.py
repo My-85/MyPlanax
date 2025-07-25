@@ -1,6 +1,6 @@
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-os.environ['XLA_PYTHON_CLIENT_MEM_FRACTION'] = '0.9'
+os.environ['XLA_PYTHON_CLIENT_MEM_FRACTION'] = '0.7'
 os.environ['XLA_PYTHON_CLIENT_PREALLOCATE'] = 'false'
 
 import jax
@@ -89,11 +89,11 @@ config = {
     "FOR_LOOP_EPOCHS": 15,
     "WANDB": True,
     "TRAIN": True,
-    "WANDB_API_KEY" : "f4316927feb010654a1d429360c2f2c824e84387",
+    "WANDB_API_KEY" : "4c0cc04699296bed768adea4824fbaecea35dc59",
     "OUTPUTDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time,
     "LOGDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/logs",
     "SAVEDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/checkpoints",
-    "LOADDIR": "/home/lczh/Git Project/results/combat_hierarchy_pitch_2025-05-23-11-47/checkpoints/checkpoint_epoch_1094" ,
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_2025-07-18-20-51/checkpoints/checkpoint_epoch_1596" ,
     
     # Reward normalization settings
     "REWARD_NORM": False,
@@ -145,7 +145,7 @@ if config["WANDB"]:
     wandb.init(
         project="AeroPlanax",
         config=config,
-        name=f'pitch_controller_seed_{config["SEED"]}',
+        name=f'lczh_2v2(old_version)_{config["SEED"]}',
         group=Env.__name__,
         notes=Env.__name__ + " with pitch-heading-velocity controller",
         reinit=True,

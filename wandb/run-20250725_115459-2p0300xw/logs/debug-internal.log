@@ -1,0 +1,15 @@
+{"time":"2025-07-25T11:54:59.549908886+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.4","symlink path":"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/wandb/run-20250725_115459-2p0300xw/logs/debug-core.log"}
+{"time":"2025-07-25T11:54:59.665864053+08:00","level":"INFO","msg":"created new stream","id":"2p0300xw"}
+{"time":"2025-07-25T11:54:59.665922423+08:00","level":"INFO","msg":"stream: started","id":"2p0300xw"}
+{"time":"2025-07-25T11:54:59.665995672+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"2p0300xw"}
+{"time":"2025-07-25T11:54:59.666046882+08:00","level":"INFO","msg":"handler: started","stream_id":"2p0300xw"}
+{"time":"2025-07-25T11:54:59.666142581+08:00","level":"INFO","msg":"sender: started","stream_id":"2p0300xw"}
+{"time":"2025-07-25T11:55:00.749542089+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-25T11:55:02.149735547+08:00","level":"INFO","msg":"stream: closing","id":"2p0300xw"}
+{"time":"2025-07-25T11:55:02.149923116+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-25T11:55:02.151197965+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-25T11:55:03.035767066+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-25T11:55:03.766316536+08:00","level":"INFO","msg":"handler: closed","stream_id":"2p0300xw"}
+{"time":"2025-07-25T11:55:03.766345916+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"2p0300xw"}
+{"time":"2025-07-25T11:55:03.766366686+08:00","level":"INFO","msg":"sender: closed","stream_id":"2p0300xw"}
+{"time":"2025-07-25T11:55:03.766490795+08:00","level":"INFO","msg":"stream: closed","id":"2p0300xw"}
