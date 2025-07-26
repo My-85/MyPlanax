@@ -77,7 +77,7 @@ config = {
     "LOGDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/logs",
     "SAVEDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/checkpoints",
     # "LOADDIR": "/home/lczh/Git Project/results/combat_hierarchy_pitch_2025-05-23-14-35/checkpoints/checkpoint_epoch_1360" 
-    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_2V22025-07-24-12-37/checkpoints/checkpoint_epoch_480" 
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_2V22025-07-25-10-52/checkpoints/checkpoint_epoch_480" 
 }
 # config = config | RENDER_CONFIG
 config["NUM_UPDATES"] = (

@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 os.environ['XLA_PYTHON_MEM_FRACTION'] = '0.95'
 # 新增：设置 wandb API key（替换为您的实际 key）
 os.environ['WANDB_API_KEY'] = '4c0cc04699296bed768adea4824fbaecea35dc59'  # 从 wandb.ai/settings 获取
@@ -499,13 +499,14 @@ def make_train(config):
 
 str_date_time = datetime.now().strftime('%Y-%m-%d-%H-%M')
 config = {
-    "GROUP": "heading_pitch_V_discrete",
+    "GROUP": "heading_pitch_V_discrete_controller(lczh)",
     "SEED": 42,
     "LR": 3e-4,
     "NUM_ENVS": 1000,
     "NUM_ACTORS": 1,
     "NUM_STEPS": 2000,
-    "TOTAL_TIMESTEPS": 1.6e8,
+    # "TOTAL_TIMESTEPS": 1.6e8, # lczh
+    "TOTAL_TIMESTEPS": 3.2e8,
     "FC_DIM_SIZE": 128,
     "GRU_HIDDEN_DIM": 128,
     "UPDATE_EPOCHS": 16,
@@ -522,7 +523,7 @@ config = {
     "OUTPUTDIR": "results/" + "heading_pitch_V_discrete" + "_" + str_date_time,
     "LOGDIR": "results/" + "heading_pitch_V_discrete" + "_" + str_date_time + "/logs",
     "SAVEDIR": "results/" + "heading_pitch_V_discrete" + "_" + str_date_time + "/checkpoints",
-    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-25-12-10/checkpoints/checkpoint_epoch_80" 
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-25-16-27/checkpoints/checkpoint_epoch_160" 
 }
 
 seed = config['SEED']
@@ -530,7 +531,7 @@ wandb.tensorboard.patch(root_logdir=config['LOGDIR'])
 wandb.init(
     project="AeroPlanax",
     config=config,
-    name=config['GROUP'] + f'_agent{config["NUM_ACTORS"]}_seed_{seed}',
+    name=config['GROUP'],
     group=config['GROUP'],
     notes='multi tasks and discrete action',
     reinit=True,
