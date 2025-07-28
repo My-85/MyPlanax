@@ -264,7 +264,8 @@ config = {
     "MAX_GRAD_NORM": 2,
     "ACTIVATION": "relu",
     "ANNEAL_LR": False,
-    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-25-19-29/checkpoints/checkpoint_epoch_960" 
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-25-19-29/checkpoints/checkpoint_epoch_960" 
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-26-10-10/checkpoints/checkpoint_epoch_610"
 }
 rng = jax.random.PRNGKey(42)
 out = test(config, rng) 

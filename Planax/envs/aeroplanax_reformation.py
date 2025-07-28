@@ -1,4 +1,4 @@
-from typing import Dict, Optional, Tuple, Any
+from typing import Dict, Sequence, Optional, Tuple, Any
 from jax import Array
 from jax.typing import ArrayLike
 import chex
@@ -10,7 +10,7 @@ import jax.numpy as jnp
 from flax import struct
 from gymnax.environments import spaces
 from .aeroplanax import EnvState, EnvParams, AeroPlanaxEnv
-from .core.simulators.fighterplane.dynamics import FighterPlaneState
+from .core.simulators.fighterplane.dynamics import FighterPlaneState, FighterPlaneControlState, update
 from .reward_functions import (
     formation_reward_EZ_fn,
     event_driven_reward_fn,
@@ -21,14 +21,96 @@ from .termination_conditions import (
 )
 from .utils.utils import wrap_PI, wedge_formation, line_formation, diamond_formation, enforce_safe_distance
 
+from flax import linen as nn
+import distrax, optax, orbax.checkpoint as ocp      # 用于加载控制器
+from flax.linen.initializers import constant, orthogonal
+import numpy as np
+
+# ---------- ① 复制 ScannedRNN 与 ActorCriticLSTM ----------
+class ScannedRNN(nn.Module):
+    @functools.partial(nn.scan, variable_broadcast="params",
+                       in_axes=0, out_axes=0, split_rngs={"params": False})
+    @nn.compact
+    def __call__(self, carry, x):
+        h, (ins, resets) = carry, x
+        h = jnp.where(resets[:, None], self.initialize_carry(*h.shape), h)
+        h, y = nn.GRUCell(ins.shape[1])(h, ins)
+        return h, y
+
+    @staticmethod
+    def initialize_carry(batch, hidden):
+        return nn.GRUCell(hidden).initialize_carry(jax.random.PRNGKey(0),
+                                                   (batch, hidden))
+
+
+class ActorCriticRNN(nn.Module):
+    action_dim: Sequence[int]   # = [31,41,41,41]
+    cfg: Dict
+    @nn.compact
+    def __call__(self, h, x):
+        obs, dones = x
+        act = nn.relu if self.cfg["ACTIVATION"] == "relu" else nn.tanh
+        emb = act(nn.Dense(self.cfg["FC_DIM_SIZE"],
+                           kernel_init=orthogonal(np.sqrt(2)),
+                           bias_init=constant(0.0))(obs))
+        # ---------- GRU ----------
+        h, gru_out = ScannedRNN()(h, (emb, dones))
+
+        # ---------- Actor heads ----------
+        actor_hidden = act(
+            nn.Dense(self.cfg["GRU_HIDDEN_DIM"],
+                     kernel_init=orthogonal(2),
+                     bias_init=constant(0.0))(gru_out)
+        )
+        head = lambda n: distrax.Categorical(
+            logits=nn.Dense(n,
+                            kernel_init=orthogonal(0.01),
+                            bias_init=constant(0.0))(actor_hidden))
+
+        pi = tuple(map(head, self.action_dim))
+
+        # ---------- Critic head ----------
+        critic_hidden = act(
+            nn.Dense(self.cfg["FC_DIM_SIZE"],
+                     kernel_init=orthogonal(2),
+                     bias_init=constant(0.0))(gru_out)
+        )
+        v = nn.Dense(1, kernel_init=orthogonal(1.0),
+                     bias_init=constant(0.0))(critic_hidden).squeeze(-1)
+        return h, pi, v
+
+# ---------- ② 定义 controller_config 并加载权重 ----------
+controller_cfg = {
+    "FC_DIM_SIZE": 128,
+    "GRU_HIDDEN_DIM": 128,
+    "ACTIVATION": "relu",
+    "MAX_GRAD_NORM": 2,
+}
+controller = ActorCriticRNN([31, 41, 41, 41], cfg=controller_cfg)
+ctrl_rng   = jax.random.PRNGKey(42)
+dummy_obs  = (jnp.zeros((1, 1, 16)), jnp.zeros((1, 1)))
+dummy_h    = ScannedRNN.initialize_carry(1, controller_cfg["GRU_HIDDEN_DIM"])
+ctrl_params = controller.init(ctrl_rng, dummy_h, dummy_obs)
+
+# 路径指向你在 heading-pitch-V 任务中保存的 checkpoint
+CTRL_CKPT_DIR = "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-26-10-10/checkpoints/checkpoint_epoch_610"
+ckptr = ocp.AsyncCheckpointer(ocp.StandardCheckpointHandler())
+loaded_state = ckptr.restore(CTRL_CKPT_DIR)  # 直接恢复完整结构
+ctrl_params = loaded_state['params']
+
 
 @struct.dataclass
 class FormationTaskState(EnvState):
     formation_positions: ArrayLike
     target_heading: float 
     target_vt: float
+    last_reform_time: int        # ← 新增：上一次编队重组发生的仿真步
+    hstate: ArrayLike
+
+
+
     @classmethod
-    def create(cls, env_state: EnvState, formation_positions: Array, target_heading: float, target_vt: float):
+    def create(cls, env_state: EnvState, extra_state: Array, formation_positions: Array, target_heading: float, target_vt: float, last_reform_time: int = 0):
         return cls(
             plane_state=env_state.plane_state,
             missile_state=env_state.missile_state,
@@ -37,9 +119,11 @@ class FormationTaskState(EnvState):
             done=env_state.done,
             success=env_state.success,
             time=env_state.time,
+            hstate=extra_state,
             formation_positions=formation_positions, 
             target_heading=target_heading,
             target_vt=target_vt,
+            last_reform_time=last_reform_time,
         )
 
 
@@ -82,6 +166,12 @@ class AeroPlanaxFormationEnv(AeroPlanaxEnv[FormationTaskState, FormationTaskPara
         self.formation_type = env_params.formation_type
         self.unit_features: int= 5
         self.own_features: int= 18
+        self.reform_interval_steps: int = 500   # 每隔多少仿真步触发一次随机编队重组
+
+        # ─── 三张离散增量表，尺寸与 baseline 完全一致 ───
+        self.norm_delta_pitch   = jnp.linspace(-jnp.pi/6,  jnp.pi/6, 30)   # ±30°
+        self.norm_delta_heading = jnp.linspace(-jnp.pi/2,  jnp.pi/2, 30)   # ±90°
+        self.norm_delta_vt      = jnp.linspace(-100.0,     100.0,   30)    # ±100 m/s
 
         self.observation_spaces: Dict[AgentName, spaces.Space] = {
             agent: self._get_individual_obs_space(i) for i, agent in enumerate(self.agents)
@@ -100,7 +190,82 @@ class AeroPlanaxFormationEnv(AeroPlanaxEnv[FormationTaskState, FormationTaskPara
             crashed_fn,
             unreach_formation_fn,
         ]
-        
+
+         
+    def _get_controller_obs(self, plane_state, target_pitch, target_heading, target_vt):
+        """为底层控制器生成 16 维观测 (Δpitch, Δheading, Δvt, alt, vt, trig funcs 等)"""
+        delta_pitch = target_pitch - plane_state.pitch
+        delta_heading = target_heading - plane_state.yaw
+        delta_vt = target_vt - plane_state.vt
+        norm_delta_pitch = delta_pitch / (jnp.pi / 6)
+        norm_delta_heading = delta_heading / (jnp.pi / 6)
+        norm_delta_vt = delta_vt / (100)
+        norm_alt = plane_state.altitude / 5000
+        norm_vt = plane_state.vt / 340
+        roll_sin = jnp.sin(plane_state.roll)
+        roll_cos = jnp.cos(plane_state.roll)
+        pitch_sin = jnp.sin(plane_state.pitch)
+        pitch_cos = jnp.cos(plane_state.pitch)
+        alpha_sin = jnp.sin(plane_state.alpha)
+        alpha_cos = jnp.cos(plane_state.alpha)
+        beta_sin = jnp.sin(plane_state.beta)
+        beta_cos = jnp.cos(plane_state.beta)
+        return jnp.stack([
+            norm_delta_pitch, norm_delta_heading, norm_delta_vt,
+            norm_alt, norm_vt,
+            roll_sin, roll_cos, pitch_sin, pitch_cos,
+            alpha_sin, alpha_cos, beta_sin, beta_cos,
+            jnp.zeros_like(plane_state.altitude),  # 无敌机，填充 0
+            jnp.zeros_like(plane_state.altitude),  # 无敌机，填充 0
+            jnp.zeros_like(plane_state.altitude),  # 无敌机，填充 0
+        ], axis=-1)
+
+
+    # ------------------------------------------------------------
+    #  覆盖动作解码：高层三离散 → 底层舵面四维
+    # ------------------------------------------------------------
+    @functools.partial(jax.jit, static_argnums=(0,))
+    def _decode_actions(
+        self,
+        key: chex.PRNGKey,
+        init_state: FormationTaskState,
+        state: FormationTaskState,
+        actions: Dict[AgentName, chex.Array],
+    ):
+        # 上层给出的 Dict 被 Gymnax 展平为 (N,4) int32
+        acts = jnp.array([actions[a] for a in self.agents])            # (N,4)
+
+        d_pitch   = self.norm_delta_pitch  [acts[:, 0]]
+        d_heading = self.norm_delta_heading[acts[:, 1]]
+        d_vt      = self.norm_delta_vt     [acts[:, 2]]
+
+        tgt_pitch   = wrap_PI(init_state.plane_state.pitch + d_pitch)
+        tgt_heading = wrap_PI(init_state.plane_state.yaw   + d_heading)
+        tgt_vt      = init_state.plane_state.vt + d_vt
+
+        # 16-维观测给预训练 controller
+        ctrl_obs = self._get_controller_obs(state.plane_state,
+                                            tgt_pitch, tgt_heading, tgt_vt)
+        dones    = jnp.zeros((self.num_agents,), dtype=bool)
+
+        h, pis, _ = controller.apply(ctrl_params, state.hstate,
+                                     (ctrl_obs[None, :], dones[None, :]))
+        pi_t, pi_e, pi_a, pi_r = pis
+
+        # 采样四舵面离散动作
+        key, kt = jax.random.split(key); a_t = pi_t.sample(seed=kt)
+        key, ke = jax.random.split(key); a_e = pi_e.sample(seed=ke)
+        key, ka = jax.random.split(key); a_a = pi_a.sample(seed=ka)
+        key, kr = jax.random.split(key); a_r = pi_r.sample(seed=kr)
+        a_stack = jnp.stack([a_t, a_e, a_a, a_r], axis=-1).squeeze(0)  # (N,4)
+
+        # 离散→连续舵面 [-1,1]
+        a_cont  = jax.vmap(self._decode_discrete_actions)(a_stack)
+
+        # 更新隐状态
+        state = state.replace(hstate=h)
+        return state, jax.vmap(FighterPlaneControlState.create)(a_cont)
+
     def _get_global_obs_size(self) -> int:
         return self.global_topK * self.unit_features + self.own_features
     
@@ -230,10 +395,12 @@ class AeroPlanaxFormationEnv(AeroPlanaxEnv[FormationTaskState, FormationTaskPara
         params: FormationTaskParams,
     ) -> FormationTaskState:
         state = super()._init_state(key, params)
-        state = FormationTaskState.create(state, 
+        init_hstate = ScannedRNN.initialize_carry(self.num_agents, controller_cfg["GRU_HIDDEN_DIM"])
+        state = FormationTaskState.create(state, init_hstate, 
                                           formation_positions=jnp.zeros((self.num_agents, 3)),
                                           target_heading=0.0, 
-                                          target_vt=params.min_vt)
+                                          target_vt=params.min_vt,
+                                          last_reform_time=0,)
         return state
     
     # 任务特定的重置逻辑
@@ -262,6 +429,7 @@ class AeroPlanaxFormationEnv(AeroPlanaxEnv[FormationTaskState, FormationTaskPara
             formation_positions=formation_positions,
             target_heading=target_heading,
             target_vt=target_vt,
+            last_reform_time=state.time,   # 重置计时器
         )
         return state
 
@@ -274,18 +442,72 @@ class AeroPlanaxFormationEnv(AeroPlanaxEnv[FormationTaskState, FormationTaskPara
         action,
         params
     ) -> Tuple[FormationTaskState, Dict[str, Any]]:
+        # ---------- ① 正常编队跟随逻辑 ----------
         delta_time = 1.0 / params.sim_freq * params.agent_interaction_steps
         delta_distance = state.target_vt * delta_time
+        new_form_position = state.formation_positions.at[:, 0].add(
+            delta_distance * jnp.cos(state.target_heading))
+        new_form_position = new_form_position.at[:, 1].add(
+            delta_distance * jnp.sin(state.target_heading))
+        state = state.replace(formation_positions=new_form_position)
 
-        new_form_position = state.formation_positions.at[:, 0].add(delta_distance * jnp.cos(state.target_heading))
-        new_form_position = new_form_position.at[:, 1].add(delta_distance * jnp.sin(state.target_heading))
+        # ---------- ② 判断是否到重组时间 ----------
+        need_reform = (state.time - state.last_reform_time) >= self.reform_interval_steps
 
-        state = state.replace(
-            formation_positions=new_form_position
+        def _reform(state_key_tuple):
+            """执行随机编队变换并返回更新后的 state。"""
+            st, k0 = state_key_tuple
+
+            # 1) 随机选择编队形状：0=wedge, 1=line, 2=diamond
+            k0, k_form = jax.random.split(k0)
+            new_form_type = jax.random.randint(k_form, (), 0, 3)
+
+            # 2) 根据 new_form_type 生成目标相对位置 (与 _generate_formation 相同逻辑)
+            team_spacing = params.team_spacing
+            form_pos = jax.lax.switch(
+                new_form_type,
+                (
+                    lambda _: wedge_formation(self.num_allies, team_spacing),
+                    lambda _: line_formation(self.num_allies, team_spacing),
+                    lambda _: diamond_formation(self.num_allies, team_spacing),
+                ),
+                operand=None,
+            )
+
+            # 3) 放到当前高度 & 加随机偏移后 enforce_safe_distance
+            k0, k_alt, k_dx, k_dy, k_dz = jax.random.split(k0, 5)
+            altitude = jax.random.uniform(k_alt, (), minval=params.min_altitude, maxval=params.max_altitude)
+            team_center = jnp.array([0.0, 0.0, altitude])
+
+            # 随机偏移
+            dx = jax.random.uniform(k_dx, (self.num_allies,), minval=-params.max_xy_increment, maxval=params.max_xy_increment)
+            dy = jax.random.uniform(k_dy, (self.num_allies,), minval=-params.max_xy_increment, maxval=params.max_xy_increment)
+            dz = jax.random.uniform(k_dz, (self.num_allies,), minval=-params.max_z_increment,  maxval=params.max_z_increment)
+
+            form_pos = form_pos.at[:, 0].add(dx)
+            form_pos = form_pos.at[:, 1].add(dy)
+            form_pos = form_pos.at[:, 2].add(dz)
+            form_pos = enforce_safe_distance(form_pos, team_center, params.safe_distance)
+
+            # 4) 更新 state（并刷新 last_reform_time）
+            st = st.replace(
+                formation_positions=form_pos,
+                last_reform_time=st.time,
+            )
+            return st, k0
+
+        state, key = jax.lax.cond(
+            need_reform,
+            _reform,
+            lambda st_key: st_key,
+            (state, key),
         )
 
+        # ---------- ③ 记录信息 ----------
         alive_mask = state.plane_state.is_alive | state.plane_state.is_locked
         info['alive_count'] = alive_mask.sum()
+        info['need_reform'] = need_reform    # 便于调试/日志
+
         return state, info
     
     @functools.partial(jax.jit, static_argnums=(0,))

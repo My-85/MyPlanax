@@ -518,7 +518,9 @@ config = {
     "OUTPUTDIR": "results/" + str_date_time,
     "LOGDIR": "results/" + str_date_time + "/logs",
     "SAVEDIR": "results/" + str_date_time + "/checkpoints",
-    # "LOADDIR": "/home/xcy/AeroPlanax/results/2025-01-26-04-39/checkpoints/checkpoint_epoch_1" 
+    # 预训练 heading-pitch-V 控制器
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-26-10-10/checkpoints/checkpoint_epoch_610"
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/formation_2025-07-28-10-10/checkpoints/checkpoint_epoch_100"
 }
 
 seed = config['SEED']
