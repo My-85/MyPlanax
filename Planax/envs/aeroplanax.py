@@ -393,6 +393,41 @@ class AeroPlanaxEnv(Generic[TEnvState, TEnvParams]):
                 log_msg += f"Color=Red"
                 if log_msg is not None:
                     f.write(log_msg + "\n")
+
+                # 添加目标指示器，适用于俯仰、偏航任务
+                # Add target indicator for each aircraft
+                if hasattr(state, 'target_heading') and hasattr(state, 'target_pitch'):
+                    # Create a target indicator 1000m ahead of the aircraft in the target direction
+                    target_distance = 1000  # meters
+                    target_heading = state.target_heading[0][i]
+                    target_pitch = state.target_pitch[0][i]
+                    
+                    # Calculate target position in ENU coordinates
+                    # dx = target_distance * jnp.cos(target_pitch) * jnp.cos(target_heading-90*jnp.pi/180)
+                    # dy = target_distance * jnp.cos(target_pitch) * jnp.sin(target_heading-90*jnp.pi/180)
+                    dy = target_distance * jnp.cos(target_pitch) * jnp.cos(target_heading)
+                    dx = target_distance * jnp.cos(target_pitch) * jnp.sin(target_heading)
+                    dz = target_distance * jnp.sin(target_pitch)
+                    
+                    target_npos = npos + dy
+                    target_epos = epos + dx
+                    target_alt = alt + dz
+                    
+                    target_lat, target_lon, target_alt = enu_to_geodetic(target_epos, target_npos, target_alt, 0, 0, 0)
+                    
+                    # Write target indicator
+                    target_msg = f"{1000 + i},T={target_lon}|{target_lat}|{target_alt}|0|{target_pitch * 180 / jnp.pi}|{target_heading * 180 / jnp.pi},"
+                    target_msg += f"Name=Target_{i},"
+                    target_msg += f"Color=Yellow,"
+                    target_msg += f"Type=Marker"
+                    f.write(target_msg + "\n")
+                    
+                    # # Add a line connecting aircraft to target
+                    # line_msg = f"{2000 + i},T=Line {lon}|{lat}|{alt} {target_lon}|{target_lat}|{target_alt},"
+                    # line_msg += f"Name=TargetLine_{i},"
+                    # line_msg += f"Color=Yellow"
+                    # f.write(line_msg + "\n")
+
             for i in range(self.num_allies, self.num_agents):
                 npos = state.plane_state.north[0][i]
                 epos = state.plane_state.east[0][i]

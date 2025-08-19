@@ -234,7 +234,7 @@ def test(config, rng):
         init_hstate,
         _rng,
     )
-    for _ in range(1000):
+    for _ in range(2000):
         test_state, traj_batch = _env_step(test_state)
         env_state = test_state[0].env_state
         print(f'Time: {env_state.time}, Done: {test_state[2]}, Reward: {traj_batch.reward}')
@@ -259,7 +259,7 @@ config = {
     "MAX_GRAD_NORM": 2,
     "ACTIVATION": "relu",
     "ANNEAL_LR": False,
-    "LOADDIR": "/home/xcy/AeroPlanax-heading/results/2025-04-29-15-07/checkpoints/checkpoint_epoch_1000" 
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/2025-07-29-17-49/checkpoints/checkpoint_epoch_1000" 
 }
 rng = jax.random.PRNGKey(42)
 out = test(config, rng)

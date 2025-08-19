@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 os.environ['XLA_PYTHON_CLIENT_MEM_FRACTION'] = '0.9'
 os.environ['XLA_PYTHON_CLIENT_PREALLOCATE'] = 'false'
 
@@ -82,18 +82,18 @@ config = {
     "DEBUG": True,
     "NUM_ENVS": 4000,
     "NUM_STEPS": 1500,
-    "TOTAL_TIMESTEPS": 1e8,
+    "TOTAL_TIMESTEPS": 5e9,
     "SEED": 42,
     "NOISE_SEED": 42,
-    "GROUP": "combat_hierarchy_pitch",
-    "FOR_LOOP_EPOCHS": 30,
+    "GROUP": "hierarchy_combat_2v2(lstm_heading_pitch_V_baseline)",
+    "FOR_LOOP_EPOCHS": 1,
     "WANDB": True,
     "TRAIN": True,
     "WANDB_API_KEY" : "4c0cc04699296bed768adea4824fbaecea35dc59",
     "OUTPUTDIR": "results/" + "combat_hierarchy_pitch_2V2" + str_date_time,
     "LOGDIR": "results/" + "combat_hierarchy_pitch_2V2" + str_date_time + "/logs",
     "SAVEDIR": "results/" + "combat_hierarchy_pitch_2V2" + str_date_time + "/checkpoints",
-    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_2V22025-07-25-10-52/checkpoints/checkpoint_epoch_480" ,
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_2V22025-08-17-18-24/checkpoints/checkpoint_epoch_166" ,
     
     # Reward normalization settings
     "REWARD_NORM": False,

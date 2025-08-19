@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 os.environ['XLA_PYTHON_MEM_FRACTION'] = '0.5'
 
 import jax
@@ -495,8 +495,8 @@ def make_train(config):
 
 str_date_time = datetime.now().strftime('%Y-%m-%d-%H-%M')
 config = {
-    "GROUP": "formation",
-    "SEED": 42,
+    "GROUP": "reformation_agent5_seed10",
+    "SEED": 10,
     "LR": 3e-4,
     "NUM_ENVS": 300,
     "NUM_ACTORS": 5,

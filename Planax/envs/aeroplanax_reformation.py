@@ -14,11 +14,13 @@ from .core.simulators.fighterplane.dynamics import FighterPlaneState, FighterPla
 from .reward_functions import (
     formation_reward_EZ_fn,
     event_driven_reward_fn,
+    heading_alignment_reward_fn, 
 )
 from .termination_conditions import (
     crashed_fn,
     unreach_formation_fn
 )
+
 from .utils.utils import wrap_PI, wedge_formation, line_formation, diamond_formation, enforce_safe_distance
 
 from flax import linen as nn
@@ -26,24 +28,28 @@ import distrax, optax, orbax.checkpoint as ocp      # 用于加载控制器
 from flax.linen.initializers import constant, orthogonal
 import numpy as np
 
-# ---------- ① 复制 ScannedRNN 与 ActorCriticLSTM ----------
-class ScannedRNN(nn.Module):
+# ---------- ① 复制 ScannedLSTM 与 ActorCriticLSTM ----------
+class ScannedLSTM(nn.Module):
     @functools.partial(nn.scan, variable_broadcast="params",
                        in_axes=0, out_axes=0, split_rngs={"params": False})
     @nn.compact
     def __call__(self, carry, x):
-        h, (ins, resets) = carry, x
-        h = jnp.where(resets[:, None], self.initialize_carry(*h.shape), h)
-        h, y = nn.GRUCell(ins.shape[1])(h, ins)
-        return h, y
+        (h, c), (ins, resets) = carry, x
+        # 在 reset 帧把 (h,c) 清零
+        h = jnp.where(resets[:, None], self.initialize_carry(*h.shape)[0], h)
+        c = jnp.where(resets[:, None], self.initialize_carry(*c.shape)[1], c)
+
+        hidden_dim = h.shape[1]          
+        (h, c), y = nn.LSTMCell(features=hidden_dim)((h, c), ins)
+        return (h, c), y
 
     @staticmethod
     def initialize_carry(batch, hidden):
-        return nn.GRUCell(hidden).initialize_carry(jax.random.PRNGKey(0),
-                                                   (batch, hidden))
+        cell = nn.LSTMCell(features=hidden)
+        return cell.initialize_carry(jax.random.PRNGKey(0), (batch, hidden))
+ 
 
-
-class ActorCriticRNN(nn.Module):
+class ActorCriticLSTM(nn.Module):
     action_dim: Sequence[int]   # = [31,41,41,41]
     cfg: Dict
     @nn.compact
@@ -53,14 +59,20 @@ class ActorCriticRNN(nn.Module):
         emb = act(nn.Dense(self.cfg["FC_DIM_SIZE"],
                            kernel_init=orthogonal(np.sqrt(2)),
                            bias_init=constant(0.0))(obs))
-        # ---------- GRU ----------
-        h, gru_out = ScannedRNN()(h, (emb, dones))
+        # ---------- LSTM ----------
+        (h, c), gru_out = ScannedLSTM()(h, (emb, dones))
 
         # ---------- Actor heads ----------
-        actor_hidden = act(
+        # baseline_stable_2 先 128→256 再 256→128
+        fc2 = act(                                   # 128 → 256
+            nn.Dense(256,
+                     kernel_init=orthogonal(np.sqrt(2)),
+                     bias_init=constant(0.0))(gru_out)
+        )
+        actor_hidden = act(                          # 256 → 128
             nn.Dense(self.cfg["GRU_HIDDEN_DIM"],
                      kernel_init=orthogonal(2),
-                     bias_init=constant(0.0))(gru_out)
+                     bias_init=constant(0.0))(fc2)
         )
         head = lambda n: distrax.Categorical(
             logits=nn.Dense(n,
@@ -77,7 +89,7 @@ class ActorCriticRNN(nn.Module):
         )
         v = nn.Dense(1, kernel_init=orthogonal(1.0),
                      bias_init=constant(0.0))(critic_hidden).squeeze(-1)
-        return h, pi, v
+        return (h, c), pi, v
 
 # ---------- ② 定义 controller_config 并加载权重 ----------
 controller_cfg = {
@@ -86,14 +98,15 @@ controller_cfg = {
     "ACTIVATION": "relu",
     "MAX_GRAD_NORM": 2,
 }
-controller = ActorCriticRNN([31, 41, 41, 41], cfg=controller_cfg)
+controller = ActorCriticLSTM([31, 41, 41, 41], cfg=controller_cfg)
 ctrl_rng   = jax.random.PRNGKey(42)
 dummy_obs  = (jnp.zeros((1, 1, 16)), jnp.zeros((1, 1)))
-dummy_h    = ScannedRNN.initialize_carry(1, controller_cfg["GRU_HIDDEN_DIM"])
+dummy_h    = ScannedLSTM.initialize_carry(1, controller_cfg["GRU_HIDDEN_DIM"])
 ctrl_params = controller.init(ctrl_rng, dummy_h, dummy_obs)
 
 # 路径指向你在 heading-pitch-V 任务中保存的 checkpoint
-CTRL_CKPT_DIR = "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-26-10-10/checkpoints/checkpoint_epoch_610"
+# CTRL_CKPT_DIR = "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-26-10-10/checkpoints/checkpoint_epoch_610"
+CTRL_CKPT_DIR = "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2_lczh/AeroPlanax_multi_combat_2v2/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2"
 ckptr = ocp.AsyncCheckpointer(ocp.StandardCheckpointHandler())
 loaded_state = ckptr.restore(CTRL_CKPT_DIR)  # 直接恢复完整结构
 ctrl_params = loaded_state['params']
@@ -166,7 +179,7 @@ class AeroPlanaxFormationEnv(AeroPlanaxEnv[FormationTaskState, FormationTaskPara
         self.formation_type = env_params.formation_type
         self.unit_features: int= 5
         self.own_features: int= 18
-        self.reform_interval_steps: int = 500   # 每隔多少仿真步触发一次随机编队重组
+        self.reform_interval_steps: int = 100   # 每隔多少仿真步触发一次随机编队重组
 
         # ─── 三张离散增量表，尺寸与 baseline 完全一致 ───
         self.norm_delta_pitch   = jnp.linspace(-jnp.pi/6,  jnp.pi/6, 30)   # ±30°
@@ -176,15 +189,15 @@ class AeroPlanaxFormationEnv(AeroPlanaxEnv[FormationTaskState, FormationTaskPara
         self.observation_spaces: Dict[AgentName, spaces.Space] = {
             agent: self._get_individual_obs_space(i) for i, agent in enumerate(self.agents)
         }
-        self.action_spaces: Dict[AgentName, spaces.Space] = {
-            agent: self._get_individual_action_space(i) for i, agent in enumerate(self.agents)
-        }
 
+        # ─── 奖励函数：航向 → 编队误差 → 事件 ───
         self.reward_functions = [
-            functools.partial(formation_reward_EZ_fn, reward_scale=1.0),
-            functools.partial(event_driven_reward_fn, fail_reward=-200, success_reward=200),
+            functools.partial(heading_alignment_reward_fn,  reward_scale=1.0),
+            functools.partial(formation_reward_EZ_fn,       reward_scale=1.0),
+            functools.partial(event_driven_reward_fn,       fail_reward=-200, success_reward=200),
         ]
-        self.is_potential = [False, True]
+        # 对应每个 reward 是否使用“势能差分”形式
+        self.is_potential = [False, False, True]
 
         self.termination_conditions = [
             crashed_fn,
@@ -395,7 +408,7 @@ class AeroPlanaxFormationEnv(AeroPlanaxEnv[FormationTaskState, FormationTaskPara
         params: FormationTaskParams,
     ) -> FormationTaskState:
         state = super()._init_state(key, params)
-        init_hstate = ScannedRNN.initialize_carry(self.num_agents, controller_cfg["GRU_HIDDEN_DIM"])
+        init_hstate = ScannedLSTM.initialize_carry(self.num_agents, controller_cfg["GRU_HIDDEN_DIM"])
         state = FormationTaskState.create(state, init_hstate, 
                                           formation_positions=jnp.zeros((self.num_agents, 3)),
                                           target_heading=0.0, 

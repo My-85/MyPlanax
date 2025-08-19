@@ -6,3 +6,7 @@ from .alive_reward import alive_reward_fn
 from .altitude_reward import altitude_reward_fn
 from .posture_reward import posture_reward_fn
 from .formation_reward_EZ import formation_reward_EZ_fn
+from .heading_alignment_reward import heading_alignment_reward_fn
+from .heading_pitch_V_reward import heading_pitch_V_reward_fn
+from .heading_pitch_v_event_driven_reward import heading_pitch_v_event_driven_reward_fn
+from .crash_reward import crash_reward_fn, low_altitude_reward_fn

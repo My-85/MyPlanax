@@ -95,7 +95,7 @@ move_rate = 1.0 # 敌方机动因子
 #     raise ValueError("当前运行目录不是AeroPlanax,无法自动获取heading baseline文件夹位置，请手动填写LOADDIR并禁用本行代码！")
 
 # print(f'combat_hierarchy policy: load heading_pitch_V model from {os.path.join(os.getcwd(),"/home/qiyuan/lczh/AeroPlanax-dev-tmp0429_lxy_reform/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")}')
-print(f'combat_hierarchy policy: load heading_pitch_V model from {os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_2025-07-26-10-10/checkpoints/checkpoint_epoch_610")}')
+print(f'combat_hierarchy policy: load heading_pitch_V model from {os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2_lczh/AeroPlanax_multi_combat_2v2/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")}')
 config = {
     "SEED": 42,
     "LR": 3e-4,
@@ -113,8 +113,9 @@ config = {
     "MAX_GRAD_NORM": 2,
     "ACTIVATION": "relu",
     "ANNEAL_LR": False,
-    "LOADDIR": os.path.join(os.getcwd(),"/home/qiyuan/lczh/AeroPlanax_multi_combat/AeroPlanax_multi_combat_2v2/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")
+    # "LOADDIR": os.path.join(os.getcwd(),"/home/qiyuan/lczh/AeroPlanax_multi_combat/AeroPlanax_multi_combat_2v2/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")
     # "LOADDIR": os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/Planax/envs/models/baseline") # Planax文件夹下的baseline
+    "LOADDIR": os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/2v2_lczh/AeroPlanax_multi_combat_2v2/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")
 }
 
 
