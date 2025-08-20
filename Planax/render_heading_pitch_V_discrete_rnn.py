@@ -262,7 +262,7 @@ config = {
     "ANNEAL_LR": False,
     # 把下面路径改成你的RNN基线checkpoint目录
     # 例："/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/Planax/envs/models/baseline/rnn_Yaw_Pitch_V/baseline_xxx"
-    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/Planax/envs/models/baseline",
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_rnn_2025-08-19-10-50/checkpoints/checkpoint_epoch_1000",
 }
 rng = jax.random.PRNGKey(42)
 out = test(config, rng)

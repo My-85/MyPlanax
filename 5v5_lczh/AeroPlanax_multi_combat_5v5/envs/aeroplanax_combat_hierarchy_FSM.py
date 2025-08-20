@@ -148,6 +148,7 @@ ATTACK_SPEED_FACTOR = 1.0   # 攻击状态下的速度因子
 EVADE_SPEED_FACTOR = 1.0    # 规避状态下的速度因子
 PATROL_TURN_RANDOMNESS = 0.3  # 巡逻状态下的随机转向强度
 PATROL_ALTITUDE_RANGE = [5000.0, 10000.0]  # 巡逻状态下的高度范围
+move_rate = 1.0 # 敌方机动因子（与2v2一致）
 
 # 课程学习相关常量
 CURRICULUM_ENEMY_DAMAGE_MIN = 0.1    # 敌方最小攻击力
@@ -155,10 +156,11 @@ CURRICULUM_ENEMY_DAMAGE_MAX = 1.0    # 敌方最大攻击力
 CURRICULUM_MANEUVER_MIN = 0.3        # 敌方最小机动性能倍数
 CURRICULUM_MANEUVER_MAX = 1.0        # 敌方最大机动性能倍数
 
+
 # if not os.getcwd().endswith("AeroPlanax-dev-tmp0429_lxy_reform"):
 #     raise ValueError("当前运行目录不是AeroPlanax,无法自动获取heading baseline文件夹位置，请手动填写LOADDIR并禁用本行代码！")
 
-print(f'combat_hierarchy policy: load heading_pitch_V model from {os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/5v5 mappo/AeroPlanax_multi_combat_5v5/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")}')
+print(f'combat_hierarchy policy: load heading_pitch_V model from {os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/5v5_lczh/AeroPlanax_multi_combat_5v5/envs/models/baseline_rnn/checkpoint_epoch_1000")}')
 config = {
     "SEED": 42,
     "LR": 3e-4,
@@ -177,7 +179,7 @@ config = {
     "ACTIVATION": "relu",
     "ANNEAL_LR": False,
     # "LOADDIR": os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/5v5 mappo/AeroPlanax_multi_combat_5v5/envs/models/baseline/lstm_Yaw_Pitch_V/baseline_stable_2")
-        "LOADDIR": os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/Planax/envs/models/baseline") # Planax文件夹下的baseline
+    "LOADDIR": os.path.join(os.getcwd(),"/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/5v5_lczh/AeroPlanax_multi_combat_5v5/envs/models/baseline_rnn/checkpoint_epoch_1000") # 基于RNN训练出来的baseline
 }
 
 ############################################################################################
@@ -406,8 +408,9 @@ class HierarchicalCombatTaskParams(EnvParams):
     enemy_damage_per_lock: float = 1.0  # 敌方飞机的攻击力（每锁定一架我方飞机每秒造成的伤害）
     
     # 课程学习参数
-    enable_curriculum: bool = False        # 是否启用课程学习
-    curriculum_total_steps: int = 20  # 课程学习总步数
+    # enable_curriculum: bool = False        # 是否启用课程学习
+    enable_curriculum: bool = True        # 是否启用课程学习
+    curriculum_total_steps: int = 20  # 课程学习总步数 （源代码是20）
     curriculum_start_step: int = 0       # 开始课程学习的步数
     current_training_step: int = 0       # 当前训练步数（需要外部更新）
     
@@ -876,46 +879,89 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             agent: self._get_individual_action_space(i) for i, agent in enumerate(self.agents)
         }
 
+##############################################################################################################################
+# 5v5原版奖励
+        # self.reward_functions = [
+        #     functools.partial(posture_reward_fn, 
+        #                       reward_scale=1.0,  # 降低权重从5.0到1.0
+        #                       num_allies=env_params.num_allies, 
+        #                       num_enemies=env_params.num_enemies),
+        #     functools.partial(heading_alignment_reward_fn,  # 新添加的奖励函数
+        #                       reward_scale=0.5,             # 降低权重从4.0到0.5
+        #                       num_allies=env_params.num_allies,
+        #                       num_enemies=env_params.num_enemies),
+        #     functools.partial(locked_penalty_fn, penalty_value=-5.0, num_allies=env_params.num_allies),  # 减少惩罚
+        #     functools.partial(tactical_position_reward_fn, 
+        #                       reward_scale=0.5,  # 降低权重从1.0到0.5
+        #                       num_allies=env_params.num_allies, 
+        #                       num_enemies=env_params.num_enemies),
+        #     functools.partial(crash_penalty_fn_new, penalty_value=-100.0),  # 降低惩罚从-500到-100
+        #     functools.partial(enemy_kill_reward_fn,  # 新增击落奖励函数
+        #                       kill_reward=500.0,  # 降低奖励从300到50
+        #                       num_allies=env_params.num_allies,
+        #                       num_enemies=env_params.num_enemies),
+        #     functools.partial(teammate_death_penalty_fn,  # 新增队友死亡惩罚函数
+        #                       death_penalty=-20.0,  # 降低惩罚从-50到-20
+        #                       num_allies=env_params.num_allies,
+        #                       num_enemies=env_params.num_enemies),
+        #     functools.partial(custom_event_driven_reward_fn,
+        #                       num_allies=env_params.num_allies,
+        #                       num_enemies=env_params.num_enemies,
+        #                       fail_reward=-100.0,  # 降低惩罚从-500到-100
+        #                       narrow_victory_reward=0.0,
+        #                       normal_victory_reward=20.0,  # 降低奖励从100到20
+        #                       great_victory_reward=50.0,   # 降低奖励从200到50
+        #                       complete_victory_reward=100.0),  # 降低奖励从500到100
+        #     functools.partial(event_driven_reward_fn, 
+        #                       fail_reward=-100.0,  # 降低惩罚从-500到-100
+        #                       success_reward=100.0),  # 降低奖励从500到100
+        # ]
+        # self.is_potential = [False,False,False,False,True,False,False,True,True]
+##############################################################################################################################
+# 借鉴2v2进行放缩后的奖励
         self.reward_functions = [
             functools.partial(posture_reward_fn, 
-                              reward_scale=1.0,  # 降低权重从5.0到1.0
+                              reward_scale=0.005,
                               num_allies=env_params.num_allies, 
                               num_enemies=env_params.num_enemies),
-            functools.partial(heading_alignment_reward_fn,  # 新添加的奖励函数
-                              reward_scale=0.5,             # 降低权重从4.0到0.5
+            functools.partial(heading_alignment_reward_fn,
+                              reward_scale=0.004,
                               num_allies=env_params.num_allies,
                               num_enemies=env_params.num_enemies),
-            functools.partial(locked_penalty_fn, penalty_value=-5.0, num_allies=env_params.num_allies),  # 减少惩罚
+            functools.partial(locked_penalty_fn, penalty_value=-0.005, num_allies=env_params.num_allies),
             functools.partial(tactical_position_reward_fn, 
-                              reward_scale=0.5,  # 降低权重从1.0到0.5
+                              reward_scale=0.001,
                               num_allies=env_params.num_allies, 
                               num_enemies=env_params.num_enemies),
-            functools.partial(crash_penalty_fn_new, penalty_value=-100.0),  # 降低惩罚从-500到-100
-            functools.partial(enemy_kill_reward_fn,  # 新增击落奖励函数
-                              kill_reward=500.0,  # 降低奖励从300到50
+            functools.partial(crash_penalty_fn_new, penalty_value=-0.5),
+            functools.partial(enemy_kill_reward_fn,
+                              kill_reward=0.1,
                               num_allies=env_params.num_allies,
                               num_enemies=env_params.num_enemies),
             functools.partial(teammate_death_penalty_fn,  # 新增队友死亡惩罚函数
-                              death_penalty=-20.0,  # 降低惩罚从-50到-20
+                              death_penalty=-0.02,  # 降低惩罚从-50到-20再降到-0.02，将“坠机惩罚”“事件奖励”“击杀奖励”也压到一致刻度。
                               num_allies=env_params.num_allies,
                               num_enemies=env_params.num_enemies),
-            functools.partial(custom_event_driven_reward_fn,
+            functools.partial(custom_event_driven_reward_fn, 
                               num_allies=env_params.num_allies,
                               num_enemies=env_params.num_enemies,
-                              fail_reward=-100.0,  # 降低惩罚从-500到-100
-                              narrow_victory_reward=0.0,
-                              normal_victory_reward=20.0,  # 降低奖励从100到20
-                              great_victory_reward=50.0,   # 降低奖励从200到50
-                              complete_victory_reward=100.0),  # 降低奖励从500到100
+                              fail_reward=-0.5, 
+                              narrow_victory_reward=0.05,
+                              normal_victory_reward=0.1,
+                              great_victory_reward=0.2,
+                              complete_victory_reward=0.5),
             functools.partial(event_driven_reward_fn, 
-                              fail_reward=-100.0,  # 降低惩罚从-500到-100
-                              success_reward=100.0),  # 降低奖励从500到100
+                              fail_reward=-0.5, 
+                              success_reward=0.5),
         ]
-        self.is_potential = [False,False,False,False,True,False,False,True,True]
+
+        # 仅对平滑的密集项做potential：姿态/对准/战术位置
+        self.is_potential = [True, True, False, True, False, False, False, False, False]
+##############################################################################################################################
 
         self.termination_conditions = [
             safe_return_fn,
-            # timeout_fn,
+            timeout_fn,
         ]
 
         self.norm_delta_pitch = jnp.linspace(-jnp.pi/6, jnp.pi/6, 30)  # 30 steps from -30° to 30°
@@ -1114,8 +1160,8 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             empty_features = jnp.zeros(shape=(self.unit_features,))
             features = self._observe_features(state, i, j)
             return jax.lax.cond(
-                # visible & (state.plane_state.is_alive[i] | state.plane_state.is_locked[i]) & (state.plane_state.is_alive[j] | state.plane_state.is_locked[j]),
-                visible & (state.plane_state.is_alive[i]) & (state.plane_state.is_alive[j]),
+                visible & (state.plane_state.is_alive[i] | state.plane_state.is_locked[i]) & (state.plane_state.is_alive[j] | state.plane_state.is_locked[j]),
+                # visible & (state.plane_state.is_alive[i]) & (state.plane_state.is_alive[j]),
                 lambda: features,
                 lambda: empty_features,
             )
@@ -1184,420 +1230,420 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             target_pitch = init_state.plane_state.pitch + delta_pitch
             target_heading = wrap_PI(init_state.plane_state.yaw + delta_heading)
             target_vt = init_state.plane_state.vt + delta_vt
-        else:
-            ego_delta_pitch_cmd = self.norm_delta_pitch[actions[:self.num_allies, 0]]
-            ego_delta_heading_cmd = self.norm_delta_heading[actions[:self.num_allies, 1]]
-            ego_delta_vt_cmd = self.norm_delta_velocity[actions[:self.num_allies, 2]]
-
-            # 敌方FSM逻辑
-            fsm_key, controller_key = jax.random.split(key)
-            enemy_keys = jax.random.split(fsm_key, self.num_enemies)
-
-            # 处理单个敌方飞机FSM逻辑的函数
-            def single_enemy_fsm_logic(enm_local_idx, current_fsm_state, enm_key):
-                enm_global_idx = self.num_allies + enm_local_idx
-                enm_ps = init_state.plane_state
-
-                # 敌机自身状态
-                enm_north = enm_ps.north[enm_global_idx]
-                enm_east = enm_ps.east[enm_global_idx]
-                enm_alt = enm_ps.altitude[enm_global_idx]
-                enm_vx = enm_ps.vel_x[enm_global_idx]
-                enm_vy = enm_ps.vel_y[enm_global_idx]
-                enm_vz = enm_ps.vel_z[enm_global_idx]
-                enm_pitch = enm_ps.pitch[enm_global_idx]
-                enm_yaw = enm_ps.yaw[enm_global_idx]
-                enm_vt = enm_ps.vt[enm_global_idx]
-                enm_is_alive = enm_ps.is_alive[enm_global_idx]
-                enm_blood = enm_ps.blood[enm_global_idx]
-                enm_max_blood = 100.0
-                
-                enm_feature_6d = jnp.array([enm_north, enm_east, enm_alt, enm_vx, enm_vy, enm_vz])
-
-                # 友方飞机状态
-                ally_indices = jnp.arange(self.num_allies)
-                ally_norths = enm_ps.north[ally_indices]
-                ally_easts = enm_ps.east[ally_indices]
-                ally_alts = enm_ps.altitude[ally_indices]
-                ally_vxs = enm_ps.vel_x[ally_indices]
-                ally_vys = enm_ps.vel_y[ally_indices]
-                ally_vzs = enm_ps.vel_z[ally_indices]
-                ally_vts = enm_ps.vt[ally_indices]
-                ally_pitches = enm_ps.pitch[ally_indices]
-                ally_is_alives = enm_ps.is_alive[ally_indices]
-                ally_bloods = enm_ps.blood[ally_indices]
-                
-                # 计算对每个友方飞机的测量值
-                def calculate_metrics_to_ally(ally_idx):
-                    ally_feature_6d = jnp.array([
-                        ally_norths[ally_idx], ally_easts[ally_idx], ally_alts[ally_idx],
-                        ally_vxs[ally_idx], ally_vys[ally_idx], ally_vzs[ally_idx]
-                    ])
-                    ao, ta, r, side_flag = get_AO_TA_R(enm_feature_6d, ally_feature_6d)
-                    return r, ao, ta, side_flag, ally_is_alives[ally_idx], ally_bloods[ally_idx]
-                
-                # 对所有友机计算指标
-                ally_metrics = jax.vmap(calculate_metrics_to_ally)(jnp.arange(self.num_allies))
-                # ally_metrics是一个包含6个数组的元组，不是一个2D数组
-                # 直接解构元组而不是尝试对它进行索引
-                distances, aos, tas, side_flags, is_alives, bloods = ally_metrics
-                
-                # 仅考虑存活的友机
-                masked_distances = jnp.where(is_alives, distances, jnp.inf)
-                
-                # 找到最近的目标以及其指标
-                any_ally_alive = jnp.any(is_alives)
-                closest_ally_idx = jnp.where(any_ally_alive, jnp.argmin(masked_distances), 0)
-                closest_ally_distance = masked_distances[closest_ally_idx]
-                closest_ally_ao = aos[closest_ally_idx]
-                closest_ally_ta = tas[closest_ally_idx]
-                closest_ally_side_flag = side_flags[closest_ally_idx]
-                closest_ally_is_alive = is_alives[closest_ally_idx]
-                closest_ally_blood = bloods[closest_ally_idx]
-                
-                # 默认为无效值
-                closest_ally_distance = jnp.where(closest_ally_is_alive, closest_ally_distance, 1e8)
-                closest_ally_ao = jnp.where(closest_ally_is_alive, closest_ally_ao, jnp.pi)
-                
-                # --- FSM状态转换逻辑 ---
-                # 首先计算各种状态条件
-                is_alive_condition = enm_is_alive
-                is_low_health = enm_is_alive & (enm_blood < (enm_max_blood * EVADE_HEALTH_THRESHOLD_RATIO))
-                no_targets_alive = ~jnp.any(is_alives)
-
-                # 攻击条件 - 最高优先级
-                can_attack = is_alive_condition & (closest_ally_distance < ATTACK_RANGE) & closest_ally_is_alive & ~is_low_health
-
-                # 接敌条件 - 第二优先级
-                can_engage = is_alive_condition & (closest_ally_distance < ENGAGE_RANGE) & closest_ally_is_alive & ~is_low_health
-
-                # 规避条件 - 第三优先级
-                should_evade = is_alive_condition & is_low_health
-
-                # 巡逻条件 - 最低优先级（默认状态）
-                should_patrol = is_alive_condition & (no_targets_alive | (~can_attack & ~can_engage & ~should_evade))
-
-                # 如果死亡，强制设为巡逻状态
-                is_dead = ~is_alive_condition
-
-                # 按照优先级顺序选择状态
-                next_fsm_state = jnp.select(
-                    [can_attack, can_engage, should_evade, should_patrol, is_dead],
-                    [ATTACK_STATE, ENGAGE_STATE, EVADE_STATE, PATROL_STATE, PATROL_STATE],
-                    default=PATROL_STATE  # 默认为巡逻状态
-                )
-                
-                # --- FSM行为逻辑 ---
-                
-                # 定义各状态下的行为函数
-                
-                # 巡逻行为: 随机转向并保持适中的速度和高度
-                def patrol_action():
-                    # 应用课程学习的机动性能倍数
-                    maneuver_factor = get_curriculum_maneuver_factor(params)
-                    
-                    # 随机改变航向，根据课程学习调整机动性能
-                    key_turn, key_alt = jax.random.split(enm_key)
-                    max_turn_rate = MAX_TURN_RATE_PER_STEP * PATROL_TURN_RANDOMNESS * maneuver_factor
-                    random_turn = jax.random.uniform(key_turn, minval=-max_turn_rate, maxval=max_turn_rate)
-                    
-                    # 高度控制 - 尝试保持在巡逻高度范围内，根据课程学习调整机动性能
-                    target_alt = jnp.mean(jnp.array(PATROL_ALTITUDE_RANGE))
-                    alt_diff = target_alt - enm_alt
-                    max_pitch_rate = MAX_PITCH_RATE_PER_STEP / 3 * maneuver_factor
-                    d_pitch = jnp.clip(alt_diff / 1000.0, -max_pitch_rate, max_pitch_rate)
-                    
-                    # 速度控制 - 巡逻时保持较低速度以节省燃料，根据课程学习调整机动性能
-                    target_vt = MAX_SPEED * PATROL_SPEED_FACTOR
-                    max_vt_delta = MAX_VT_DELTA_PER_STEP / 2 * maneuver_factor
-                    d_vt = jnp.clip(target_vt - enm_vt, -max_vt_delta, max_vt_delta)
-                    
-                    return d_pitch, random_turn, d_vt
-                
-                # 接敌行为: 指向目标方向并调整高度准备攻击
-                def engage_action():
-                    # 应用课程学习的机动性能倍数
-                    maneuver_factor = get_curriculum_maneuver_factor(params)
-                    
-                    # 获取目标位置和当前位置
-                    target_north = ally_norths[closest_ally_idx]
-                    target_east = ally_easts[closest_ally_idx]
-                    target_alt = ally_alts[closest_ally_idx]
-                    
-                    # 计算指向目标的航向，根据课程学习调整机动性能
-                    delta_n = target_north - enm_north
-                    delta_e = target_east - enm_east
-                    desired_heading = jnp.arctan2(delta_e, delta_n)
-                    heading_diff = wrap_PI(desired_heading - enm_yaw)
-                    max_heading_change = MAX_TURN_RATE_PER_STEP * maneuver_factor
-                    d_heading = jnp.clip(heading_diff, -max_heading_change, max_heading_change)
-                    
-                    # 高度控制 - 计算指向目标的俯仰角，根据课程学习调整机动性能
-                    alt_diff = target_alt - enm_alt
-                    horizontal_distance = jnp.sqrt(delta_n**2 + delta_e**2)  # 水平距离
-                    desired_pitch = jnp.arctan2(-alt_diff, horizontal_distance)  
-                    pitch_diff = desired_pitch - enm_pitch
-                    max_pitch_change = MAX_PITCH_RATE_PER_STEP * maneuver_factor
-                    d_pitch = jnp.clip(pitch_diff, -max_pitch_change, max_pitch_change)
-                    
-                    # 速度控制 - 接敌时略微加速但不全速，根据课程学习调整机动性能
-                    target_vt = MAX_SPEED * 0.7
-                    max_vt_delta = MAX_VT_DELTA_PER_STEP / 2 * maneuver_factor
-                    d_vt = jnp.clip(target_vt - enm_vt, -max_vt_delta, max_vt_delta)
-                    
-                    return d_pitch, d_heading, d_vt
-                
-                # 攻击行为: 高速、激进地追求优势攻击位置
-                def attack_action():
-                    # 应用课程学习的机动性能倍数
-                    maneuver_factor = get_curriculum_maneuver_factor(params)
-                    # 获取目标位置和当前位置
-                    target_north = ally_norths[closest_ally_idx]
-                    target_east = ally_easts[closest_ally_idx]
-                    target_alt = ally_alts[closest_ally_idx]
-                    target_vx = ally_vxs[closest_ally_idx]
-                    target_vy = ally_vys[closest_ally_idx]
-                    target_vt = ally_vts[closest_ally_idx]
-                    # 使用与原始简单追踪逻辑相同的计算方式
-                    # delta pitch - 指向目标的俯仰角
-                    delta_z = target_alt - enm_alt + 1e-6  # 高度差
-                    delta_x, delta_y = target_north - enm_north, target_east - enm_east
-                    horizontal_dist = jnp.sqrt(delta_x**2 + delta_y**2)  # 水平距离
-                    target_pitch = jnp.arctan2(delta_z, horizontal_dist)  # 指向目标的俯仰角
-                    
-                    # 添加随机性到俯仰角
-                    pitch_random = jax.random.uniform(enm_key, minval=-jnp.pi/180, maxval=jnp.pi/180)
-                    enm_delta_pitch = target_pitch - enm_pitch + pitch_random
-                    
-                    # delta heading - 使用AO角计算（与原始逻辑相同）
-                    enm_v = jnp.linalg.norm(jnp.array([enm_vx, enm_vy]))  # 目标速度
-                    R = jnp.linalg.norm(jnp.array([delta_x, delta_y]))  # 距离
-                    proj_dist = delta_x * enm_vx + delta_y * enm_vy  # 投影距离
-                    ego_AO = jnp.arccos(jnp.clip(proj_dist / (R * enm_v + 1e-6), -1, 1))  # AO角
-                    side_flag = jnp.sign(enm_vx * delta_y - enm_vy * delta_x)  # 侧向标志
-                    #  计算指向目标的航向，根据课程学习调整机动性能
-                    # delta_n = target_north - enm_north
-                    # delta_e = target_east - enm_east
-                    # desired_heading = jnp.arctan2(delta_e, delta_n)
-                    # heading_diff = wrap_PI(desired_heading - enm_yaw)
-                    # max_heading_change = MAX_TURN_RATE_PER_STEP * maneuver_factor
-                    # d_heading = jnp.clip(heading_diff, -max_heading_change, max_heading_change)
-                    
-                    # 添加随机性到航向角
-                    key_heading, key_vt = jax.random.split(enm_key)
-                    heading_random = jax.random.uniform(key_heading, minval=-jnp.pi/180, maxval=jnp.pi/180)
-                    enm_delta_heading = ego_AO * side_flag + heading_random
-                    
-                    # delta velocity - 尝试匹配目标速度
-                    base_delta_vt = target_vt - enm_vt
-                    
-                    # 添加随机性到速度
-                    vt_random = jax.random.uniform(key_vt, minval=-5.0, maxval=5.0)
-                    enm_delta_vt = base_delta_vt + vt_random
-                    
-                    # 应用课程学习的机动性能倍数
-                    maneuver_factor = get_curriculum_maneuver_factor(params)
-                    
-                    # 根据课程学习进度调整敌方机动性能
-                    max_pitch_change = jnp.pi/10 * maneuver_factor
-                    max_heading_change = jnp.pi/10 * maneuver_factor
-                    max_vt_change = 20 * maneuver_factor
-                    
-                    # 限制变化幅度
-                    enm_delta_pitch = jnp.clip(enm_delta_pitch, -max_pitch_change, max_pitch_change)
-                    enm_delta_heading = jnp.clip(enm_delta_heading, -max_heading_change, max_heading_change)
-                    enm_delta_vt = jnp.clip(enm_delta_vt, -max_vt_change, max_vt_change)
-                    
-                    return enm_delta_pitch, enm_delta_heading, enm_delta_vt
-                
-                # 规避行为: 远离威胁，大幅度机动
-                def evade_action():
-                    # 应用课程学习的机动性能倍数
-                    maneuver_factor = get_curriculum_maneuver_factor(params)
-                    
-                    # 获取最近威胁的位置
-                    threat_north = ally_norths[closest_ally_idx]
-                    threat_east = ally_easts[closest_ally_idx]
-                    
-                    # 计算远离威胁的航向(反方向)，根据课程学习调整机动性能
-                    delta_n = threat_north - enm_north
-                    delta_e = threat_east - enm_east
-                    threat_heading = jnp.arctan2(delta_e, delta_n)
-                    evade_heading = wrap_PI(threat_heading + jnp.pi)  # 反方向
-                    heading_diff = wrap_PI(evade_heading - enm_yaw)
-                    max_heading_change = MAX_TURN_RATE_PER_STEP * maneuver_factor
-                    d_heading = jnp.clip(heading_diff, -max_heading_change, max_heading_change)
-                    
-                    # 高度控制 - 随机变化以增加难以预测性，根据课程学习调整机动性能
-                    key_pitch, key_speed = jax.random.split(enm_key)
-                    random_pitch_factor = jax.random.uniform(key_pitch, minval=-1.0, maxval=1.0)
-                    max_pitch_change = MAX_PITCH_RATE_PER_STEP * maneuver_factor
-                    d_pitch = random_pitch_factor * max_pitch_change
-                    
-                    # 速度控制 - 全速逃离，根据课程学习调整机动性能
-                    target_vt = MAX_SPEED * EVADE_SPEED_FACTOR
-                    max_vt_delta = MAX_VT_DELTA_PER_STEP * maneuver_factor
-                    d_vt = jnp.clip(target_vt - enm_vt, 0, max_vt_delta)  # 只允许加速，不减速
-                    
-                    return d_pitch, d_heading, d_vt
-                
-                # 根据当前FSM状态执行相应行为
-                p_pitch, p_heading, p_vt = patrol_action()
-                e_pitch, e_heading, e_vt = engage_action()
-                a_pitch, a_heading, a_vt = attack_action()
-                ev_pitch, ev_heading, ev_vt = evade_action()
-                
-                # 选择对应状态的行为输出
-                d_pitch = jnp.select([next_fsm_state == PATROL_STATE,
-                                      next_fsm_state == ENGAGE_STATE,
-                                      next_fsm_state == ATTACK_STATE,
-                                      next_fsm_state == EVADE_STATE],
-                                     [a_pitch, a_pitch, a_pitch, a_pitch],
-                                     default=a_pitch)
-                
-                d_heading = jnp.select([next_fsm_state == PATROL_STATE,
-                                       next_fsm_state == ENGAGE_STATE,
-                                       next_fsm_state == ATTACK_STATE,
-                                       next_fsm_state == EVADE_STATE],
-                                      [a_heading, a_heading, a_heading, a_heading],
-                                      default=a_heading)
-                
-                d_vt = jnp.select([next_fsm_state == PATROL_STATE,
-                                   next_fsm_state == ENGAGE_STATE,
-                                   next_fsm_state == ATTACK_STATE,
-                                   next_fsm_state == EVADE_STATE],
-                                  [a_vt, a_vt, a_vt, a_vt],
-                                  default=a_vt)
-                
-                # 最终限幅并对死亡飞机置零
-                d_pitch = jnp.clip(d_pitch, -MAX_PITCH_RATE_PER_STEP, MAX_PITCH_RATE_PER_STEP)
-                d_heading = jnp.clip(d_heading, -MAX_TURN_RATE_PER_STEP, MAX_TURN_RATE_PER_STEP)
-                d_vt = jnp.clip(d_vt, -MAX_VT_DELTA_PER_STEP, MAX_VT_DELTA_PER_STEP)
-                
-                d_pitch = wrap_PI(jnp.where(enm_is_alive, d_pitch, 0.0))
-                d_heading = wrap_PI(jnp.where(enm_is_alive, d_heading, 0.0))
-                d_vt = jnp.where(enm_is_alive, d_vt, 0.0)
-                
-                return next_fsm_state, d_pitch, d_heading, d_vt
-
-            # 对所有敌方飞机应用FSM逻辑
-            vmapped_fsm_results = jax.vmap(
-                single_enemy_fsm_logic, in_axes=(0, 0, 0)
-            )(jnp.arange(self.num_enemies), state.enemy_fsm_state, enemy_keys)
-            
-            # 解包结果
-            new_enemy_fsm_states = vmapped_fsm_results[0]
-            enm_delta_pitch = wrap_PI(vmapped_fsm_results[1])
-            enm_delta_heading = wrap_PI(vmapped_fsm_results[2])
-            enm_delta_vt = vmapped_fsm_results[3]
-            
-            # 更新环境状态中的FSM状态
-            state = state.replace(enemy_fsm_state=new_enemy_fsm_states)
-            
-            # 合并友方和敌方的动作
-            delta_pitch = jnp.hstack((ego_delta_pitch_cmd, enm_delta_pitch))
-            delta_heading = jnp.hstack((ego_delta_heading_cmd, enm_delta_heading))
-            delta_vt = jnp.hstack((ego_delta_vt_cmd, enm_delta_vt))
-            
-            # 计算目标状态用于控制器
-            target_pitch = wrap_PI(init_state.plane_state.pitch + delta_pitch)
-            target_heading = wrap_PI(init_state.plane_state.yaw + delta_heading)
-            target_vt = init_state.plane_state.vt + delta_vt
-
-        last_obs = self._get_controller_obs(state.plane_state, target_pitch, target_heading, target_vt)
-        last_obs = jnp.transpose(last_obs)
-        last_done = jnp.zeros((self.num_agents), dtype=bool)
-        ac_in = (
-            last_obs[np.newaxis, :],
-            last_done[np.newaxis, :],
-        )
-        hstate, pi, _ = controller.apply(controller_params, state.hstate, ac_in)
-        pi_throttle, pi_elevator, pi_aileron, pi_rudder = pi
-
-        # 使用controller_key进行采样
-        controller_key, key_throttle = jax.random.split(controller_key)
-        action_throttle = pi_throttle.sample(seed=key_throttle)
-        controller_key, key_elevator = jax.random.split(controller_key)
-        action_elevator = pi_elevator.sample(seed=key_elevator)
-        controller_key, key_aileron = jax.random.split(controller_key)
-        action_aileron = pi_aileron.sample(seed=key_aileron)
-        controller_key, key_rudder = jax.random.split(controller_key)
-        action_rudder = pi_rudder.sample(seed=key_rudder)
-
-        action = jnp.concatenate([action_throttle[:, :, np.newaxis], 
-                                 action_elevator[:, :, np.newaxis], 
-                                 action_aileron[:, :, np.newaxis], 
-                                 action_rudder[:, :, np.newaxis]], axis=-1)
-        state = state.replace(hstate=hstate)
-        action = action.squeeze(0)
-        action = jax.vmap(self._decode_discrete_actions)(action)
-        return state, jax.vmap(fighterplane.FighterPlaneControlState.create)(action)
         # else:
-        #     ego_delta_pitch = self.norm_delta_pitch[actions[:self.num_allies, 0]]
-        #     ego_delta_heading = self.norm_delta_heading[actions[:self.num_allies, 1]]
-        #     ego_delta_vt = self.norm_delta_velocity[actions[:self.num_allies, 2]]
-            
-        #     ego_x = init_state.plane_state.north[self.num_allies:]
-        #     ego_y = init_state.plane_state.east[self.num_allies:]
-        #     ego_z = init_state.plane_state.altitude[self.num_allies:]
+        #     ego_delta_pitch_cmd = self.norm_delta_pitch[actions[:self.num_allies, 0]]
+        #     ego_delta_heading_cmd = self.norm_delta_heading[actions[:self.num_allies, 1]]
+        #     ego_delta_vt_cmd = self.norm_delta_velocity[actions[:self.num_allies, 2]]
 
-        #     ego_vx = init_state.plane_state.vel_x[self.num_allies:]
-        #     ego_vy = init_state.plane_state.vel_y[self.num_allies:]
-            
-        #     enm_x = init_state.plane_state.north[:self.num_allies]
-        #     enm_y = init_state.plane_state.east[:self.num_allies]
-        #     enm_z = init_state.plane_state.altitude[:self.num_allies]
-            
-        #     # delta pitch - enemies point toward allies based on relative position with randomness
-        #     delta_z = enm_z - ego_z  # Altitude difference
-        #     delta_x, delta_y = enm_x - ego_x, enm_y - ego_y
-        #     horizontal_dist = jnp.sqrt(delta_x**2 + delta_y**2)  # Horizontal distance
-        #     target_pitch = jnp.arctan2(delta_z, horizontal_dist)  # Angle to pitch to point at target
-        #     ego_pitch = init_state.plane_state.pitch[self.num_allies:]
-            
-        #     # Add randomness to pitch
-        #     pitch_key, heading_key, vt_key = jax.random.split(key, 3)
-        #     pitch_random = jax.random.uniform(pitch_key, shape=target_pitch.shape, minval=-jnp.pi/72, maxval=jnp.pi/72)
-        #     enm_delta_pitch = target_pitch - ego_pitch + pitch_random  # Add random component
-            
-        #     # delta heading with randomness
-        #     ego_v = jnp.linalg.norm(jnp.vstack((ego_vx, ego_vy)), axis=0)
-        #     R = jnp.linalg.norm(jnp.vstack((delta_x, delta_y)), axis=0)
-        #     proj_dist = delta_x * ego_vx + delta_y * ego_vy
-        #     ego_AO = jnp.arccos(jnp.clip(proj_dist / (R * ego_v + 1e-6), -1, 1))
-        #     side_flag = jnp.sign(ego_vx * delta_y - ego_vy * delta_x)
-            
-        #     # Add randomness to heading
-        #     heading_random = jax.random.uniform(heading_key, shape=ego_AO.shape, minval=-jnp.pi/45, maxval=jnp.pi/45)
-        #     enm_delta_heading = ego_AO * side_flag + heading_random  # Add random component
-            
-        #     # delta velocity with randomness
-        #     base_delta_vt = init_state.plane_state.vt[:self.num_allies] - init_state.plane_state.vt[self.num_allies:]
-            
-        #     # Add randomness to velocity
-        #     vt_random = jax.random.uniform(vt_key, shape=base_delta_vt.shape, minval=-5.0, maxval=5.0)
-        #     enm_delta_vt = base_delta_vt + vt_random  # Add random component
-            
-        #     # 应用课程学习的机动性能倍数
-        #     maneuver_factor = get_curriculum_maneuver_factor(params)
-            
-        #     # NOTE:过大的值似乎容易导致飞机crash
-        #     # 根据课程学习进度调整敌方机动性能
-        #     max_pitch_change = jnp.pi/10 * maneuver_factor
-        #     max_heading_change = jnp.pi/10 * maneuver_factor
-        #     max_vt_change = 20 * maneuver_factor
-            
-        #     enm_delta_pitch = jnp.clip(enm_delta_pitch, -max_pitch_change, max_pitch_change)
-        #     enm_delta_heading = jnp.clip(enm_delta_heading, -max_heading_change, max_heading_change)
-        #     enm_delta_vt = jnp.clip(enm_delta_vt, -max_vt_change, max_vt_change)
+        #     # 敌方FSM逻辑
+        #     fsm_key, controller_key = jax.random.split(key)
+        #     enemy_keys = jax.random.split(fsm_key, self.num_enemies)
 
-        #     delta_pitch = jnp.hstack((ego_delta_pitch, enm_delta_pitch))
-        #     delta_heading = jnp.hstack((ego_delta_heading, enm_delta_heading))
-        #     delta_vt = jnp.hstack((ego_delta_vt, enm_delta_vt))
+        #     # 处理单个敌方飞机FSM逻辑的函数
+        #     def single_enemy_fsm_logic(enm_local_idx, current_fsm_state, enm_key):
+        #         enm_global_idx = self.num_allies + enm_local_idx
+        #         enm_ps = init_state.plane_state
+
+        #         # 敌机自身状态
+        #         enm_north = enm_ps.north[enm_global_idx]
+        #         enm_east = enm_ps.east[enm_global_idx]
+        #         enm_alt = enm_ps.altitude[enm_global_idx]
+        #         enm_vx = enm_ps.vel_x[enm_global_idx]
+        #         enm_vy = enm_ps.vel_y[enm_global_idx]
+        #         enm_vz = enm_ps.vel_z[enm_global_idx]
+        #         enm_pitch = enm_ps.pitch[enm_global_idx]
+        #         enm_yaw = enm_ps.yaw[enm_global_idx]
+        #         enm_vt = enm_ps.vt[enm_global_idx]
+        #         enm_is_alive = enm_ps.is_alive[enm_global_idx]
+        #         enm_blood = enm_ps.blood[enm_global_idx]
+        #         enm_max_blood = 100.0
+                
+        #         enm_feature_6d = jnp.array([enm_north, enm_east, enm_alt, enm_vx, enm_vy, enm_vz])
+
+        #         # 友方飞机状态
+        #         ally_indices = jnp.arange(self.num_allies)
+        #         ally_norths = enm_ps.north[ally_indices]
+        #         ally_easts = enm_ps.east[ally_indices]
+        #         ally_alts = enm_ps.altitude[ally_indices]
+        #         ally_vxs = enm_ps.vel_x[ally_indices]
+        #         ally_vys = enm_ps.vel_y[ally_indices]
+        #         ally_vzs = enm_ps.vel_z[ally_indices]
+        #         ally_vts = enm_ps.vt[ally_indices]
+        #         ally_pitches = enm_ps.pitch[ally_indices]
+        #         ally_is_alives = enm_ps.is_alive[ally_indices]
+        #         ally_bloods = enm_ps.blood[ally_indices]
+                
+        #         # 计算对每个友方飞机的测量值
+        #         def calculate_metrics_to_ally(ally_idx):
+        #             ally_feature_6d = jnp.array([
+        #                 ally_norths[ally_idx], ally_easts[ally_idx], ally_alts[ally_idx],
+        #                 ally_vxs[ally_idx], ally_vys[ally_idx], ally_vzs[ally_idx]
+        #             ])
+        #             ao, ta, r, side_flag = get_AO_TA_R(enm_feature_6d, ally_feature_6d)
+        #             return r, ao, ta, side_flag, ally_is_alives[ally_idx], ally_bloods[ally_idx]
+                
+        #         # 对所有友机计算指标
+        #         ally_metrics = jax.vmap(calculate_metrics_to_ally)(jnp.arange(self.num_allies))
+        #         # ally_metrics是一个包含6个数组的元组，不是一个2D数组
+        #         # 直接解构元组而不是尝试对它进行索引
+        #         distances, aos, tas, side_flags, is_alives, bloods = ally_metrics
+                
+        #         # 仅考虑存活的友机
+        #         masked_distances = jnp.where(is_alives, distances, jnp.inf)
+                
+        #         # 找到最近的目标以及其指标
+        #         any_ally_alive = jnp.any(is_alives)
+        #         closest_ally_idx = jnp.where(any_ally_alive, jnp.argmin(masked_distances), 0)
+        #         closest_ally_distance = masked_distances[closest_ally_idx]
+        #         closest_ally_ao = aos[closest_ally_idx]
+        #         closest_ally_ta = tas[closest_ally_idx]
+        #         closest_ally_side_flag = side_flags[closest_ally_idx]
+        #         closest_ally_is_alive = is_alives[closest_ally_idx]
+        #         closest_ally_blood = bloods[closest_ally_idx]
+                
+        #         # 默认为无效值
+        #         closest_ally_distance = jnp.where(closest_ally_is_alive, closest_ally_distance, 1e8)
+        #         closest_ally_ao = jnp.where(closest_ally_is_alive, closest_ally_ao, jnp.pi)
+                
+        #         # --- FSM状态转换逻辑 ---
+        #         # 首先计算各种状态条件
+        #         is_alive_condition = enm_is_alive
+        #         is_low_health = enm_is_alive & (enm_blood < (enm_max_blood * EVADE_HEALTH_THRESHOLD_RATIO))
+        #         no_targets_alive = ~jnp.any(is_alives)
+
+        #         # 攻击条件 - 最高优先级
+        #         can_attack = is_alive_condition & (closest_ally_distance < ATTACK_RANGE) & closest_ally_is_alive & ~is_low_health
+
+        #         # 接敌条件 - 第二优先级
+        #         can_engage = is_alive_condition & (closest_ally_distance < ENGAGE_RANGE) & closest_ally_is_alive & ~is_low_health
+
+        #         # 规避条件 - 第三优先级
+        #         should_evade = is_alive_condition & is_low_health
+
+        #         # 巡逻条件 - 最低优先级（默认状态）
+        #         should_patrol = is_alive_condition & (no_targets_alive | (~can_attack & ~can_engage & ~should_evade))
+
+        #         # 如果死亡，强制设为巡逻状态
+        #         is_dead = ~is_alive_condition
+
+        #         # 按照优先级顺序选择状态
+        #         next_fsm_state = jnp.select(
+        #             [can_attack, can_engage, should_evade, should_patrol, is_dead],
+        #             [ATTACK_STATE, ENGAGE_STATE, EVADE_STATE, PATROL_STATE, PATROL_STATE],
+        #             default=PATROL_STATE  # 默认为巡逻状态
+        #         )
+                
+        #         # --- FSM行为逻辑 ---
+                
+        #         # 定义各状态下的行为函数
+                
+        #         # 巡逻行为: 随机转向并保持适中的速度和高度
+        #         def patrol_action():
+        #             # 应用课程学习的机动性能倍数
+        #             maneuver_factor = get_curriculum_maneuver_factor(params)
+                    
+        #             # 随机改变航向，根据课程学习调整机动性能
+        #             key_turn, key_alt = jax.random.split(enm_key)
+        #             max_turn_rate = MAX_TURN_RATE_PER_STEP * PATROL_TURN_RANDOMNESS * maneuver_factor
+        #             random_turn = jax.random.uniform(key_turn, minval=-max_turn_rate, maxval=max_turn_rate)
+                    
+        #             # 高度控制 - 尝试保持在巡逻高度范围内，根据课程学习调整机动性能
+        #             target_alt = jnp.mean(jnp.array(PATROL_ALTITUDE_RANGE))
+        #             alt_diff = target_alt - enm_alt
+        #             max_pitch_rate = MAX_PITCH_RATE_PER_STEP / 3 * maneuver_factor
+        #             d_pitch = jnp.clip(alt_diff / 1000.0, -max_pitch_rate, max_pitch_rate)
+                    
+        #             # 速度控制 - 巡逻时保持较低速度以节省燃料，根据课程学习调整机动性能
+        #             target_vt = MAX_SPEED * PATROL_SPEED_FACTOR
+        #             max_vt_delta = MAX_VT_DELTA_PER_STEP / 2 * maneuver_factor
+        #             d_vt = jnp.clip(target_vt - enm_vt, -max_vt_delta, max_vt_delta)
+                    
+        #             return d_pitch, random_turn, d_vt
+                
+        #         # 接敌行为: 指向目标方向并调整高度准备攻击
+        #         def engage_action():
+        #             # 应用课程学习的机动性能倍数
+        #             maneuver_factor = get_curriculum_maneuver_factor(params)
+                    
+        #             # 获取目标位置和当前位置
+        #             target_north = ally_norths[closest_ally_idx]
+        #             target_east = ally_easts[closest_ally_idx]
+        #             target_alt = ally_alts[closest_ally_idx]
+                    
+        #             # 计算指向目标的航向，根据课程学习调整机动性能
+        #             delta_n = target_north - enm_north
+        #             delta_e = target_east - enm_east
+        #             desired_heading = jnp.arctan2(delta_e, delta_n)
+        #             heading_diff = wrap_PI(desired_heading - enm_yaw)
+        #             max_heading_change = MAX_TURN_RATE_PER_STEP * maneuver_factor
+        #             d_heading = jnp.clip(heading_diff, -max_heading_change, max_heading_change)
+                    
+        #             # 高度控制 - 计算指向目标的俯仰角，根据课程学习调整机动性能
+        #             alt_diff = target_alt - enm_alt
+        #             horizontal_distance = jnp.sqrt(delta_n**2 + delta_e**2)  # 水平距离
+        #             desired_pitch = jnp.arctan2(-alt_diff, horizontal_distance)  
+        #             pitch_diff = desired_pitch - enm_pitch
+        #             max_pitch_change = MAX_PITCH_RATE_PER_STEP * maneuver_factor
+        #             d_pitch = jnp.clip(pitch_diff, -max_pitch_change, max_pitch_change)
+                    
+        #             # 速度控制 - 接敌时略微加速但不全速，根据课程学习调整机动性能
+        #             target_vt = MAX_SPEED * 0.7
+        #             max_vt_delta = MAX_VT_DELTA_PER_STEP / 2 * maneuver_factor
+        #             d_vt = jnp.clip(target_vt - enm_vt, -max_vt_delta, max_vt_delta)
+                    
+        #             return d_pitch, d_heading, d_vt
+                
+        #         # 攻击行为: 高速、激进地追求优势攻击位置
+        #         def attack_action():
+        #             # 应用课程学习的机动性能倍数
+        #             maneuver_factor = get_curriculum_maneuver_factor(params)
+        #             # 获取目标位置和当前位置
+        #             target_north = ally_norths[closest_ally_idx]
+        #             target_east = ally_easts[closest_ally_idx]
+        #             target_alt = ally_alts[closest_ally_idx]
+        #             target_vx = ally_vxs[closest_ally_idx]
+        #             target_vy = ally_vys[closest_ally_idx]
+        #             target_vt = ally_vts[closest_ally_idx]
+        #             # 使用与原始简单追踪逻辑相同的计算方式
+        #             # delta pitch - 指向目标的俯仰角
+        #             delta_z = target_alt - enm_alt + 1e-6  # 高度差
+        #             delta_x, delta_y = target_north - enm_north, target_east - enm_east
+        #             horizontal_dist = jnp.sqrt(delta_x**2 + delta_y**2)  # 水平距离
+        #             target_pitch = jnp.arctan2(delta_z, horizontal_dist)  # 指向目标的俯仰角
+                    
+        #             # 添加随机性到俯仰角
+        #             pitch_random = jax.random.uniform(enm_key, minval=-jnp.pi/180, maxval=jnp.pi/180)
+        #             enm_delta_pitch = target_pitch - enm_pitch + pitch_random
+                    
+        #             # delta heading - 使用AO角计算（与原始逻辑相同）
+        #             enm_v = jnp.linalg.norm(jnp.array([enm_vx, enm_vy]))  # 目标速度
+        #             R = jnp.linalg.norm(jnp.array([delta_x, delta_y]))  # 距离
+        #             proj_dist = delta_x * enm_vx + delta_y * enm_vy  # 投影距离
+        #             ego_AO = jnp.arccos(jnp.clip(proj_dist / (R * enm_v + 1e-6), -1, 1))  # AO角
+        #             side_flag = jnp.sign(enm_vx * delta_y - enm_vy * delta_x)  # 侧向标志
+        #             #  计算指向目标的航向，根据课程学习调整机动性能
+        #             # delta_n = target_north - enm_north
+        #             # delta_e = target_east - enm_east
+        #             # desired_heading = jnp.arctan2(delta_e, delta_n)
+        #             # heading_diff = wrap_PI(desired_heading - enm_yaw)
+        #             # max_heading_change = MAX_TURN_RATE_PER_STEP * maneuver_factor
+        #             # d_heading = jnp.clip(heading_diff, -max_heading_change, max_heading_change)
+                    
+        #             # 添加随机性到航向角
+        #             key_heading, key_vt = jax.random.split(enm_key)
+        #             heading_random = jax.random.uniform(key_heading, minval=-jnp.pi/180, maxval=jnp.pi/180)
+        #             enm_delta_heading = ego_AO * side_flag + heading_random
+                    
+        #             # delta velocity - 尝试匹配目标速度
+        #             base_delta_vt = target_vt - enm_vt
+                    
+        #             # 添加随机性到速度
+        #             vt_random = jax.random.uniform(key_vt, minval=-5.0, maxval=5.0)
+        #             enm_delta_vt = base_delta_vt + vt_random
+                    
+        #             # 应用课程学习的机动性能倍数
+        #             maneuver_factor = get_curriculum_maneuver_factor(params)
+                    
+        #             # 根据课程学习进度调整敌方机动性能
+        #             max_pitch_change = jnp.pi/10 * maneuver_factor
+        #             max_heading_change = jnp.pi/10 * maneuver_factor
+        #             max_vt_change = 20 * maneuver_factor
+                    
+        #             # 限制变化幅度
+        #             enm_delta_pitch = jnp.clip(enm_delta_pitch, -max_pitch_change, max_pitch_change)
+        #             enm_delta_heading = jnp.clip(enm_delta_heading, -max_heading_change, max_heading_change)
+        #             enm_delta_vt = jnp.clip(enm_delta_vt, -max_vt_change, max_vt_change)
+                    
+        #             return enm_delta_pitch, enm_delta_heading, enm_delta_vt
+                
+        #         # 规避行为: 远离威胁，大幅度机动
+        #         def evade_action():
+        #             # 应用课程学习的机动性能倍数
+        #             maneuver_factor = get_curriculum_maneuver_factor(params)
+                    
+        #             # 获取最近威胁的位置
+        #             threat_north = ally_norths[closest_ally_idx]
+        #             threat_east = ally_easts[closest_ally_idx]
+                    
+        #             # 计算远离威胁的航向(反方向)，根据课程学习调整机动性能
+        #             delta_n = threat_north - enm_north
+        #             delta_e = threat_east - enm_east
+        #             threat_heading = jnp.arctan2(delta_e, delta_n)
+        #             evade_heading = wrap_PI(threat_heading + jnp.pi)  # 反方向
+        #             heading_diff = wrap_PI(evade_heading - enm_yaw)
+        #             max_heading_change = MAX_TURN_RATE_PER_STEP * maneuver_factor
+        #             d_heading = jnp.clip(heading_diff, -max_heading_change, max_heading_change)
+                    
+        #             # 高度控制 - 随机变化以增加难以预测性，根据课程学习调整机动性能
+        #             key_pitch, key_speed = jax.random.split(enm_key)
+        #             random_pitch_factor = jax.random.uniform(key_pitch, minval=-1.0, maxval=1.0)
+        #             max_pitch_change = MAX_PITCH_RATE_PER_STEP * maneuver_factor
+        #             d_pitch = random_pitch_factor * max_pitch_change
+                    
+        #             # 速度控制 - 全速逃离，根据课程学习调整机动性能
+        #             target_vt = MAX_SPEED * EVADE_SPEED_FACTOR
+        #             max_vt_delta = MAX_VT_DELTA_PER_STEP * maneuver_factor
+        #             d_vt = jnp.clip(target_vt - enm_vt, 0, max_vt_delta)  # 只允许加速，不减速
+                    
+        #             return d_pitch, d_heading, d_vt
+                
+        #         # 根据当前FSM状态执行相应行为
+        #         p_pitch, p_heading, p_vt = patrol_action()
+        #         e_pitch, e_heading, e_vt = engage_action()
+        #         a_pitch, a_heading, a_vt = attack_action()
+        #         ev_pitch, ev_heading, ev_vt = evade_action()
+                
+        #         # 选择对应状态的行为输出
+        #         d_pitch = jnp.select([next_fsm_state == PATROL_STATE,
+        #                               next_fsm_state == ENGAGE_STATE,
+        #                               next_fsm_state == ATTACK_STATE,
+        #                               next_fsm_state == EVADE_STATE],
+        #                              [a_pitch, a_pitch, a_pitch, a_pitch],
+        #                              default=a_pitch)
+                
+        #         d_heading = jnp.select([next_fsm_state == PATROL_STATE,
+        #                                next_fsm_state == ENGAGE_STATE,
+        #                                next_fsm_state == ATTACK_STATE,
+        #                                next_fsm_state == EVADE_STATE],
+        #                               [a_heading, a_heading, a_heading, a_heading],
+        #                               default=a_heading)
+                
+        #         d_vt = jnp.select([next_fsm_state == PATROL_STATE,
+        #                            next_fsm_state == ENGAGE_STATE,
+        #                            next_fsm_state == ATTACK_STATE,
+        #                            next_fsm_state == EVADE_STATE],
+        #                           [a_vt, a_vt, a_vt, a_vt],
+        #                           default=a_vt)
+                
+        #         # 最终限幅并对死亡飞机置零
+        #         d_pitch = jnp.clip(d_pitch, -MAX_PITCH_RATE_PER_STEP, MAX_PITCH_RATE_PER_STEP)
+        #         d_heading = jnp.clip(d_heading, -MAX_TURN_RATE_PER_STEP, MAX_TURN_RATE_PER_STEP)
+        #         d_vt = jnp.clip(d_vt, -MAX_VT_DELTA_PER_STEP, MAX_VT_DELTA_PER_STEP)
+                
+        #         d_pitch = wrap_PI(jnp.where(enm_is_alive, d_pitch, 0.0))
+        #         d_heading = wrap_PI(jnp.where(enm_is_alive, d_heading, 0.0))
+        #         d_vt = jnp.where(enm_is_alive, d_vt, 0.0)
+                
+        #         return next_fsm_state, d_pitch, d_heading, d_vt
+
+        #     # 对所有敌方飞机应用FSM逻辑
+        #     vmapped_fsm_results = jax.vmap(
+        #         single_enemy_fsm_logic, in_axes=(0, 0, 0)
+        #     )(jnp.arange(self.num_enemies), state.enemy_fsm_state, enemy_keys)
             
+        #     # 解包结果
+        #     new_enemy_fsm_states = vmapped_fsm_results[0]
+        #     enm_delta_pitch = wrap_PI(vmapped_fsm_results[1])
+        #     enm_delta_heading = wrap_PI(vmapped_fsm_results[2])
+        #     enm_delta_vt = vmapped_fsm_results[3]
+            
+        #     # 更新环境状态中的FSM状态
+        #     state = state.replace(enemy_fsm_state=new_enemy_fsm_states)
+            
+        #     # 合并友方和敌方的动作
+        #     delta_pitch = jnp.hstack((ego_delta_pitch_cmd, enm_delta_pitch))
+        #     delta_heading = jnp.hstack((ego_delta_heading_cmd, enm_delta_heading))
+        #     delta_vt = jnp.hstack((ego_delta_vt_cmd, enm_delta_vt))
+            
+        #     # 计算目标状态用于控制器
         #     target_pitch = wrap_PI(init_state.plane_state.pitch + delta_pitch)
         #     target_heading = wrap_PI(init_state.plane_state.yaw + delta_heading)
         #     target_vt = init_state.plane_state.vt + delta_vt
+
+        # last_obs = self._get_controller_obs(state.plane_state, target_pitch, target_heading, target_vt)
+        # last_obs = jnp.transpose(last_obs)
+        # last_done = jnp.zeros((self.num_agents), dtype=bool)
+        # ac_in = (
+        #     last_obs[np.newaxis, :],
+        #     last_done[np.newaxis, :],
+        # )
+        # hstate, pi, _ = controller.apply(controller_params, state.hstate, ac_in)
+        # pi_throttle, pi_elevator, pi_aileron, pi_rudder = pi
+
+        # # 使用controller_key进行采样
+        # controller_key, key_throttle = jax.random.split(controller_key)
+        # action_throttle = pi_throttle.sample(seed=key_throttle)
+        # controller_key, key_elevator = jax.random.split(controller_key)
+        # action_elevator = pi_elevator.sample(seed=key_elevator)
+        # controller_key, key_aileron = jax.random.split(controller_key)
+        # action_aileron = pi_aileron.sample(seed=key_aileron)
+        # controller_key, key_rudder = jax.random.split(controller_key)
+        # action_rudder = pi_rudder.sample(seed=key_rudder)
+
+        # action = jnp.concatenate([action_throttle[:, :, np.newaxis], 
+        #                          action_elevator[:, :, np.newaxis], 
+        #                          action_aileron[:, :, np.newaxis], 
+        #                          action_rudder[:, :, np.newaxis]], axis=-1)
+        # state = state.replace(hstate=hstate)
+        # action = action.squeeze(0)
+        # action = jax.vmap(self._decode_discrete_actions)(action)
+        # return state, jax.vmap(fighterplane.FighterPlaneControlState.create)(action)
+        else:
+            ego_delta_pitch = self.norm_delta_pitch[actions[:self.num_allies, 0]]
+            ego_delta_heading = self.norm_delta_heading[actions[:self.num_allies, 1]]
+            ego_delta_vt = self.norm_delta_velocity[actions[:self.num_allies, 2]]
+            
+            ego_x = init_state.plane_state.north[self.num_allies:]
+            ego_y = init_state.plane_state.east[self.num_allies:]
+            ego_z = init_state.plane_state.altitude[self.num_allies:]
+
+            ego_vx = init_state.plane_state.vel_x[self.num_allies:]
+            ego_vy = init_state.plane_state.vel_y[self.num_allies:]
+            
+            enm_x = init_state.plane_state.north[:self.num_allies]
+            enm_y = init_state.plane_state.east[:self.num_allies]
+            enm_z = init_state.plane_state.altitude[:self.num_allies]
+            
+            # delta pitch - enemies point toward allies based on relative position with randomness
+            delta_z = enm_z - ego_z  # Altitude difference
+            delta_x, delta_y = enm_x - ego_x, enm_y - ego_y
+            horizontal_dist = jnp.sqrt(delta_x**2 + delta_y**2)  # Horizontal distance
+            target_pitch = jnp.arctan2(delta_z, horizontal_dist)  # Angle to pitch to point at target
+            ego_pitch = init_state.plane_state.pitch[self.num_allies:]
+            
+            # Add randomness to pitch
+            pitch_key, heading_key, vt_key = jax.random.split(key, 3)
+            pitch_random = jax.random.uniform(pitch_key, shape=target_pitch.shape, minval=-jnp.pi/72, maxval=jnp.pi/72)
+            enm_delta_pitch = target_pitch - ego_pitch + pitch_random  # Add random component
+            
+            # delta heading with randomness
+            ego_v = jnp.linalg.norm(jnp.vstack((ego_vx, ego_vy)), axis=0)
+            R = jnp.linalg.norm(jnp.vstack((delta_x, delta_y)), axis=0)
+            proj_dist = delta_x * ego_vx + delta_y * ego_vy
+            ego_AO = jnp.arccos(jnp.clip(proj_dist / (R * ego_v + 1e-6), -1, 1))
+            side_flag = jnp.sign(ego_vx * delta_y - ego_vy * delta_x)
+            
+            # Add randomness to heading
+            heading_random = jax.random.uniform(heading_key, shape=ego_AO.shape, minval=-jnp.pi/45, maxval=jnp.pi/45)
+            enm_delta_heading = ego_AO * side_flag + heading_random  # Add random component
+            
+            # delta velocity with randomness
+            base_delta_vt = init_state.plane_state.vt[:self.num_allies] - init_state.plane_state.vt[self.num_allies:]
+            
+            # Add randomness to velocity
+            vt_random = jax.random.uniform(vt_key, shape=base_delta_vt.shape, minval=-5.0, maxval=5.0)
+            enm_delta_vt = base_delta_vt + vt_random  # Add random component
+            
+            # 应用课程学习的机动性能倍数
+            maneuver_factor = get_curriculum_maneuver_factor(params)
+            
+            # NOTE:过大的值似乎容易导致飞机crash
+            # 根据课程学习进度调整敌方机动性能
+            max_pitch_change = jnp.pi/10 * maneuver_factor
+            max_heading_change = jnp.pi/10 * maneuver_factor
+            max_vt_change = 20 * maneuver_factor
+            
+            enm_delta_pitch = jnp.clip(enm_delta_pitch, -max_pitch_change, max_pitch_change)
+            enm_delta_heading = jnp.clip(enm_delta_heading, -max_heading_change, max_heading_change)
+            enm_delta_vt = jnp.clip(enm_delta_vt, -max_vt_change, max_vt_change)
+
+            delta_pitch = jnp.hstack((ego_delta_pitch, enm_delta_pitch))
+            delta_heading = jnp.hstack((ego_delta_heading, enm_delta_heading))
+            delta_vt = jnp.hstack((ego_delta_vt, enm_delta_vt))
+            
+            target_pitch = wrap_PI(init_state.plane_state.pitch + delta_pitch)
+            target_heading = wrap_PI(init_state.plane_state.yaw + delta_heading)
+            target_vt = init_state.plane_state.vt + delta_vt
         
         last_obs = self._get_controller_obs(state.plane_state, target_pitch, target_heading, target_vt)
         last_obs = jnp.transpose(last_obs)
@@ -1956,8 +2002,8 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             visible1 = visible_mask[i, j]
             visible2 = (i != j)
             return jax.lax.cond(
-                # visible1 & visible2 & (state.plane_state.is_alive[i] | state.plane_state.is_locked[i]) & (state.plane_state.is_alive[j_idx] | state.plane_state.is_locked[j_idx]),
-                visible1 & visible2 & (state.plane_state.is_alive[i]) & (state.plane_state.is_alive[j]),
+                visible1 & visible2 & (state.plane_state.is_alive[i] | state.plane_state.is_locked[i]) & (state.plane_state.is_alive[j] | state.plane_state.is_locked[j]),
+                # visible1 & visible2 & (state.plane_state.is_alive[i]) & (state.plane_state.is_alive[j]),
                 lambda: features,
                 lambda: empty_features,
             )
@@ -2043,12 +2089,21 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             empty_features = jnp.zeros(shape=(self.unit_features,))
             features = self._observe_features(state, i, j_idx)
             visible = visible_mask[i, j_idx]
+
+##############################################################################################################
+            # return jax.lax.cond(
+            #     visible & (state.plane_state.is_alive[i]) & (state.plane_state.is_alive[j_idx]),
+            #     lambda: features,
+            #     lambda: empty_features,
+            # )
             return jax.lax.cond(
-                visible & (state.plane_state.is_alive[i]) & (state.plane_state.is_alive[j_idx]),
+                visible &
+                ((state.plane_state.is_alive[i] | state.plane_state.is_locked[i]) &
+                 (state.plane_state.is_alive[j_idx] | state.plane_state.is_locked[j_idx])),
                 lambda: features,
                 lambda: empty_features,
             )
-
+##############################################################################################################
         get_all_features_for_unit = jax.vmap(get_features, in_axes=(None, 0))
         get_all_features = jax.vmap(get_all_features_for_unit, in_axes=(0, None))
         other_unit_obs = get_all_features(

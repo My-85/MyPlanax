@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 os.environ['XLA_PYTHON_MEM_FRACTION'] = '0.95'
 
 import jax
@@ -23,8 +23,7 @@ from envs.aeroplanax_heading_pitch_V import AeroPlanaxHeading_Pitch_V_Env, Headi
 import orbax.checkpoint as ocp
 
 
-# // 修改：将ScannedLSTM改为ScannedRNN，使用nn.GRUCell（借鉴train_heading_discrete.py）
-class ScannedRNN(nn.Module):
+class ScannedLSTM(nn.Module):
     @functools.partial(
         nn.scan,
         variable_broadcast="params",
@@ -35,25 +34,30 @@ class ScannedRNN(nn.Module):
     @nn.compact
     def __call__(self, carry, x):
         """Applies the module."""
-        rnn_state = carry
+        lstm_state = carry  # (h, c)
         ins, resets = x
-        rnn_state = jnp.where(
+        h, c = lstm_state
+        h = jnp.where(
             resets[:, np.newaxis],
-            self.initialize_carry(*rnn_state.shape),
-            rnn_state,
+            self.initialize_carry(*h.shape)[0],
+            h,
         )
-        new_rnn_state, y = nn.GRUCell(features=ins.shape[1])(rnn_state, ins)
-        return new_rnn_state, y
+        c = jnp.where(
+            resets[:, np.newaxis],
+            self.initialize_carry(*c.shape)[1],
+            c,
+        )
+        new_lstm_state, y = nn.LSTMCell(features=ins.shape[1])((h, c), ins)
+        return new_lstm_state, y
 
     @staticmethod
     def initialize_carry(batch_size, hidden_size):
         # Use a dummy key since the default state init fn is just zeros.
-        cell = nn.GRUCell(features=hidden_size)
+        cell = nn.LSTMCell(features=hidden_size)
         return cell.initialize_carry(jax.random.PRNGKey(0), (batch_size, hidden_size))
 
 
-# // 修改：将ActorCriticLSTM改为ActorCriticRNN；调整hidden处理（GRU单个state，非LSTM元组）；移除nn_fc2额外层（借鉴train_heading_discrete.py简化）
-class ActorCriticRNN(nn.Module):
+class ActorCriticLSTM(nn.Module):
     action_dim: Sequence[int]
     config: Dict
 
@@ -70,11 +74,15 @@ class ActorCriticRNN(nn.Module):
         embedding = activation(embedding)
 
         rnn_in = (embedding, dones)
-        hidden, embedding = ScannedRNN()(hidden, rnn_in)
+        hidden, embedding = ScannedLSTM()(hidden, rnn_in)
+
+        # 新增一层全连接
+        nn_fc2 = nn.Dense(256, kernel_init=orthogonal(np.sqrt(2)), bias_init=constant(0.0))(embedding)
+        nn_fc2 = activation(nn_fc2)
 
         actor_mean = nn.Dense(
             self.config["GRU_HIDDEN_DIM"], kernel_init=orthogonal(2), bias_init=constant(0.0)
-        )(embedding)
+        )(nn_fc2)
         actor_mean = activation(actor_mean)
         actor_throttle_mean = nn.Dense(
             self.action_dim[0], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
@@ -102,6 +110,7 @@ class ActorCriticRNN(nn.Module):
         )
 
         return hidden, (pi_throttle, pi_elevator, pi_aileron, pi_rudder), jnp.squeeze(critic, axis=-1)
+
 
 class Transition(NamedTuple):
     done: jnp.ndarray
@@ -136,7 +145,7 @@ def make_train(config):
     )
 
     if "LOADDIR" in config:
-        network = ActorCriticRNN([31, 41, 41, 41], config=config)
+        network = ActorCriticLSTM([31, 41, 41, 41], config=config)
         rng = jax.random.PRNGKey(42)
         init_x = (
             jnp.zeros(
@@ -144,7 +153,7 @@ def make_train(config):
             ),
             jnp.zeros((1, config["NUM_ENVS"] * config["NUM_ACTORS"]))
         )
-        init_hstate = ScannedRNN.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])  # 修改：GRU单个state
+        init_hstate = ScannedLSTM.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])
         network_params = network.init(rng, init_hstate, init_x)
         if config["ANNEAL_LR"]:
             tx = optax.chain(
@@ -177,7 +186,7 @@ def make_train(config):
 
     def train(rng):
         # INIT NETWORK
-        network = ActorCriticRNN([31, 41, 41, 41], config=config)
+        network = ActorCriticLSTM([31, 41, 41, 41], config=config)
 
         rng, _rng = jax.random.split(rng)
         init_x = (
@@ -186,7 +195,7 @@ def make_train(config):
             ),
             jnp.zeros((1, config["NUM_ENVS"] * config["NUM_ACTORS"]))
         )
-        init_hstate = ScannedRNN.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])  # 修改：GRU单个state
+        init_hstate = ScannedLSTM.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])
         network_params = network.init(_rng, init_hstate, init_x)
         if config["ANNEAL_LR"]:
             tx = optax.chain(
@@ -215,7 +224,7 @@ def make_train(config):
         rng, _rng = jax.random.split(rng)
         reset_rng = jax.random.split(_rng, config["NUM_ENVS"])
         obsv, env_state = jax.vmap(env.reset, in_axes=(0))(reset_rng)
-        init_hstate = ScannedRNN.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])  # 修改：GRU单个state
+        init_hstate = ScannedLSTM.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])
 
         # INIT Tensorboard
         if config.get("DEBUG"):
@@ -326,9 +335,12 @@ def make_train(config):
 
                     def _loss_fn(params, init_hstate, traj_batch, gae, targets):
                         # RERUN NETWORK
+                        h, c = init_hstate
+                        h = h.squeeze(0)
+                        c = c.squeeze(0)
                         _, pi, value = network.apply(
                             params,
-                            init_hstate.squeeze(0),  # 修改：GRU单个state，直接squeeze
+                            (h, c),
                             (traj_batch.obs, traj_batch.done),
                         )
                         log_prob = pi[0].log_prob(traj_batch.action[:, :, 0])
@@ -429,8 +441,8 @@ def make_train(config):
                 )
                 return update_state, total_loss
 
-            # 修改后 (GRU)
-            initial_hstate = initial_hstate[None, :]  # 单个 array 加假维度
+            # adding an additional "fake" dimensionality to perform minibatching correctly
+            initial_hstate = (initial_hstate[0][None, :], initial_hstate[1][None, :])
             update_state = (
                 train_state,
                 initial_hstate,
@@ -497,14 +509,14 @@ def make_train(config):
 
 str_date_time = datetime.now().strftime('%Y-%m-%d-%H-%M')
 config = {
-    "GROUP": "heading_pitch_V_discrete_rnn_no_event_driven_reward",
+    "GROUP": "heading_pitch_V_discrete_lstm_no_event_driven_reward",
     "SEED": 42,
     "FOR_LOOP_EPOCHS": 1,
     "LR": 3e-4,
     "NUM_ENVS": 1000,
     "NUM_ACTORS": 1,
     "NUM_STEPS": 1000,
-    "TOTAL_TIMESTEPS": 1e9,
+    "TOTAL_TIMESTEPS": 4e8,
     "FC_DIM_SIZE": 128,
     "GRU_HIDDEN_DIM": 128,
     "UPDATE_EPOCHS": 16,
@@ -518,9 +530,9 @@ config = {
     "ACTIVATION": "relu",
     "ANNEAL_LR": False,
     "DEBUG": True,
-    "OUTPUTDIR": "results/" + "heading_pitch_V_discrete_rnn" + "_" + str_date_time,
-    "LOGDIR": "results/" + "heading_pitch_V_discrete_rnn" + "_" + str_date_time + "/logs",
-    "SAVEDIR": "results/" + "heading_pitch_V_discrete_rnn" + "_" + str_date_time + "/checkpoints",
+    "OUTPUTDIR": "results/" + "heading_pitch_V_discrete_lstm" + "_" + str_date_time,
+    "LOGDIR": "results/" + "heading_pitch_V_discrete_lstm" + "_" + str_date_time + "/logs",
+    "SAVEDIR": "results/" + "heading_pitch_V_discrete_lstm" + "_" + str_date_time + "/checkpoints",
     # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_lstm_2025-08-16-01-47/checkpoints/checkpoint_epoch_100" 
 }
 
@@ -531,7 +543,7 @@ wandb.init(
     config=config,
     name=config['GROUP'] + f'_agent{config["NUM_ACTORS"]}_seed_{seed}',
     group=config['GROUP'],
-    notes='multi tasks and discrete action, RNN version',
+    notes='multi tasks and discrete action, LSTM version',
     reinit=True,
 )
 
