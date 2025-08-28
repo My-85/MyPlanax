@@ -46,28 +46,57 @@ env_params = TaskParams()
 str_date_time = datetime.now().strftime('%Y-%m-%d-%H-%M')
 config = {
     "ACTOR_LR": 3e-4,  # Actor learning rate
-    "CRITIC_LR": 5e-3,  # Critic learning rate (higher than actor)
+    "CRITIC_LR": 1e-4,  # 本来是5e-3，又改到了3e-4
     "FC_DIM_SIZE": 256,  # Increased network capacity
     "GRU_HIDDEN_DIM": 256,  # Increased network capacity
-    "UPDATE_EPOCHS": 8,
+    ##########################################
+    # 更保守的 PPO 更新 & 略增熵，稳定前期探索
+    "UPDATE_EPOCHS": 3,        # 8 -> 4 -> 3  （epoch 少一点，配合 KL 监控更稳）。更小的 clip 配合较少 epoch，KL 更稳定，策略不易“抖”。
+    ##########################################
     "NUM_MINIBATCHES": 4,
     "GAMMA": 0.995,
     "GAE_LAMBDA": 0.95,
-    "CLIP_EPS": 0.2,
-    "ENT_COEF": 1e-3,  # 增加熵正则化系数以鼓励更多探索
-    "VF_COEF": 1.0,
-    "MAX_GRAD_NORM": 0.5,
+    "CLIP_EPS": 0.1, # 减小策略更新跨度，配合 KL 早停，能显著减少过拟合和策略提早确定导致的胜率波动。
+
+    ##########################################
+    # GPT建议，为稳定训练
+    "VF_CLIP_EPS": 0.20,         # 值函数单独的 clip 系数（不要和策略的一样）
+    "HUBER_DELTA": 1.0,          # Huber 损失的 delta
+    "TARGET_KL": 0.02,           # 目标 KL 散度，把每个 epoch 的 KL 控到 ~0.02，若超过 1.5× 目标就提前停掉本轮 epoch
+    "KL_STOP_MULT": 1.5,         # 1.5×TARGET_KL 触发“本次更新后停”
+
+    # 熵系数自适应范围 & 调整速率，让熵系数在 0.0005~0.02 之间自适应调整，调整速率为 1.05，上限不变，下限到 1e-4 防止太快收敛；0.1 的调整步长在 0.8 目标胜率附近收敛更平滑。
+    "ENT_COEF_MIN": 0.0005,
+    "ENT_COEF_MAX": 0.02,
+    "ENT_ADJ_RATE": 1.05,        # 熵系数调整倍率（>1）
+
+    "LR_MULT_MIN": 0.1,         # 学习率乘子区间
+    "LR_MULT_MAX": 1.0,
+    ##########################################
+    # 学习率退火
+    "LR_DECAY": 0.999,
+    "MIN_LR_MULT": 0.2, # 每个 update 轻微退火，最低衰减到初始学习率的 20%。
+
+    ##########################################
+    # 更保守的 PPO 更新 & 略增熵，稳定前期探索
+    "ENT_COEF": 3e-3,          # 1e-3 -> 3e-3  （防策略过快确定化，entropy不至于塌太快）
+    ##########################################
+    "VF_COEF": 0.5, # 本来是1.0
+    ##########################################
+    # 更保守的 PPO 更新 & 略增熵，稳定前期探索
+    "MAX_GRAD_NORM": 0.7,      # 0.5 -> 1.0 -> 0.7 （更稳的全局梯度裁剪阈值，配合下方手动裁剪）RNN + 大 batch，0.7 更稳，能抑制偶发的 actor/critic 梯度尖峰。
+    ##########################################
     "RNN_GRAD_CLIP_VALUE": 0.5,  # Internal gradient clipping for RNN cells to prevent explosion
     "ACTIVATION": "relu",
     "ANNEAL_LR": False,
     "DEBUG": True,
-    "NUM_ENVS": 3000,
-    "NUM_STEPS": 1500,
-    "TOTAL_TIMESTEPS": 5e7,
+    "NUM_ENVS": 3000, # 本来是3000
+    "NUM_STEPS": 1500, # 本来是1500
+    "TOTAL_TIMESTEPS": 5e7, 
     "SEED": 42,
     "NOISE_SEED": 42,
-    "GROUP": "combat_hierarchy_pitch_new",
-    "FOR_LOOP_EPOCHS": 60,
+    "GROUP": "combat_hierarchy_5v5_enemy_limited_pitch_and_ally_limited_pitch_and_show_reward_in_wandb_and_cancel_last_done_mask_and_change_train_callback_and_change_critic_lr(to 1e-4)_and_change_vf_coef(to 0.5)_stop_gradient_rnn_reset(GPT_advice)_FOR_LOOP_EPOCHS: 30(rnn_baseline)_and_increase_curriculum_learning_steps_and_add_kl_stop_and_add_lr_mult_and_add_ent_coef_and_add_ent_coef_init_and_add_ent_coef_min_and_add_ent_coef_max_and_add_ent_adj_rate_and_add_min_lr_mult",
+    "FOR_LOOP_EPOCHS": 30, # 本来是25
     "WANDB": True,
     "TRAIN": True,
     "WANDB_API_KEY" : "4c0cc04699296bed768adea4824fbaecea35dc59",
@@ -77,7 +106,7 @@ config = {
     # "LOADDIR": "/home/qiyuan/lczh/results/combat_hierarchy_pitch_new_2025-05-26-22-45/checkpoints/checkpoint_epoch_242" ,
     
     # Reward normalization settings
-    "REWARD_NORM": False,
+    "REWARD_NORM": True, # 本来是False
     "REWARD_NORM_GAMMA": 0.99,
     "REWARD_NORM_EPSILON": 1e-8,
     "REWARD_NORM_CLIP": 10.0,
@@ -126,9 +155,9 @@ if config["WANDB"]:
     wandb.init(
         project="AeroPlanax",
         config=config,
-        name=f'lczh_5v5(lxy_version)_{config["SEED"]}',
+        name=config['GROUP'],
         group=Env.__name__,
-        notes=Env.__name__ + " with pitch-heading-velocity controller",
+        notes=Env.__name__ + " with pitch-heading-velocity controller(rnn)",
         reinit=True,
     )
 
@@ -161,8 +190,8 @@ for i in range(config["FOR_LOOP_EPOCHS"]):
 
     runner_state = out['runner_state'][0]
     
-    (ac_train_state, cr_train_state) = runner_state[0]
-    rng = runner_state[5]
+    (ac_train_state, cr_train_state) = runner_state[0][0]
+    rng = runner_state[0][5]
     start_epoch = jnp.array(out['runner_state'][1])
     
     if config["TRAIN"]:

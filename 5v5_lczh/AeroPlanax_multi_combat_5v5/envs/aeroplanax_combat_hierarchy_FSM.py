@@ -41,8 +41,8 @@ from .utils.utils import  wedge_formation, line_formation, diamond_formation, en
 from .core.utils import count_locked_by, check_crashed, check_locked, check_shotdown, check_shotdown_by_missile, check_hit, check_miss
 import orbax.checkpoint as ocp
 from jax import lax
-
-import jax.numpy as jnp
+from collections import deque
+import numpy as np
 from envs.aeroplanax import AgentID
 from envs.utils.utils import get_AO_TA_R
 import jax
@@ -226,7 +226,16 @@ class ScannedRNN(nn.Module):  # 改类名为 ScannedRNN 以匹配
     def __call__(self, carry, x):
         rnn_state = carry
         ins, resets = x
-        rnn_state = jnp.where(resets[:, np.newaxis], self.initialize_carry(*rnn_state.shape), rnn_state)
+        ######################################################################################################
+        # 这份文件里训练用不到“baseline 控制器的反传”，但为了数值更稳，把它的 RNN reset 也做成“断梯度重置”。
+        # rnn_state = jnp.where(resets[:, np.newaxis], self.initialize_carry(*rnn_state.shape), rnn_state)
+        zeros = self.initialize_carry(*rnn_state.shape)
+        rnn_state = jnp.where(
+            resets[:, np.newaxis],
+            jax.lax.stop_gradient(zeros),   # 断梯度 + 清零
+            rnn_state
+        )
+        ######################################################################################################
         new_rnn_state, y = nn.GRUCell(features=ins.shape[1])(rnn_state, ins)
         return new_rnn_state, y
 
@@ -410,9 +419,11 @@ class HierarchicalCombatTaskParams(EnvParams):
     # 课程学习参数
     # enable_curriculum: bool = False        # 是否启用课程学习
     enable_curriculum: bool = True        # 是否启用课程学习
-    curriculum_total_steps: int = 20  # 课程学习总步数 （源代码是20）
+    curriculum_total_steps: int = 2000  # 课程学习总步数 （源代码是20）
     curriculum_start_step: int = 0       # 开始课程学习的步数
     current_training_step: int = 0       # 当前训练步数（需要外部更新）
+    win_target: float = 0.99             # 胜利目标（0.0~1.0）
+    smooth: int = 50                     # 平滑系数
     
 
 # 课程学习相关常量
@@ -762,6 +773,111 @@ def orientation_reward_fn_new(AO, TA):
 #     mask = state.plane_state.is_alive[agent_id] | state.plane_state.is_locked[agent_id]
 #     return weighted_reward * reward_scale * mask
 
+######################################################################################
+# def tactical_position_reward_fn(
+#     state: HierarchicalCombatTaskState,
+#     params: HierarchicalCombatTaskParams,
+#     agent_id: AgentID,
+#     reward_scale: float = 1.0,
+#     num_allies: int = 1,
+#     num_enemies: int = 2,
+# ) -> float:
+#     """
+#     计算战术位置奖励：
+#     - rear_hemisphere_reward：TA 越小越好（在敌机后半球）
+#     - distance_reward：与“最佳距离”的高斯带状越近越好
+#     - altitude_reward：绝对高度在[min,max]的中带附近越好（与敌机无关）
+#     """
+#     def safe_exp(x):
+#         return jnp.exp(jnp.clip(x, -10.0, 10.0))
+
+#     # ego 的6维位置信息+速度
+#     ego_feature = jnp.hstack((
+#         state.plane_state.north[agent_id],
+#         state.plane_state.east[agent_id],
+#         state.plane_state.altitude[agent_id],
+#         state.plane_state.vel_x[agent_id],
+#         state.plane_state.vel_y[agent_id],
+#         state.plane_state.vel_z[agent_id]
+#     ))
+
+#     # 目标列表：若是我方，取所有敌机；若为敌方，取所有我方
+#     enm_list = jax.lax.select(
+#         agent_id < num_allies,
+#         jnp.arange(num_allies, num_allies + num_enemies),
+#         jnp.arange(num_allies)
+#     )
+
+#     def compute_tactical_reward(enm_id):
+#         # 敌机6维位置信息+速度
+#         enm_feature = jnp.hstack((
+#             state.plane_state.north[enm_id],
+#             state.plane_state.east[enm_id],
+#             state.plane_state.altitude[enm_id],
+#             state.plane_state.vel_x[enm_id],
+#             state.plane_state.vel_y[enm_id],
+#             state.plane_state.vel_z[enm_id]
+#         ))
+
+#         # 相对几何量（AO/TA/R）
+#         AO, TA, R, _ = get_AO_TA_R(ego_feature, enm_feature)
+#         AO = jnp.clip(AO, 0.0, jnp.pi)
+#         TA = jnp.clip(TA, 0.0, jnp.pi)
+
+#         # 1) 后半球：TA 越小越好（指数衰减）
+#         rear_hemisphere_reward = safe_exp(-TA / (jnp.pi / 4))
+
+#         # 2) 距离：围绕最佳距离（max_distance/3）高斯带状
+#         optimal_distance = params.max_distance / 3
+#         distance_denominator = jnp.maximum(2 * (optimal_distance/2)**2, 1e-8)
+#         distance_reward = safe_exp(-(R - optimal_distance)**2 / distance_denominator)
+
+        
+#         ###################################################################################
+#         # # 高度优势奖励
+#         # Add epsilon to denominator for altitude_reward
+#         # altitude_denominator = jnp.maximum(params.max_altitude, 1e-8)
+#         # altitude_diff = (state.plane_state.altitude[agent_id] - state.plane_state.altitude[enm_id]) / altitude_denominator
+#         # altitude_reward = jnp.clip(altitude_diff, -1.0, 1.0)
+
+#         # # 综合奖励
+#         # tactical_reward = (rear_hemisphere_reward * 0.4 + 
+#         #                  distance_reward * 0.4 + 
+#         #                  altitude_reward * 0.2)
+#         ###################################################################################
+        
+#         # 3) 绝对高度带状（与敌机无关）：靠近中带 (min,max 的中点) 越好
+#         mid = (params.max_altitude + params.min_altitude) / 2.0
+#         band = (params.max_altitude - params.min_altitude) / 4.0
+#         altitude_reward = jnp.exp(-((state.plane_state.altitude[agent_id] - mid) / (band + 1e-6))**2)
+
+#         # 加权求和（固定权重 0.5/0.45/0.05）
+#         tactical_reward = (rear_hemisphere_reward * 0.5 +
+#                            distance_reward * 0.45 +
+#                            altitude_reward * 0.05)
+
+#         # 只对“活着或被锁定”的敌机计分
+#         alive_or_locked = state.plane_state.is_alive[enm_id] | state.plane_state.is_locked[enm_id]
+#         tactical_reward = jnp.where(jnp.isnan(tactical_reward) | jnp.isinf(tactical_reward), 0.0, tactical_reward)
+#         return tactical_reward * alive_or_locked
+
+#     # 对所有目标“求和”
+#     per_target_rewards = jax.vmap(compute_tactical_reward)(enm_list)
+#     total_reward = jnp.sum(per_target_rewards)
+
+#     # 自己也要活着/被锁定才记分
+#     mask = state.plane_state.is_alive[agent_id] | state.plane_state.is_locked[agent_id]
+#     final_reward = total_reward * reward_scale * mask
+#     final_reward = jnp.where(jnp.isnan(final_reward) | jnp.isinf(final_reward), 0.0, final_reward)
+#     return final_reward
+######################################################################################
+# 改进版 tactical_position_reward_fn
+"""
+思路
+只对“最近且活跃”的一个目标计分，避免对所有目标求和的刷分行为。
+用“相对目标高度门控”衰减 rear/dist：和目标高度差大时，哪怕后半球与距离漂亮，也不给高分，迫使同高度面接。
+rear 与 distance 占主（0.7/0.3），去掉绝对高度项；最终再乘以门控。
+"""
 def tactical_position_reward_fn(
     state: HierarchicalCombatTaskState,
     params: HierarchicalCombatTaskParams,
@@ -771,15 +887,14 @@ def tactical_position_reward_fn(
     num_enemies: int = 2,
 ) -> float:
     """
-    计算战术位置奖励，主要考虑：
-    1. 保持在敌机后半球
-    2. 保持合适的攻击距离
-    3. 保持高度优势
+    改进：只针对“最近且活跃”的一个敌机计分，并用“相对目标高度门控”抑制高空盘旋刷分。
+    公式：tactical = (0.7*rear + 0.3*dist) * rel_alt_gate
     """
     def safe_exp(x):
-        """Safely compute exponential to avoid overflow"""
+        # 指数安全裁剪，避免数值溢出
         return jnp.exp(jnp.clip(x, -10.0, 10.0))
-    
+
+    # ego 六维位置信息+速度（用于与任意敌机计算 AO/TA/R）
     ego_feature = jnp.hstack((
         state.plane_state.north[agent_id],
         state.plane_state.east[agent_id],
@@ -788,14 +903,16 @@ def tactical_position_reward_fn(
         state.plane_state.vel_y[agent_id],
         state.plane_state.vel_z[agent_id]
     ))
-    
+
+    # 候选敌机索引（我方看敌方；敌方看我方）
     enm_list = jax.lax.select(
         agent_id < num_allies,
         jnp.arange(num_allies, num_allies + num_enemies),
         jnp.arange(num_allies)
     )
-    
-    def compute_tactical_reward(enm_id):
+
+    # 先对每个候选敌机，计算 AO/TA/R、是否活跃、敌机高度
+    def metrics(enm_id):
         enm_feature = jnp.hstack((
             state.plane_state.north[enm_id],
             state.plane_state.east[enm_id],
@@ -804,51 +921,49 @@ def tactical_position_reward_fn(
             state.plane_state.vel_y[enm_id],
             state.plane_state.vel_z[enm_id]
         ))
-        
         AO, TA, R, _ = get_AO_TA_R(ego_feature, enm_feature)
-        
-        # Clip angles to valid ranges
-        AO = jnp.clip(AO, 0.0, jnp.pi)
-        TA = jnp.clip(TA, 0.0, jnp.pi)
-        
-        # 后半球奖励 (TA接近0表示在敌机后半球)
-        rear_hemisphere_reward = safe_exp(-TA / (jnp.pi / 4))
-        
-        # 距离奖励 (保持在最佳攻击距离)
-        optimal_distance = params.max_distance / 3  # 假设最佳攻击距离为最大距离的1/3
-        # Add epsilon to denominator for distance_reward
-        distance_denominator = jnp.maximum(2 * (optimal_distance/2)**2, 1e-8)
-        distance_reward = safe_exp(-(R - optimal_distance)**2 / distance_denominator)
-        
-        # 高度优势奖励
-        # Add epsilon to denominator for altitude_reward
-        altitude_denominator = jnp.maximum(params.max_altitude, 1e-8)
-        altitude_diff = (state.plane_state.altitude[agent_id] - state.plane_state.altitude[enm_id]) / altitude_denominator
-        altitude_reward = jnp.clip(altitude_diff, -1.0, 1.0)
-        
-        # 综合奖励
-        tactical_reward = (rear_hemisphere_reward * 0.4 + 
-                         distance_reward * 0.4 + 
-                         altitude_reward * 0.2)
-        
         alive_or_locked = state.plane_state.is_alive[enm_id] | state.plane_state.is_locked[enm_id]
-        
-        # Safety check for NaN/Inf
-        tactical_reward = jnp.where(jnp.isnan(tactical_reward) | jnp.isinf(tactical_reward), 0.0, tactical_reward)
-        
-        return tactical_reward * alive_or_locked
-    
-    per_target_rewards = jax.vmap(compute_tactical_reward)(enm_list)
-    # 取求和
-    total_reward = jnp.sum(per_target_rewards)
-    
-    mask = state.plane_state.is_alive[agent_id] | state.plane_state.is_locked[agent_id]
-    final_reward = total_reward * reward_scale * mask
-    
-    # 最终安全检查
+        return (
+            jnp.clip(AO, 0.0, jnp.pi),              # 有界化
+            jnp.clip(TA, 0.0, jnp.pi),              # 有界化
+            R,                                      # 距离
+            alive_or_locked,                        # 活跃掩码
+            state.plane_state.altitude[enm_id],     # 敌机高度（用于相对高度门控）
+        )
+
+    AO_arr, TA_arr, R_arr, alive_arr, enm_alt_arr = jax.vmap(metrics)(enm_list)
+
+    # 从“活跃目标”中选最近者；若全不活跃，以极大值屏蔽
+    masked_R = jnp.where(alive_arr, R_arr, 1e9)
+    tgt_idx = jnp.argmin(masked_R)
+
+    # 取该最近目标的几何量
+    AO      = AO_arr[tgt_idx]
+    TA      = TA_arr[tgt_idx]
+    R       = R_arr[tgt_idx]
+    enm_alt = enm_alt_arr[tgt_idx]
+
+    # 1) 后半球：TA 越小越好
+    rear = safe_exp(-TA / (jnp.pi / 4))
+
+    # 2) 距离：围绕最佳距离的高斯带状
+    optimal_distance = params.max_distance / 3.0
+    distance_denominator = jnp.maximum(2 * (optimal_distance/2.0)**2, 1e-8)
+    dist = safe_exp(-((R - optimal_distance)**2) / distance_denominator)
+
+    # 3) 相对目标高度门控：与目标高度差越小越好（防“不同高度刷分”）
+    rel_band = 3000.0  # 高度差~3km 以内更鼓励面接；可按需要调参
+    rel_alt_gate = jnp.exp(-((state.plane_state.altitude[agent_id] - enm_alt) / (rel_band + 1e-6))**2)
+
+    # 组合：后半球/距离为主，乘以高度门控
+    tactical = (0.8 * rear + 0.2 * dist) * rel_alt_gate
+
+    # 自身活跃掩码 + 数值安全
+    mask_self = state.plane_state.is_alive[agent_id] | state.plane_state.is_locked[agent_id]
+    final_reward = jnp.where(jnp.isfinite(tactical), tactical, 0.0) * reward_scale * mask_self
     final_reward = jnp.where(jnp.isnan(final_reward) | jnp.isinf(final_reward), 0.0, final_reward)
-    
     return final_reward
+######################################################################################
 
 class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState, HierarchicalCombatTaskParams]):
     def __init__(self, env_params: Optional[HierarchicalCombatTaskParams] = None):
@@ -921,21 +1036,21 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
 # 借鉴2v2进行放缩后的奖励
         self.reward_functions = [
             functools.partial(posture_reward_fn, 
-                              reward_scale=0.005,
+                              reward_scale=0.02, # 0.005
                               num_allies=env_params.num_allies, 
                               num_enemies=env_params.num_enemies),
             functools.partial(heading_alignment_reward_fn,
-                              reward_scale=0.004,
+                              reward_scale=0.02, # 0.004
                               num_allies=env_params.num_allies,
                               num_enemies=env_params.num_enemies),
-            functools.partial(locked_penalty_fn, penalty_value=-0.005, num_allies=env_params.num_allies),
+            functools.partial(locked_penalty_fn, penalty_value=-0.008, num_allies=env_params.num_allies),
             functools.partial(tactical_position_reward_fn, 
-                              reward_scale=0.001,
+                              reward_scale=0.004, # 0.001
                               num_allies=env_params.num_allies, 
                               num_enemies=env_params.num_enemies),
-            functools.partial(crash_penalty_fn_new, penalty_value=-0.5),
+            functools.partial(crash_penalty_fn_new, penalty_value=-0.1), # -0.5
             functools.partial(enemy_kill_reward_fn,
-                              kill_reward=0.1,
+                              kill_reward=0.1, # 0.1
                               num_allies=env_params.num_allies,
                               num_enemies=env_params.num_enemies),
             functools.partial(teammate_death_penalty_fn,  # 新增队友死亡惩罚函数
@@ -945,14 +1060,14 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             functools.partial(custom_event_driven_reward_fn, 
                               num_allies=env_params.num_allies,
                               num_enemies=env_params.num_enemies,
-                              fail_reward=-0.5, 
-                              narrow_victory_reward=0.05,
-                              normal_victory_reward=0.1,
-                              great_victory_reward=0.2,
-                              complete_victory_reward=0.5),
+                              fail_reward=-0.2, # -0.5
+                              narrow_victory_reward=0.02, # 0.05
+                              normal_victory_reward=0.05, # 0.1
+                              great_victory_reward=0.1, # 0.2
+                              complete_victory_reward=0.2), # 0.5
             functools.partial(event_driven_reward_fn, 
-                              fail_reward=-0.5, 
-                              success_reward=0.5),
+                              fail_reward=-0.2,  # -0.5
+                              success_reward=0.2), # 0.5
         ]
 
         # 仅对平滑的密集项做potential：姿态/对准/战术位置
@@ -964,9 +1079,16 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             timeout_fn,
         ]
 
-        self.norm_delta_pitch = jnp.linspace(-jnp.pi/6, jnp.pi/6, 30)  # 30 steps from -30° to 30°
+        # 原：±30°
+        # self.norm_delta_pitch = jnp.linspace(-jnp.pi/6, jnp.pi/6, 30) # 30 steps from -30° to 30° 
+        # 改为：±10°
+        self.norm_delta_pitch = jnp.linspace(-jnp.pi/18, jnp.pi/18, 30)  # 缩小我方每步俯仰离散步长（更平滑）
         self.norm_delta_heading = jnp.linspace(-jnp.pi/2, jnp.pi/2, 30)  # 30 steps from -30° to 30°
         self.norm_delta_velocity = jnp.linspace(-100, 100, 30)  # 30 steps from -100 to 100
+
+        # 何时用 self.norm_delta_*
+        # 对：在 self.use_baseline == True 分支里，对“我方”用它解码高层动作；敌方不用策略动作（由基线几何追踪生成）。
+        # 若设 self.use_baseline == False，则所有飞机的高层动作都用 self.norm_delta_* 解码（全策略控制）。
         # NOTE: 如果use_baseline，意味着agent_enemy的obs、action等都无用
         # 这些在maketrain中已做处理
         self.use_baseline = env_params.use_baseline
@@ -1598,7 +1720,14 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             delta_z = enm_z - ego_z  # Altitude difference
             delta_x, delta_y = enm_x - ego_x, enm_y - ego_y
             horizontal_dist = jnp.sqrt(delta_x**2 + delta_y**2)  # Horizontal distance
-            target_pitch = jnp.arctan2(delta_z, horizontal_dist)  # Angle to pitch to point at target
+
+            # target_pitch = jnp.arctan2(delta_z, horizontal_dist)  # Angle to pitch to point at target
+            
+            # 原：target_pitch = jnp.arctan2(delta_z, horizontal_dist)
+            # 建议：对高度差打折，并对目标俯仰做硬限幅 （降低敌机性能，防止敌我双方无脑追高）
+            scale_z = 0.2  # 0.2~0.5 可调 敌机追高再弱一点（抑制高度竞赛）
+            target_pitch = jnp.arctan2(scale_z * delta_z, horizontal_dist + 1e-6)
+            target_pitch = jnp.clip(target_pitch, -jnp.pi/9, jnp.pi/9)  # 目标俯仰硬限幅（±20°）
             ego_pitch = init_state.plane_state.pitch[self.num_allies:]
             
             # Add randomness to pitch
@@ -1641,7 +1770,8 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             delta_heading = jnp.hstack((ego_delta_heading, enm_delta_heading))
             delta_vt = jnp.hstack((ego_delta_vt, enm_delta_vt))
             
-            target_pitch = wrap_PI(init_state.plane_state.pitch + delta_pitch)
+            # 原：target_pitch = wrap_PI(init_state.plane_state.pitch + delta_pitch)
+            target_pitch  = jnp.clip(init_state.plane_state.pitch + delta_pitch, -jnp.pi/7.5, jnp.pi/7.5)  # ≈±23°
             target_heading = wrap_PI(init_state.plane_state.yaw + delta_heading)
             target_vt = init_state.plane_state.vt + delta_vt
         
@@ -1652,7 +1782,7 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
             last_obs[np.newaxis, :],
             last_done[np.newaxis, :],
         )
-        hstate, pi, _ = controller.apply(controller_params, state.hstate, ac_in)
+        hstate, pi, _ = controller.apply(controller_params, state.hstate, ac_in) # 用已加载的 RNN 基线控制器生成“面舵动作分布”
         pi_throttle, pi_elevator, pi_aileron, pi_rudder = pi
 
         key, key_throttle = jax.random.split(key)
@@ -1670,8 +1800,8 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
                                   action_rudder[:, :, np.newaxis]], axis=-1)
         state = state.replace(hstate=hstate)
         action = action.squeeze(0)
-        action = jax.vmap(self._decode_discrete_actions)(action)
-        return state, jax.vmap(fighterplane.FighterPlaneControlState.create)(action)
+        action = jax.vmap(self._decode_discrete_actions)(action) # 把离散面舵转成动力学可用的连续控制，把离散档位映射到 [-1,1] 或 [0,1] 的规范化连续量。
+        return state, jax.vmap(fighterplane.FighterPlaneControlState.create)(action) # 外层 step() 会把这个控制传给 fighterplane.update(...) 推进一步物理仿真。
 
 
     @property
@@ -1856,6 +1986,90 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
         # 兼容原有的简单胜利指标
         info['success_simple'] = jnp.logical_or(complete_victory, great_victory)
         info['success_weak'] = jnp.logical_or(normal_victory, narrow_victory)
+
+        ##################################################################
+        # === 逐项奖励（逐agent）写入 info，便于 wandb 可视化 ===
+        agent_ids = jnp.arange(self.num_agents)
+
+        r_posture = jax.vmap(self.reward_functions[0], in_axes=(None, None, 0))(state, params, agent_ids)
+        r_align   = jax.vmap(self.reward_functions[1], in_axes=(None, None, 0))(state, params, agent_ids)
+        r_lockedP = jax.vmap(self.reward_functions[2], in_axes=(None, None, 0))(state, params, agent_ids)
+        r_tactic  = jax.vmap(self.reward_functions[3], in_axes=(None, None, 0))(state, params, agent_ids)
+        r_crash   = jax.vmap(self.reward_functions[4], in_axes=(None, None, 0))(state, params, agent_ids)
+        r_kill    = jax.vmap(self.reward_functions[5], in_axes=(None, None, 0))(state, params, agent_ids)
+        r_tm_death= jax.vmap(self.reward_functions[6], in_axes=(None, None, 0))(state, params, agent_ids)
+        r_evt_cus = jax.vmap(self.reward_functions[7], in_axes=(None, None, 0))(state, params, agent_ids)
+        r_evt_raw = jax.vmap(self.reward_functions[8], in_axes=(None, None, 0))(state, params, agent_ids)
+
+        info['posture_reward']               = r_posture
+        info['heading_alignment_reward']     = r_align
+        info['locked_penalty']               = r_lockedP
+        info['tactical_position_reward']     = r_tactic
+        info['crash_penalty_fn_new']         = r_crash
+        info['enemy_kill_reward']            = r_kill
+        info['teammate_death_penalty']       = r_tm_death
+        info['custom_event_driven_reward']   = r_evt_cus
+        info['event_driven_reward']          = r_evt_raw
+
+        # === tactical_position_reward 的三项子分量（逐agent）写入 info ===
+        def _tactical_subcomponents_for_agent(agent_id):
+            enm_list = jax.lax.select(
+                agent_id < num_allies,
+                jnp.arange(num_allies, num_allies + num_enemies),
+                jnp.arange(num_allies)
+            )
+
+            ego_feature = jnp.hstack((
+                state.plane_state.north[agent_id],
+                state.plane_state.east[agent_id],
+                state.plane_state.altitude[agent_id],
+                state.plane_state.vel_x[agent_id],
+                state.plane_state.vel_y[agent_id],
+                state.plane_state.vel_z[agent_id]
+            ))
+
+            def _per_enemy(enm_id):
+                enm_feature = jnp.hstack((
+                    state.plane_state.north[enm_id],
+                    state.plane_state.east[enm_id],
+                    state.plane_state.altitude[enm_id],
+                    state.plane_state.vel_x[enm_id],
+                    state.plane_state.vel_y[enm_id],
+                    state.plane_state.vel_z[enm_id]
+                ))
+                AO, TA, R, _ = get_AO_TA_R(ego_feature, enm_feature)
+                AO = jnp.clip(AO, 0.0, jnp.pi)
+                TA = jnp.clip(TA, 0.0, jnp.pi)
+
+                rear = jnp.exp(-jnp.clip(TA / (jnp.pi / 4), 0.0, 10.0))
+
+                optimal_distance = params.max_distance / 3.0
+                distance_denominator = jnp.maximum(2 * (optimal_distance/2.0)**2, 1e-8)
+                dist = jnp.exp(-jnp.clip((R - optimal_distance)**2 / distance_denominator, 0.0, 10.0))
+
+                mid = (params.max_altitude + params.min_altitude) / 2.0
+                band = (params.max_altitude - params.min_altitude) / 4.0
+                alt  = jnp.exp(-jnp.clip(((state.plane_state.altitude[agent_id] - mid) / (band + 1e-6))**2, 0.0, 10.0))
+
+                alive_or_locked = state.plane_state.is_alive[enm_id] | state.plane_state.is_locked[enm_id]
+                rear = jnp.where(jnp.isfinite(rear), rear, 0.0) * alive_or_locked
+                dist = jnp.where(jnp.isfinite(dist), dist, 0.0) * alive_or_locked
+                alt  = jnp.where(jnp.isfinite(alt ), alt , 0.0) * alive_or_locked
+                return rear, dist, alt
+
+            per_enemy_rear, per_enemy_dist, per_enemy_alt = jax.vmap(_per_enemy)(enm_list)
+            rear_sum = jnp.sum(per_enemy_rear)
+            dist_sum = jnp.sum(per_enemy_dist)
+            alt_sum  = jnp.sum(per_enemy_alt)
+
+            alive_mask = state.plane_state.is_alive[agent_id] | state.plane_state.is_locked[agent_id]
+            return rear_sum * alive_mask, dist_sum * alive_mask, alt_sum * alive_mask
+
+        rear_dist_alt = jax.vmap(_tactical_subcomponents_for_agent)(agent_ids)
+        info['tactical_rear'] = rear_dist_alt[0]
+        info['tactical_dist'] = rear_dist_alt[1]
+        info['tactical_alt']  = rear_dist_alt[2]
+        ##################################################################
         
         # 更新prev_enemy_alive和prev_ally_alive状态以供下一步使用
         # 敌机当前存活状态：状态为ALIVE或LOCKED
@@ -1958,6 +2172,38 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
         writer.add_scalar('eval/alive_count', alive_count, env_steps)
         writer.add_scalar('eval/enemies_locked_count', enemies_locked_count, env_steps)
         writer.add_scalar('eval/enemies_killed_per_episode', enemies_killed_per_episode, env_steps)
+
+        #####################################################################
+
+        # === 新增：奖励分项到TB（wandb会自动同步）===
+        def _safe_mean(x):
+            x = jnp.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0)
+            return x.mean()
+
+        def _log_comp(key, name):
+            if (isinstance(metric, dict) or hasattr(metric, "keys")) and (key in metric):
+                v = metric[key]
+                try:
+                    # 形状通常是 [NUM_STEPS, num_agents]，只看我方
+                    v = v[..., :self.num_allies]
+                except Exception:
+                    pass
+                writer.add_scalar(f'reward/{name}', _safe_mean(v), env_steps)
+
+        _log_comp('posture_reward', 'posture_reward')
+        _log_comp('heading_alignment_reward', 'heading_alignment_reward')
+        _log_comp('locked_penalty', 'locked_penalty')
+        _log_comp('tactical_position_reward', 'tactical_position_reward')
+        _log_comp('crash_penalty_fn_new', 'crash_penalty_fn_new')
+        _log_comp('enemy_kill_reward', 'enemy_kill_reward')
+        _log_comp('teammate_death_penalty', 'teammate_death_penalty')
+        _log_comp('custom_event_driven_reward', 'custom_event_driven_reward')
+        _log_comp('event_driven_reward', 'event_driven_reward')
+
+        _log_comp('tactical_rear', 'tactical_position_reward/rear_hemisphere_reward')
+        _log_comp('tactical_dist', 'tactical_position_reward/distance_reward')
+        _log_comp('tactical_alt',  'tactical_position_reward/altitude_reward')
+        #####################################################################
 
         # 打印详细信息
         print(f"EnvStep={env_steps:<5} EpisodeLength={episodic_length:<7.2f} Return={episodic_return:<7.2f}")
@@ -2160,7 +2406,9 @@ class AeroPlanaxHierarchicalCombatEnv(AeroPlanaxEnv[HierarchicalCombatTaskState,
         P, Q, R = state.P, state.Q, state.R
 
         norm_delta_heading = wrap_PI((yaw - target_heading))
-        norm_delta_pitch = wrap_PI((pitch - target_pitch))
+        # 原：norm_delta_pitch = wrap_PI((pitch - target_pitch))
+        norm_delta_pitch = jnp.clip(pitch - target_pitch, -jnp.pi/7.5, jnp.pi/7.5) # 观测里的俯仰误差也做限幅（避免网络在极端误差下输出极端动作）
+
         norm_delta_vt = (vt - target_vt) / 340
         norm_altitude = altitude / 5000
         roll_sin = jnp.sin(roll)

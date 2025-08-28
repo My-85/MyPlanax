@@ -1,4 +1,8 @@
 # jax.config.update('jax_platform_name', 'cpu')  # 注释掉强制使用CPU的配置
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['XLA_PYTHON_CLIENT_MEM_FRACTION'] = '0.9'
+os.environ['XLA_PYTHON_CLIENT_PREALLOCATE'] = 'false'
 import jax
 import jax.numpy as jnp
 import numpy as np
@@ -36,7 +40,8 @@ DEFUALT_DIMS = PPO_DISCRETE_HIERARCHY_DEFAULT_DIMS
 
 env_params = TaskParams(
     # 课程学习参数
-    enable_curriculum = False       # 是否启用课程学习
+    # enable_curriculum = False       # 是否启用课程学习
+    enable_curriculum = True       # 启用课程学习
 )
 env = Env(env_params)
 
@@ -75,11 +80,16 @@ config = {
     "FOR_LOOP_EPOCHS": 1,
     "WANDB": True,
     "TRAIN": False,
-    "WANDB_API_KEY" : "f4316927feb010654a1d429360c2f2c824e84387",
+    "WANDB_API_KEY" : "4c0cc04699296bed768adea4824fbaecea35dc59",
     "OUTPUTDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time,
     "LOGDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/logs",
     "SAVEDIR": "results/" + "combat_hierarchy_pitch_" + str_date_time + "/checkpoints",
-    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_new_2025-07-23-19-56/checkpoints/checkpoint_epoch_660" 
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_new_2025-07-23-19-56/checkpoints/checkpoint_epoch_660" 
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_new_2025-08-20-12-32/checkpoints/checkpoint_epoch_660" # 双方飞机会无限往高处飞（高度竞赛），不可行
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_new_2025-08-21-15-24/checkpoints/checkpoint_epoch_44" # 高度带状奖励（仍然高度竞赛）
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_new_2025-08-21-15-24/checkpoints/checkpoint_epoch_660" # 高度带状奖励（仍然是高度竞赛）
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_new_2025-08-21-20-12/checkpoints/checkpoint_epoch_165" # 高度带状奖励+限制敌机pitch性能+限制我方pitch性能+观测里的俯仰误差也做限幅（还是乱飞，自机高空盘旋）
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/combat_hierarchy_pitch_new_2025-08-22-12-29/checkpoints/checkpoint_epoch_198" # 取消高度奖励+限制敌机pitch性能+限制我方pitch性能+观测里的俯仰误差也做限幅（还是乱飞，自机高空盘旋）
 }
 # config = config | RENDER_CONFIG
 config["NUM_UPDATES"] = (
@@ -92,8 +102,15 @@ if "NOISE_SEED" in config.keys():
 else:
     rng, _noise_rng = jax.random.split(rng)
 
+# env = Env(env_params)
+# env = LogWrapper(env, rng=_noise_rng)
 env = Env(env_params)
 env = LogWrapper(env, rng=_noise_rng)
+
+# 将课程学习进度对齐到训练末期（例如 660）
+# 若你最终训练的 update_steps 不是 660，请改成对应值
+base_env = env._env
+base_env._curriculum_params = base_env.update_curriculum_step(base_env._curriculum_params, step = base_env._curriculum_params.curriculum_total_steps) # 若只想“一键全难度”，直接设为 step = base_env._curriculum_params.curriculum_total_steps 或更大即可，无需读取 checkpoint
 
 # NOTE:从wrappers_mul中取得obs_dim、num_agents等数据
 config = config | env.get_env_information_for_config()
@@ -195,7 +212,7 @@ def test(config: Dict, rng):
         init_hstate,
         _rng,
     )
-    for _ in range(5000):
+    for _ in range(2000):
         test_state, traj_batch = _env_step(test_state)
         env_state = test_state[0].env_state
 

@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 os.environ['XLA_PYTHON_MEM_FRACTION'] = '0.7'
 
 import jax
@@ -66,35 +66,59 @@ class ActorCriticRNN(nn.Module):
         rnn_in = (embedding, dones)
         hidden, embedding = ScannedRNN()(hidden, rnn_in)
 
-        actor_mean = nn.Dense(
-            self.config["GRU_HIDDEN_DIM"], kernel_init=orthogonal(2), bias_init=constant(0.0)
-        )(embedding)
+        # actor_mean = nn.Dense(
+        #     self.config["GRU_HIDDEN_DIM"], kernel_init=orthogonal(2), bias_init=constant(0.0)
+        # )(embedding)
+        # actor_mean = activation(actor_mean)
+        # actor_throttle_mean = nn.Dense(
+        #     self.action_dim[0], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
+        # )(actor_mean)
+        # actor_elevator_mean = nn.Dense(
+        #     self.action_dim[1], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
+        # )(actor_mean)
+        # actor_aileron_mean = nn.Dense(
+        #     self.action_dim[2], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
+        # )(actor_mean)
+        # actor_rudder_mean = nn.Dense(
+        #     self.action_dim[3], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
+        # )(actor_mean)
+        # pi_throttle = distrax.Categorical(logits=actor_throttle_mean)
+        # pi_elevator = distrax.Categorical(logits=actor_elevator_mean)
+        # pi_aileron = distrax.Categorical(logits=actor_aileron_mean)
+        # pi_rudder = distrax.Categorical(logits=actor_rudder_mean)
+
+        # critic = nn.Dense(
+        #     self.config["FC_DIM_SIZE"], kernel_init=orthogonal(2), bias_init=constant(0.0)
+        # )(embedding)
+        # critic = activation(critic)
+        # critic = nn.Dense(1, kernel_init=orthogonal(1.0), bias_init=constant(0.0))(critic)
+
+        # return hidden, (pi_throttle, pi_elevator, pi_aileron, pi_rudder), jnp.squeeze(critic, axis=-1)
+        
+        # 新增：补回瓶颈层
+        nn_fc2 = nn.Dense(256, kernel_init=orthogonal(np.sqrt(2)), bias_init=constant(0.0))(embedding)
+        nn_fc2 = nn.LayerNorm()(nn_fc2) # LayerNorm 是“归一化层”：对每个样本在特征维上做标准化，使均值≈0、方差≈1，并带有可学习的缩放/偏置参数（gamma/beta）。作用是稳定分布、减小梯度震荡，特别适合小 batch、RNN/Transformer。它不引入非线性。
+        nn_fc2 = activation(nn_fc2) # activation 是“非线性激活函数”（如 ReLU/tanh）：逐元素变换，引入非线性表达能力，不做归一化
+
+        # 策略头
+        actor_mean = nn.Dense(self.config["GRU_HIDDEN_DIM"], kernel_init=orthogonal(2), bias_init=constant(0.0))(nn_fc2)
         actor_mean = activation(actor_mean)
-        actor_throttle_mean = nn.Dense(
-            self.action_dim[0], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
-        )(actor_mean)
-        actor_elevator_mean = nn.Dense(
-            self.action_dim[1], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
-        )(actor_mean)
-        actor_aileron_mean = nn.Dense(
-            self.action_dim[2], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
-        )(actor_mean)
-        actor_rudder_mean = nn.Dense(
-            self.action_dim[3], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
-        )(actor_mean)
+        actor_throttle_mean = nn.Dense(self.action_dim[0], kernel_init=orthogonal(0.01), bias_init=constant(0.0))(actor_mean)
+        actor_elevator_mean = nn.Dense(self.action_dim[1], kernel_init=orthogonal(0.01), bias_init=constant(0.0))(actor_mean)
+        actor_aileron_mean  = nn.Dense(self.action_dim[2], kernel_init=orthogonal(0.01), bias_init=constant(0.0))(actor_mean)
+        actor_rudder_mean   = nn.Dense(self.action_dim[3], kernel_init=orthogonal(0.01), bias_init=constant(0.0))(actor_mean)
         pi_throttle = distrax.Categorical(logits=actor_throttle_mean)
         pi_elevator = distrax.Categorical(logits=actor_elevator_mean)
-        pi_aileron = distrax.Categorical(logits=actor_aileron_mean)
-        pi_rudder = distrax.Categorical(logits=actor_rudder_mean)
+        pi_aileron  = distrax.Categorical(logits=actor_aileron_mean)
+        pi_rudder   = distrax.Categorical(logits=actor_rudder_mean)
 
-        critic = nn.Dense(
-            self.config["FC_DIM_SIZE"], kernel_init=orthogonal(2), bias_init=constant(0.0)
-        )(embedding)
+        # 价值头（同样从 nn_fc2 出发）
+        critic = nn.Dense(self.config["FC_DIM_SIZE"], kernel_init=orthogonal(2), bias_init=constant(0.0))(nn_fc2)
         critic = activation(critic)
         critic = nn.Dense(1, kernel_init=orthogonal(1.0), bias_init=constant(0.0))(critic)
 
         return hidden, (pi_throttle, pi_elevator, pi_aileron, pi_rudder), jnp.squeeze(critic, axis=-1)
-
+    
 
 class Transition(NamedTuple):
     done: jnp.ndarray
@@ -181,14 +205,25 @@ def test(config, rng):
 
         pi_throttle, pi_elevator, pi_aileron, pi_rudder = pi
 
-        rng, _rng = jax.random.split(rng)
-        action_throttle = pi_throttle.sample(seed=_rng)
-        rng, _rng = jax.random.split(rng)
-        action_elevator = pi_elevator.sample(seed=_rng)
-        rng, _rng = jax.random.split(rng)
-        action_aileron = pi_aileron.sample(seed=_rng)
-        rng, _rng = jax.random.split(rng)
-        action_rudder = pi_rudder.sample(seed=_rng)
+        ##################################################################
+
+        # rng, _rng = jax.random.split(rng)
+        # action_throttle = pi_throttle.sample(seed=_rng)
+        # rng, _rng = jax.random.split(rng)
+        # action_elevator = pi_elevator.sample(seed=_rng)
+        # rng, _rng = jax.random.split(rng)
+        # action_aileron = pi_aileron.sample(seed=_rng)
+        # rng, _rng = jax.random.split(rng)
+        # action_rudder = pi_rudder.sample(seed=_rng)
+
+        # 推理/渲染：贪心
+        action_throttle = pi_throttle.mode()
+        action_elevator = pi_elevator.mode()
+        action_aileron  = pi_aileron.mode()
+        action_rudder   = pi_rudder.mode()
+
+        ##################################################################
+
         log_prob_throttle = pi_throttle.log_prob(action_throttle)
         log_prob_elevator = pi_elevator.log_prob(action_elevator)
         log_prob_aileron = pi_aileron.log_prob(action_aileron)
@@ -262,7 +297,8 @@ config = {
     "ANNEAL_LR": False,
     # 把下面路径改成你的RNN基线checkpoint目录
     # 例："/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/Planax/envs/models/baseline/rnn_Yaw_Pitch_V/baseline_xxx"
-    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_rnn_2025-08-19-10-50/checkpoints/checkpoint_epoch_1000",
+    # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_rnn_2025-08-19-10-50/checkpoints/checkpoint_epoch_1000",
+    "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_rnn_2025-08-27-00-33/checkpoints/checkpoint_epoch_500",
 }
 rng = jax.random.PRNGKey(42)
 out = test(config, rng)

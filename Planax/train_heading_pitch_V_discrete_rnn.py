@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 os.environ['XLA_PYTHON_MEM_FRACTION'] = '0.95'
 
 import jax
@@ -23,7 +23,8 @@ from envs.aeroplanax_heading_pitch_V import AeroPlanaxHeading_Pitch_V_Env, Headi
 import orbax.checkpoint as ocp
 
 
-class ScannedLSTM(nn.Module):
+# // 修改：将ScannedLSTM改为ScannedRNN，使用nn.GRUCell（借鉴train_heading_discrete.py）
+class ScannedRNN(nn.Module):
     @functools.partial(
         nn.scan,
         variable_broadcast="params",
@@ -34,30 +35,25 @@ class ScannedLSTM(nn.Module):
     @nn.compact
     def __call__(self, carry, x):
         """Applies the module."""
-        lstm_state = carry  # (h, c)
+        rnn_state = carry
         ins, resets = x
-        h, c = lstm_state
-        h = jnp.where(
+        rnn_state = jnp.where(
             resets[:, np.newaxis],
-            self.initialize_carry(*h.shape)[0],
-            h,
+            self.initialize_carry(*rnn_state.shape),
+            rnn_state,
         )
-        c = jnp.where(
-            resets[:, np.newaxis],
-            self.initialize_carry(*c.shape)[1],
-            c,
-        )
-        new_lstm_state, y = nn.LSTMCell(features=ins.shape[1])((h, c), ins)
-        return new_lstm_state, y
+        new_rnn_state, y = nn.GRUCell(features=ins.shape[1])(rnn_state, ins)
+        return new_rnn_state, y
 
     @staticmethod
     def initialize_carry(batch_size, hidden_size):
         # Use a dummy key since the default state init fn is just zeros.
-        cell = nn.LSTMCell(features=hidden_size)
+        cell = nn.GRUCell(features=hidden_size)
         return cell.initialize_carry(jax.random.PRNGKey(0), (batch_size, hidden_size))
 
 
-class ActorCriticLSTM(nn.Module):
+# // 修改：将ActorCriticLSTM改为ActorCriticRNN；调整hidden处理（GRU单个state，非LSTM元组）；
+class ActorCriticRNN(nn.Module):
     action_dim: Sequence[int]
     config: Dict
 
@@ -74,43 +70,31 @@ class ActorCriticLSTM(nn.Module):
         embedding = activation(embedding)
 
         rnn_in = (embedding, dones)
-        hidden, embedding = ScannedLSTM()(hidden, rnn_in)
+        hidden, embedding = ScannedRNN()(hidden, rnn_in)
 
-        # 新增一层全连接
-        nn_fc2 = nn.Dense(256, kernel_init=orthogonal(np.sqrt(2)), bias_init=constant(0.0))(embedding)
-        nn_fc2 = activation(nn_fc2)
+        # # 新增：补回瓶颈层
+        # nn_fc2 = nn.Dense(256, kernel_init=orthogonal(np.sqrt(2)), bias_init=constant(0.0))(embedding)
+        # nn_fc2 = nn.LayerNorm()(nn_fc2) # LayerNorm 是“归一化层”：对每个样本在特征维上做标准化，使均值≈0、方差≈1，并带有可学习的缩放/偏置参数（gamma/beta）。作用是稳定分布、减小梯度震荡，特别适合小 batch、RNN/Transformer。它不引入非线性。
+        # nn_fc2 = activation(nn_fc2) # activation 是“非线性激活函数”（如 ReLU/tanh）：逐元素变换，引入非线性表达能力，不做归一化
 
-        actor_mean = nn.Dense(
-            self.config["GRU_HIDDEN_DIM"], kernel_init=orthogonal(2), bias_init=constant(0.0)
-        )(nn_fc2)
+        # 策略头
+        actor_mean = nn.Dense(self.config["GRU_HIDDEN_DIM"], kernel_init=orthogonal(2), bias_init=constant(0.0))(embedding)
         actor_mean = activation(actor_mean)
-        actor_throttle_mean = nn.Dense(
-            self.action_dim[0], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
-        )(actor_mean)
-        actor_elevator_mean = nn.Dense(
-            self.action_dim[1], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
-        )(actor_mean)
-        actor_aileron_mean = nn.Dense(
-            self.action_dim[2], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
-        )(actor_mean)
-        actor_rudder_mean = nn.Dense(
-            self.action_dim[3], kernel_init=orthogonal(0.01), bias_init=constant(0.0)
-        )(actor_mean)
+        actor_throttle_mean = nn.Dense(self.action_dim[0], kernel_init=orthogonal(0.01), bias_init=constant(0.0))(actor_mean)
+        actor_elevator_mean = nn.Dense(self.action_dim[1], kernel_init=orthogonal(0.01), bias_init=constant(0.0))(actor_mean)
+        actor_aileron_mean  = nn.Dense(self.action_dim[2], kernel_init=orthogonal(0.01), bias_init=constant(0.0))(actor_mean)
+        actor_rudder_mean   = nn.Dense(self.action_dim[3], kernel_init=orthogonal(0.01), bias_init=constant(0.0))(actor_mean)
         pi_throttle = distrax.Categorical(logits=actor_throttle_mean)
         pi_elevator = distrax.Categorical(logits=actor_elevator_mean)
-        pi_aileron = distrax.Categorical(logits=actor_aileron_mean)
-        pi_rudder = distrax.Categorical(logits=actor_rudder_mean)
+        pi_aileron  = distrax.Categorical(logits=actor_aileron_mean)
+        pi_rudder   = distrax.Categorical(logits=actor_rudder_mean)
 
-        critic = nn.Dense(
-            self.config["FC_DIM_SIZE"], kernel_init=orthogonal(2), bias_init=constant(0.0)
-        )(embedding)
+        # 价值头（同样从 nn_fc2 出发）
+        critic = nn.Dense(self.config["FC_DIM_SIZE"], kernel_init=orthogonal(2), bias_init=constant(0.0))(embedding)
         critic = activation(critic)
-        critic = nn.Dense(1, kernel_init=orthogonal(1.0), bias_init=constant(0.0))(
-            critic
-        )
+        critic = nn.Dense(1, kernel_init=orthogonal(1.0), bias_init=constant(0.0))(critic)
 
         return hidden, (pi_throttle, pi_elevator, pi_aileron, pi_rudder), jnp.squeeze(critic, axis=-1)
-
 
 class Transition(NamedTuple):
     done: jnp.ndarray
@@ -145,7 +129,7 @@ def make_train(config):
     )
 
     if "LOADDIR" in config:
-        network = ActorCriticLSTM([31, 41, 41, 41], config=config)
+        network = ActorCriticRNN([31, 41, 41, 41], config=config)
         rng = jax.random.PRNGKey(42)
         init_x = (
             jnp.zeros(
@@ -153,7 +137,7 @@ def make_train(config):
             ),
             jnp.zeros((1, config["NUM_ENVS"] * config["NUM_ACTORS"]))
         )
-        init_hstate = ScannedLSTM.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])
+        init_hstate = ScannedRNN.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])  # 修改：GRU单个state
         network_params = network.init(rng, init_hstate, init_x)
         if config["ANNEAL_LR"]:
             tx = optax.chain(
@@ -186,7 +170,7 @@ def make_train(config):
 
     def train(rng):
         # INIT NETWORK
-        network = ActorCriticLSTM([31, 41, 41, 41], config=config)
+        network = ActorCriticRNN([31, 41, 41, 41], config=config)
 
         rng, _rng = jax.random.split(rng)
         init_x = (
@@ -195,7 +179,7 @@ def make_train(config):
             ),
             jnp.zeros((1, config["NUM_ENVS"] * config["NUM_ACTORS"]))
         )
-        init_hstate = ScannedLSTM.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])
+        init_hstate = ScannedRNN.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])  # 修改：GRU单个state
         network_params = network.init(_rng, init_hstate, init_x)
         if config["ANNEAL_LR"]:
             tx = optax.chain(
@@ -224,7 +208,7 @@ def make_train(config):
         rng, _rng = jax.random.split(rng)
         reset_rng = jax.random.split(_rng, config["NUM_ENVS"])
         obsv, env_state = jax.vmap(env.reset, in_axes=(0))(reset_rng)
-        init_hstate = ScannedLSTM.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])
+        init_hstate = ScannedRNN.initialize_carry(config["NUM_ACTORS"] * config["NUM_ENVS"], config["GRU_HIDDEN_DIM"])  # 修改：GRU单个state
 
         # INIT Tensorboard
         if config.get("DEBUG"):
@@ -335,12 +319,9 @@ def make_train(config):
 
                     def _loss_fn(params, init_hstate, traj_batch, gae, targets):
                         # RERUN NETWORK
-                        h, c = init_hstate
-                        h = h.squeeze(0)
-                        c = c.squeeze(0)
                         _, pi, value = network.apply(
                             params,
-                            (h, c),
+                            init_hstate.squeeze(0),  # 修改：GRU单个state，直接squeeze
                             (traj_batch.obs, traj_batch.done),
                         )
                         log_prob = pi[0].log_prob(traj_batch.action[:, :, 0])
@@ -441,8 +422,8 @@ def make_train(config):
                 )
                 return update_state, total_loss
 
-            # adding an additional "fake" dimensionality to perform minibatching correctly
-            initial_hstate = (initial_hstate[0][None, :], initial_hstate[1][None, :])
+            # 修改后 (GRU)
+            initial_hstate = initial_hstate[None, :]  # 单个 array 加假维度
             update_state = (
                 train_state,
                 initial_hstate,
@@ -509,14 +490,14 @@ def make_train(config):
 
 str_date_time = datetime.now().strftime('%Y-%m-%d-%H-%M')
 config = {
-    "GROUP": "heading_pitch_V_discrete_lstm_no_event_driven_reward",
+    "GROUP": "lczh_baseline(origin_rnn_6e8)",
     "SEED": 42,
     "FOR_LOOP_EPOCHS": 1,
     "LR": 3e-4,
     "NUM_ENVS": 1000,
     "NUM_ACTORS": 1,
     "NUM_STEPS": 1000,
-    "TOTAL_TIMESTEPS": 4e8,
+    "TOTAL_TIMESTEPS": 6e8,
     "FC_DIM_SIZE": 128,
     "GRU_HIDDEN_DIM": 128,
     "UPDATE_EPOCHS": 16,
@@ -530,9 +511,9 @@ config = {
     "ACTIVATION": "relu",
     "ANNEAL_LR": False,
     "DEBUG": True,
-    "OUTPUTDIR": "results/" + "heading_pitch_V_discrete_lstm" + "_" + str_date_time,
-    "LOGDIR": "results/" + "heading_pitch_V_discrete_lstm" + "_" + str_date_time + "/logs",
-    "SAVEDIR": "results/" + "heading_pitch_V_discrete_lstm" + "_" + str_date_time + "/checkpoints",
+    "OUTPUTDIR": "results/" + "heading_pitch_V_discrete_rnn" + "_" + str_date_time,
+    "LOGDIR": "results/" + "heading_pitch_V_discrete_rnn" + "_" + str_date_time + "/logs",
+    "SAVEDIR": "results/" + "heading_pitch_V_discrete_rnn" + "_" + str_date_time + "/checkpoints",
     # "LOADDIR": "/home/dqy/NeuralPlanex/Planax_lczh/Planax_lczh/results/heading_pitch_V_discrete_lstm_2025-08-16-01-47/checkpoints/checkpoint_epoch_100" 
 }
 
@@ -541,9 +522,9 @@ wandb.tensorboard.patch(root_logdir=config['LOGDIR'])
 wandb.init(
     project="AeroPlanax",
     config=config,
-    name=config['GROUP'] + f'_agent{config["NUM_ACTORS"]}_seed_{seed}',
+    name=config['GROUP'],
     group=config['GROUP'],
-    notes='multi tasks and discrete action, LSTM version',
+    notes='multi tasks and discrete action, RNN version',
     reinit=True,
 )
 
